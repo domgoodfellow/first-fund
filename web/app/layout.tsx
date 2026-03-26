@@ -1,19 +1,19 @@
 import type { Metadata } from 'next'
-import { EB_Garamond, Inter } from 'next/font/google'
+import { Playfair_Display, Montserrat } from 'next/font/google'
 import './globals.css'
 import { CountryProvider } from '@/contexts/CountryContext'
 
-const ebGaramond = EB_Garamond({
+const playfairDisplay = Playfair_Display({
   subsets: ['latin'],
-  weight: ['400', '500', '700', '800'],
-  variable: '--font-eb-garamond',
+  weight: ['700', '800', '900'],
+  variable: '--font-playfair',
   display: 'swap',
 })
 
-const inter = Inter({
+const montserrat = Montserrat({
   subsets: ['latin'],
-  weight: ['400', '500', '600'],
-  variable: '--font-inter',
+  weight: ['300', '400', '500', '600'],
+  variable: '--font-montserrat',
   display: 'swap',
 })
 
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${ebGaramond.variable} ${inter.variable}`}>
+    <html lang="en" className={`${playfairDisplay.variable} ${montserrat.variable}`}>
       <body>
         <CountryProvider>{children}</CountryProvider>
       </body>

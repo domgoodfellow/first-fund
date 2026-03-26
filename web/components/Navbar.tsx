@@ -25,7 +25,7 @@ export default function Navbar() {
 
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2 shrink-0">
-              <span className="text-xl font-heading font-extrabold text-white tracking-tight">
+              <span className="text-3xl font-heading font-extrabold text-white tracking-tight">
                 {country === 'US' ? (
                   <><span className="text-ff-accent">Firs</span>Fund</>
                 ) : (

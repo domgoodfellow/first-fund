@@ -6,6 +6,18 @@
   html {
     scroll-behavior: smooth;
   }
+
+  /* Scroll snap + section alignment — desktop only */
+  @media (min-width: 768px) {
+    html {
+      scroll-snap-type: y mandatory;
+    }
+    .snap-section {
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+    }
+  }
+
   body {
     @apply bg-ff-bg font-body antialiased;
     color: #fcfcfc;

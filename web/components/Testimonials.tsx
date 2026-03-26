@@ -1,7 +1,6 @@
 'use client'
 
-import { useRef } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { useCountry } from '@/contexts/CountryContext'
 import ReviewCarousel from './ReviewCarousel'
 
@@ -17,20 +16,32 @@ function Stars({ count }: { count: number }) {
   )
 }
 
+const header = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
+}
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
+}
+
 export default function Testimonials() {
   const { t } = useCountry()
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section id="testimonials" className="py-24 bg-ff-bg" ref={ref}>
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+    <section
+      id="testimonials"
+      className="snap-section md:min-h-screen flex flex-col justify-center py-14 md:py-24 bg-ff-bg"
+    >
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 w-full">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
           className="text-center mb-14"
+          variants={header}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.6, margin: '0px 0px -60px 0px' }}
         >
           <span className="text-ff-accent text-xs font-semibold uppercase tracking-widest mb-3 block">
             {t.testimonials.sectionLabel}
@@ -42,19 +53,21 @@ export default function Testimonials() {
 
         {/* Carousel */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.15 }}
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.3, margin: '0px 0px -60px 0px' }}
         >
           <ReviewCarousel />
         </motion.div>
 
         {/* Google rating badge */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.3 }}
           className="mt-14 flex justify-center"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.6, margin: '0px 0px -60px 0px' }}
         >
           <div className="inline-flex items-center gap-3 bg-ff-surface border border-ff-border rounded-full px-6 py-3">
             <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none">

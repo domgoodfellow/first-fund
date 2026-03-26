@@ -1,32 +1,37 @@
 'use client'
 
-import { useRef } from 'react'
 import Link from 'next/link'
-import { motion, useInView } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { useCountry } from '@/contexts/CountryContext'
+
+const content = {
+  hidden: { opacity: 0, y: 40 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.65, ease: [0.25, 0.1, 0.25, 1] },
+  },
+}
 
 export default function CTABanner() {
   const { t } = useCountry()
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section ref={ref} className="py-20 bg-ff-surface border-y border-ff-border overflow-hidden relative">
+    <section id="cta" className="snap-section md:min-h-screen flex flex-col justify-center py-20 md:py-0 bg-ff-surface border-y border-ff-border overflow-hidden relative">
       {/* Background accent */}
       <div className="absolute inset-0 pointer-events-none">
         <div
           className="absolute inset-0 opacity-[0.04]"
-          style={{
-            background: 'radial-gradient(circle at 50% 50%, #00a73e 0%, transparent 60%)',
-          }}
+          style={{ background: 'radial-gradient(circle at 50% 50%, #00a73e 0%, transparent 60%)' }}
         />
       </div>
 
       <div className="relative max-w-4xl mx-auto px-4 sm:px-6 text-center">
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={isInView ? { opacity: 1, scale: 1 } : {}}
-          transition={{ duration: 0.6 }}
+          variants={content}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.5, margin: '0px 0px -60px 0px' }}
         >
           <h2 className="font-heading text-4xl md:text-5xl font-extrabold text-white mb-4">
             {t.cta.heading}

@@ -22,8 +22,8 @@ const config: Config = {
         'ff-border':      '#3f3f47',
       },
       fontFamily: {
-        heading: ['var(--font-eb-garamond)', 'Garamond', 'Georgia', 'serif'],
-        body: ['var(--font-inter)', 'sans-serif'],
+        heading: ['var(--font-playfair)', 'Georgia', 'serif'],
+        body: ['var(--font-montserrat)', 'sans-serif'],
       },
       keyframes: {
         pulseGlow: {
