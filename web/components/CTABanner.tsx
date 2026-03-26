@@ -22,7 +22,7 @@ export default function CTABanner() {
       <div className="absolute inset-0 pointer-events-none">
         <div
           className="absolute inset-0 opacity-[0.04]"
-          style={{ background: 'radial-gradient(circle at 50% 50%, #00a73e 0%, transparent 60%)' }}
+          style={{ background: 'radial-gradient(circle at 50% 50%, var(--ff-accent) 0%, transparent 60%)' }}
         />
       </div>
 

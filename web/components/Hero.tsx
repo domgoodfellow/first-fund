@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { useCountry } from '@/contexts/CountryContext'
-
+import FlickeringGrid from './FlickeringGrid'
 export default function Hero() {
   const { t } = useCountry()
   const stats = [t.stats.item1, t.stats.item2, t.stats.item3, t.stats.item4]
@@ -11,7 +11,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="snap-section min-h-screen flex flex-col bg-ff-bg pt-16 overflow-hidden"
+      className="snap-section relative min-h-screen flex flex-col bg-ff-bg pt-16 overflow-hidden"
     >
       {/* Animated background orbs */}
       <div className="absolute inset-0 pointer-events-none">
@@ -27,12 +27,15 @@ export default function Hero() {
           animate={{ x: [0, -30, 0], y: [0, 25, 0] }}
           transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
         />
-        <div
-          className="absolute inset-0 opacity-[0.03]"
-          style={{
-            backgroundImage: 'linear-gradient(#00a73e 1px, transparent 1px), linear-gradient(90deg, #00a73e 1px, transparent 1px)',
-            backgroundSize: '60px 60px',
-          }}
+        <FlickeringGrid
+          className="absolute inset-0"
+          squareSize={8}
+          gridGap={13}
+          flickerChance={0.05}
+          color="#93c5fd"
+          cursorColor="#ef4444"
+          cursorRadius={130}
+          maxOpacity={0.2}
         />
       </div>
 

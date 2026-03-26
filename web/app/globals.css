@@ -2,6 +2,36 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── CA theme (default) — green on dark ── */
+:root {
+  --ff-bg:          #09090b;
+  --ff-surface:     #18181a;
+  --ff-surface-alt: #202022;
+  --ff-raised:      #272729;
+  --ff-dark-alt:    #27262b;
+  --ff-accent:      #00a73e;
+  --ff-glow:        #00c44a;
+  --ff-text:        #fcfcfc;
+  --ff-muted:       #8b8b8b;
+  --ff-border:      #3f3f47;
+  --ff-accent-rgb:  0, 167, 62;
+}
+
+/* ── US theme — red on navy ── */
+[data-country="US"] {
+  --ff-bg:          #060a1a;
+  --ff-surface:     #0d1530;
+  --ff-surface-alt: #111a3a;
+  --ff-raised:      #162040;
+  --ff-dark-alt:    #162040;
+  --ff-accent:      #cc1f1f;
+  --ff-glow:        #e53535;
+  --ff-text:        #fcfcfc;
+  --ff-muted:       #8b96b0;
+  --ff-border:      #1e2d5a;
+  --ff-accent-rgb:  204, 31, 31;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -35,7 +65,7 @@
     transition: box-shadow 0.3s ease, transform 0.3s ease;
   }
   .card-hover:hover {
-    box-shadow: 0 0 35px rgba(0, 167, 62, 0.18);
+    box-shadow: 0 0 35px rgba(var(--ff-accent-rgb), 0.18);
     transform: translateY(-4px);
   }
 }
@@ -48,10 +78,10 @@
 
 /* Hero animated gradient orbs */
 .hero-orb-1 {
-  background: radial-gradient(circle, rgba(0, 167, 62, 0.12) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(var(--ff-accent-rgb), 0.12) 0%, transparent 70%);
   filter: blur(60px);
 }
 .hero-orb-2 {
-  background: radial-gradient(circle, rgba(0, 196, 74, 0.07) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(var(--ff-accent-rgb), 0.07) 0%, transparent 70%);
   filter: blur(80px);
 }

@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useState, useEffect } from 'react'
 import { Language, translations, Translations } from '@/lib/i18n'
 
 export type Country = 'US' | 'CA'
@@ -35,9 +35,12 @@ export function CountryProvider({ children }: { children: React.ReactNode }) {
   const [country, setCountryState] = useState<Country>('US')
   const [language, setLanguageState] = useState<Language>('en')
 
+  useEffect(() => {
+    document.documentElement.setAttribute('data-country', country)
+  }, [country])
+
   const setCountry = (c: Country) => {
     setCountryState(c)
-    // Reset to default language for the new country
     setLanguageState('en')
   }
 

@@ -10,7 +10,7 @@ import ScrollDots from '@/components/ScrollDots'
 export default function HomePage() {
   return (
     <main>
-      <Navbar />
+<Navbar />
       <ScrollDots />
       <Hero />
       <HowItWorks />

@@ -29,9 +29,12 @@ const EMPTY: FormData = {
   smsConsent1: false, smsConsent2: false,
 }
 
+const required = ['fullName', 'email', 'revenue', 'yearsRegistered', 'industry', 'referredBy'] as const
+
 function requiredFields(data: FormData) {
-  return data.fullName && data.email && data.revenue && data.yearsRegistered && data.industry && data.referredBy
+  return required.every((k) => !!data[k])
 }
+
 
 export default function ApplyForm() {
   const { t, brandName } = useCountry()
@@ -39,8 +42,6 @@ export default function ApplyForm() {
   const [form, setForm] = useState<FormData>(EMPTY)
   const [submitted, setSubmitted] = useState(false)
 
-  // Progress: count filled required fields
-  const required = ['fullName', 'email', 'revenue', 'yearsRegistered', 'industry', 'referredBy'] as const
   const filled = required.filter((k) => !!form[k]).length
   const progress = Math.round((filled / required.length) * 100)
 
@@ -52,7 +53,6 @@ export default function ApplyForm() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     if (!requiredFields(form)) return
-    // TODO: wire up to actual backend / CRM
     setSubmitted(true)
   }
 
@@ -96,108 +96,125 @@ export default function ApplyForm() {
           <p className="text-ff-muted">{t.apply.sub}</p>
         </motion.div>
 
-        {/* Progress bar */}
-        <div className="mb-8">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-ff-muted text-xs">{t.apply.progressLabel}</span>
-            <span className="text-ff-accent text-xs font-semibold">{progress}%</span>
-          </div>
-          <div className="w-full h-1.5 bg-ff-surface rounded-full overflow-hidden">
-            <motion.div
-              className="h-full bg-gradient-to-r from-ff-accent to-ff-glow rounded-full"
-              animate={{ width: `${progress}%` }}
-              transition={{ duration: 0.4, ease: 'easeOut' }}
-            />
-          </div>
-        </div>
+        {/* Form + vertical progress sidebar */}
+        <div className="flex gap-6 items-start justify-center">
 
-        <motion.form
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          onSubmit={handleSubmit}
-          className="bg-ff-surface border border-ff-border rounded-2xl p-7 md:p-10 space-y-6"
-        >
-          {/* Company + Full Name */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            <Field label={f.companyName} value={form.companyName} onChange={set('companyName')} placeholder="Acme Corp" />
-            <Field label={`${f.fullName} *`} value={form.fullName} onChange={set('fullName')} placeholder="Jane Smith" required />
-          </div>
+          {/* Invisible spacer — balances sidebar so form stays centered */}
+          <div className="hidden md:block w-8 shrink-0" />
 
-          {/* Email + Phone */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            <Field label={`${f.email} *`} type="email" value={form.email} onChange={set('email')} placeholder="jane@example.com" required />
-            <Field label={f.phone} type="tel" value={form.phone} onChange={set('phone')} placeholder="+1 (555) 000-0000" />
-          </div>
-
-          {/* Monthly Revenue */}
-          <SelectField
-            label={`${f.revenue.label} *`}
-            value={form.revenue}
-            onChange={set('revenue')}
-            options={f.revenue.options}
-            required
-          />
-
-          {/* Years Registered */}
-          <SelectField
-            label={`${f.yearsRegistered.label} *`}
-            value={form.yearsRegistered}
-            onChange={set('yearsRegistered')}
-            options={f.yearsRegistered.options}
-            required
-          />
-
-          {/* Industry */}
-          <SelectField
-            label={`${f.industry} *`}
-            value={form.industry}
-            onChange={set('industry')}
-            options={INDUSTRIES}
-            required
-          />
-
-          {/* Referred By */}
-          <Field
-            label={`${f.referredBy} *`}
-            value={form.referredBy}
-            onChange={set('referredBy')}
-            placeholder="Name or company"
-            required
-          />
-
-          {/* SMS Consents */}
-          <div className="space-y-4 pt-2 border-t border-ff-border">
-            <ConsentCheckbox
-              id="sms1"
-              checked={form.smsConsent1}
-              onChange={set('smsConsent1')}
-              label={f.smsConsent1}
-            />
-            <ConsentCheckbox
-              id="sms2"
-              checked={form.smsConsent2}
-              onChange={set('smsConsent2')}
-              label={f.smsConsent2}
-            />
-          </div>
-
-          {/* Submit */}
-          <button
-            type="submit"
-            disabled={!requiredFields(form)}
-            className="w-full bg-ff-accent text-ff-bg font-bold text-base py-4 rounded-xl hover:bg-ff-glow transition-colors disabled:opacity-40 disabled:cursor-not-allowed animate-pulse-glow"
+          {/* Form */}
+          <motion.form
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            onSubmit={handleSubmit}
+            className="flex-1 min-w-0 bg-ff-surface border border-ff-border rounded-2xl p-7 md:p-10 space-y-6"
           >
-            {f.submit}
-          </button>
+            {/* Company + Full Name */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <Field label={f.companyName} value={form.companyName} onChange={set('companyName')} placeholder="Acme Corp" />
+              <Field label={`${f.fullName} *`} value={form.fullName} onChange={set('fullName')} placeholder="Jane Smith" required />
+            </div>
 
-          <p className="text-ff-muted text-xs text-center">
-            By submitting, you agree to our{' '}
-            <a href="/terms" className="text-ff-accent underline underline-offset-2">Terms of Service</a>
-            {' '}and{' '}
-            <a href="/privacy" className="text-ff-accent underline underline-offset-2">Privacy Policy</a>.
-          </p>
-        </motion.form>
+            {/* Email + Phone */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <Field label={`${f.email} *`} type="email" value={form.email} onChange={set('email')} placeholder="jane@example.com" required />
+              <Field label={f.phone} type="tel" value={form.phone} onChange={set('phone')} placeholder="+1 (555) 000-0000" />
+            </div>
+
+            {/* Monthly Revenue */}
+            <SelectField
+              label={`${f.revenue.label} *`}
+              value={form.revenue}
+              onChange={set('revenue')}
+              options={f.revenue.options}
+              required
+            />
+
+            {/* Years Registered */}
+            <SelectField
+              label={`${f.yearsRegistered.label} *`}
+              value={form.yearsRegistered}
+              onChange={set('yearsRegistered')}
+              options={f.yearsRegistered.options}
+              required
+            />
+
+            {/* Industry */}
+            <SelectField
+              label={`${f.industry} *`}
+              value={form.industry}
+              onChange={set('industry')}
+              options={INDUSTRIES}
+              required
+            />
+
+            {/* Referred By */}
+            <Field
+              label={`${f.referredBy} *`}
+              value={form.referredBy}
+              onChange={set('referredBy')}
+              placeholder="Name or company"
+              required
+            />
+
+            {/* SMS Consents */}
+            <div className="space-y-4 pt-2 border-t border-ff-border">
+              <ConsentCheckbox
+                id="sms1"
+                checked={form.smsConsent1}
+                onChange={set('smsConsent1')}
+                label={f.smsConsent1}
+              />
+              <ConsentCheckbox
+                id="sms2"
+                checked={form.smsConsent2}
+                onChange={set('smsConsent2')}
+                label={f.smsConsent2}
+              />
+            </div>
+
+            {/* Submit */}
+            <button
+              type="submit"
+              disabled={!requiredFields(form)}
+              className="w-full bg-ff-accent text-ff-bg font-bold text-base py-4 rounded-xl hover:bg-ff-glow transition-colors disabled:opacity-40 disabled:cursor-not-allowed animate-pulse-glow"
+            >
+              {f.submit}
+            </button>
+
+            <p className="text-ff-muted text-xs text-center">
+              By submitting, you agree to our{' '}
+              <a href="/terms" className="text-ff-accent underline underline-offset-2">Terms of Service</a>
+              {' '}and{' '}
+              <a href="/privacy" className="text-ff-accent underline underline-offset-2">Privacy Policy</a>.
+            </p>
+          </motion.form>
+
+          {/* Vertical progress bar — desktop only */}
+          <div className="hidden md:flex sticky top-28 flex-col items-center self-start w-8 shrink-0 pt-1">
+            <div className="relative w-0.5 bg-ff-border rounded-full" style={{ height: '320px' }}>
+              {/* Fill */}
+              <motion.div
+                className="absolute top-0 left-0 w-full bg-gradient-to-b from-ff-accent to-ff-glow rounded-full origin-top"
+                animate={{ height: `${progress}%` }}
+                transition={{ duration: 0.1 }}
+              />
+              {/* Single moving dot with percentage */}
+              <motion.div
+                className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2"
+                animate={{ top: `${progress}%` }}
+                transition={{ duration: 0.1 }}
+              >
+                <div className="w-3.5 h-3.5 rounded-full bg-ff-accent border-2 border-ff-bg shadow-[0_0_10px_rgba(0,167,62,0.8)]" />
+                <span className="absolute right-5 top-1/2 -translate-y-1/2 text-ff-accent text-[10px] font-bold tabular-nums whitespace-nowrap">
+                  {progress}%
+                </span>
+              </motion.div>
+            </div>
+          </div>
+
+        </div>
       </div>
     </section>
   )
