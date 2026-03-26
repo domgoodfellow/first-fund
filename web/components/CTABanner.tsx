@@ -17,16 +17,28 @@ export default function CTABanner() {
   const { t } = useCountry()
 
   return (
-    <section id="cta" className="snap-section md:min-h-screen flex flex-col justify-center py-20 md:py-0 bg-ff-surface border-y border-ff-border overflow-hidden relative">
-      {/* Background accent */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div
-          className="absolute inset-0 opacity-[0.04]"
-          style={{ background: 'radial-gradient(circle at 50% 50%, var(--ff-accent) 0%, transparent 60%)' }}
-        />
-      </div>
+    <section id="cta" className="snap-section md:min-h-screen relative overflow-hidden flex flex-col justify-center">
+      {/* Padded background video */}
+      <video
+        src="/video/hero.mp4"
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-4 md:inset-8 w-[calc(100%-2rem)] md:w-[calc(100%-4rem)] h-[calc(100%-2rem)] md:h-[calc(100%-4rem)] object-cover rounded-2xl"
+      />
 
-      <div className="relative max-w-4xl mx-auto px-4 sm:px-6 text-center">
+      {/* Dark overlay so text stays readable */}
+      <div className="absolute inset-4 md:inset-8 rounded-2xl bg-black/60" />
+
+      {/* Accent glow on top of overlay */}
+      <div
+        className="absolute inset-4 md:inset-8 rounded-2xl opacity-[0.08] pointer-events-none"
+        style={{ background: 'radial-gradient(circle at 50% 50%, var(--ff-accent) 0%, transparent 60%)' }}
+      />
+
+      {/* CTA content */}
+      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 text-center py-20 md:py-0">
         <motion.div
           variants={content}
           initial="hidden"
@@ -36,7 +48,7 @@ export default function CTABanner() {
           <h2 className="font-heading text-4xl md:text-5xl font-extrabold text-white mb-4">
             {t.cta.heading}
           </h2>
-          <p className="text-ff-muted text-lg mb-8">{t.cta.sub}</p>
+          <p className="text-white/70 text-lg mb-8">{t.cta.sub}</p>
 
           <Link
             href="/apply"
@@ -48,7 +60,7 @@ export default function CTABanner() {
             </svg>
           </Link>
 
-          <p className="mt-4 text-ff-muted text-xs">{t.cta.note}</p>
+          <p className="mt-4 text-white/50 text-xs">{t.cta.note}</p>
         </motion.div>
       </div>
     </section>
