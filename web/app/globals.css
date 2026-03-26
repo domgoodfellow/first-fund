@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-ff-bg font-body antialiased;
+    color: #fcfcfc;
+  }
+  h1, h2, h3, h4 {
+    @apply font-heading;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-gradient-to-r from-ff-accent to-ff-glow bg-clip-text text-transparent;
+  }
+  .card-hover {
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+  .card-hover:hover {
+    box-shadow: 0 0 35px rgba(0, 167, 62, 0.18);
+    transform: translateY(-4px);
+  }
+}
+
+/* Infinite review carousel scroll */
+@keyframes carouselScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* Hero animated gradient orbs */
+.hero-orb-1 {
+  background: radial-gradient(circle, rgba(0, 167, 62, 0.12) 0%, transparent 70%);
+  filter: blur(60px);
+}
+.hero-orb-2 {
+  background: radial-gradient(circle, rgba(0, 196, 74, 0.07) 0%, transparent 70%);
+  filter: blur(80px);
+}
