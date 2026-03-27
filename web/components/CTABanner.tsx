@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
+import { useEffect, useRef } from 'react'
 import { useCountry } from '@/contexts/CountryContext'
 
 const content = {
@@ -15,16 +16,41 @@ const content = {
 
 export default function CTABanner() {
   const { t } = useCountry()
+  const videoRef = useRef<HTMLVideoElement>(null)
+
+  useEffect(() => {
+    const video = videoRef.current
+    if (!video) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          if (video.readyState >= 2) {
+            video.play().catch(() => {})
+          } else {
+            video.addEventListener('canplay', () => video.play().catch(() => {}), { once: true })
+          }
+        } else {
+          video.pause()
+        }
+      },
+      { threshold: 0.1 }
+    )
+
+    observer.observe(video)
+    return () => observer.disconnect()
+  }, [])
 
   return (
     <section id="cta" className="snap-section md:min-h-screen relative overflow-hidden flex flex-col justify-center">
       {/* Padded background video */}
       <video
+        ref={videoRef}
         src="/video/hero.mp4"
-        autoPlay
         loop
         muted
         playsInline
+        preload="auto"
         className="absolute inset-4 md:inset-8 w-[calc(100%-2rem)] md:w-[calc(100%-4rem)] h-[calc(100%-2rem)] md:h-[calc(100%-4rem)] object-cover rounded-2xl"
       />
 

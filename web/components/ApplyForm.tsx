@@ -83,7 +83,7 @@ export default function ApplyForm() {
   }
 
   return (
-    <section className="min-h-screen bg-ff-bg pt-28 pb-20 px-4">
+    <section className="no-snap min-h-screen bg-ff-bg pt-28 pb-20 px-4">
       <div className="max-w-2xl mx-auto">
         {/* Header */}
         <motion.div

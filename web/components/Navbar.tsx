@@ -27,7 +27,7 @@ export default function Navbar() {
             <Link href="/" className="flex items-center gap-2 shrink-0">
               <span className="text-3xl font-heading font-extrabold text-white tracking-tight">
                 {country === 'US' ? (
-                  <><span className="text-ff-accent">Firs</span>Fund</>
+                  <><span className="text-ff-accent">First</span>Fund</>
                 ) : (
                   <><span className="text-ff-accent">Next</span>Fund</>
                 )}
@@ -71,7 +71,7 @@ export default function Navbar() {
                     country === 'US' ? 'bg-ff-accent text-ff-bg' : 'text-ff-muted hover:text-white'
                   }`}
                 >
-                  🇺🇸 USD
+                  USD
                 </button>
                 <button
                   onClick={() => handleCountryChange('CA')}
@@ -79,7 +79,7 @@ export default function Navbar() {
                     country === 'CA' ? 'bg-ff-accent text-ff-bg' : 'text-ff-muted hover:text-white'
                   }`}
                 >
-                  🇨🇦 CAD
+                  CAD
                 </button>
               </div>
 

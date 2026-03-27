@@ -42,7 +42,7 @@ export default function Footer() {
           <div className="md:col-span-2">
             <span className="font-heading text-2xl font-extrabold text-white block mb-3">
               {country === 'US' ? (
-                <><span className="text-ff-accent">Firs</span>Fund</>
+                <><span className="text-ff-accent">First</span>Fund</>
               ) : (
                 <><span className="text-ff-accent">Next</span>Fund</>
               )}

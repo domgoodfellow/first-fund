@@ -3,7 +3,6 @@
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { useCountry } from '@/contexts/CountryContext'
-import FlickeringGrid from './FlickeringGrid'
 export default function Hero() {
   const { t } = useCountry()
   const stats = [t.stats.item1, t.stats.item2, t.stats.item3, t.stats.item4]
@@ -26,16 +25,6 @@ export default function Hero() {
           style={{ bottom: '20%', right: '-5%' }}
           animate={{ x: [0, -30, 0], y: [0, 25, 0] }}
           transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
-        />
-        <FlickeringGrid
-          className="absolute inset-0"
-          squareSize={8}
-          gridGap={13}
-          flickerChance={0.05}
-          color="#93c5fd"
-          cursorColor="#ef4444"
-          cursorRadius={130}
-          maxOpacity={0.2}
         />
       </div>
 
