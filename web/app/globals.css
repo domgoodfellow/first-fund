@@ -19,17 +19,17 @@
 
 /* ── US theme — red on navy ── */
 [data-country="US"] {
-  --ff-bg:          #060a1a;
-  --ff-surface:     #0d1530;
-  --ff-surface-alt: #111a3a;
-  --ff-raised:      #162040;
-  --ff-dark-alt:    #162040;
-  --ff-accent:      #cc1f1f;
-  --ff-glow:        #e53535;
+  --ff-bg:          #071E36;
+  --ff-surface:     #0A2B4E;
+  --ff-surface-alt: #0D3258;
+  --ff-raised:      #123A66;
+  --ff-dark-alt:    #123A66;
+  --ff-accent:      #B11313;
+  --ff-glow:        #CC1818;
   --ff-text:        #fcfcfc;
-  --ff-muted:       #8b96b0;
-  --ff-border:      #1e2d5a;
-  --ff-accent-rgb:  204, 31, 31;
+  --ff-muted:       #D9E2E7;
+  --ff-border:      #1A3F72;
+  --ff-accent-rgb:  177, 19, 19;
 }
 
 @layer base {
