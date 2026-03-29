@@ -25,7 +25,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
       value={{
         language,
         setLanguage,
-        t: translations[language],
+        t: translations[language] as Translations,
       }}
     >
       {children}

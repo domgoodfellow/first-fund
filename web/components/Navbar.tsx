@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { Language } from '@/lib/i18n'
@@ -12,6 +13,8 @@ const availableLangs: Language[] = ['en', 'es']
 export default function Navbar() {
   const { language, setLanguage, t } = useLanguage()
   const [menuOpen, setMenuOpen] = useState(false)
+  const pathname = usePathname()
+  const isApply = pathname === '/apply'
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-ff-bg/95 backdrop-blur-md border-b border-ff-border">
@@ -27,15 +30,19 @@ export default function Navbar() {
 
             {/* Desktop nav */}
             <div className="hidden md:flex items-center gap-6">
-              <Link href="/#services" className="text-ff-muted hover:text-white transition-colors text-sm font-medium">
-                {t.nav.services}
-              </Link>
-              <Link href="/#how-it-works" className="text-ff-muted hover:text-white transition-colors text-sm font-medium">
-                {t.nav.howItWorks}
-              </Link>
-              <Link href="/#testimonials" className="text-ff-muted hover:text-white transition-colors text-sm font-medium">
-                {t.nav.stories}
-              </Link>
+              {!isApply && (
+                <>
+                  <Link href="/#services" className="text-ff-muted hover:text-white transition-colors text-sm font-medium">
+                    {t.nav.services}
+                  </Link>
+                  <Link href="/#how-it-works" className="text-ff-muted hover:text-white transition-colors text-sm font-medium">
+                    {t.nav.howItWorks}
+                  </Link>
+                  <Link href="/#testimonials" className="text-ff-muted hover:text-white transition-colors text-sm font-medium">
+                    {t.nav.stories}
+                  </Link>
+                </>
+              )}
 
               {/* Language toggle */}
               <div className="flex items-center gap-1 bg-ff-surface border border-ff-border rounded-full p-1">
@@ -54,12 +61,14 @@ export default function Navbar() {
                 ))}
               </div>
 
-              <Link
-                href="/apply"
-                className="bg-ff-accent text-ff-bg font-semibold text-sm px-5 py-2 rounded-full hover:bg-ff-glow transition-colors animate-pulse-glow"
-              >
-                {t.nav.applyNow}
-              </Link>
+              {!isApply && (
+                <Link
+                  href="/apply"
+                  className="bg-ff-accent text-ff-bg font-semibold text-sm px-5 py-2 rounded-full hover:bg-ff-glow transition-colors animate-pulse-glow"
+                >
+                  {t.nav.applyNow}
+                </Link>
+              )}
             </div>
 
             {/* Mobile hamburger */}
@@ -90,15 +99,19 @@ export default function Navbar() {
               className="md:hidden bg-ff-surface border-t border-ff-border overflow-hidden"
             >
               <div className="px-4 py-5 flex flex-col gap-4">
-                <Link href="/#services" className="text-ff-muted hover:text-white transition-colors" onClick={() => setMenuOpen(false)}>
-                  {t.nav.services}
-                </Link>
-                <Link href="/#how-it-works" className="text-ff-muted hover:text-white transition-colors" onClick={() => setMenuOpen(false)}>
-                  {t.nav.howItWorks}
-                </Link>
-                <Link href="/#testimonials" className="text-ff-muted hover:text-white transition-colors" onClick={() => setMenuOpen(false)}>
-                  {t.nav.stories}
-                </Link>
+                {!isApply && (
+                  <>
+                    <Link href="/#services" className="text-ff-muted hover:text-white transition-colors" onClick={() => setMenuOpen(false)}>
+                      {t.nav.services}
+                    </Link>
+                    <Link href="/#how-it-works" className="text-ff-muted hover:text-white transition-colors" onClick={() => setMenuOpen(false)}>
+                      {t.nav.howItWorks}
+                    </Link>
+                    <Link href="/#testimonials" className="text-ff-muted hover:text-white transition-colors" onClick={() => setMenuOpen(false)}>
+                      {t.nav.stories}
+                    </Link>
+                  </>
+                )}
 
                 {/* Language */}
                 <div className="flex items-center gap-2">
@@ -118,13 +131,15 @@ export default function Navbar() {
                   ))}
                 </div>
 
-                <Link
-                  href="/apply"
-                  className="bg-ff-accent text-ff-bg font-semibold text-sm px-5 py-2.5 rounded-full text-center hover:bg-ff-glow transition-colors"
-                  onClick={() => setMenuOpen(false)}
-                >
-                  {t.nav.applyNow}
-                </Link>
+                {!isApply && (
+                  <Link
+                    href="/apply"
+                    className="bg-ff-accent text-ff-bg font-semibold text-sm px-5 py-2.5 rounded-full text-center hover:bg-ff-glow transition-colors"
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    {t.nav.applyNow}
+                  </Link>
+                )}
               </div>
             </motion.div>
           )}
