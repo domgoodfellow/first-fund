@@ -42,7 +42,7 @@ export default function CTABanner() {
   }, [])
 
   return (
-    <section id="cta" className="snap-section md:min-h-screen relative overflow-hidden flex flex-col justify-center">
+    <section id="cta" className="snap-section min-h-screen relative overflow-hidden flex flex-col justify-center">
       {/* Padded background video */}
       <video
         ref={videoRef}

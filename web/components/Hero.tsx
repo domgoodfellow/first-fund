@@ -15,13 +15,13 @@ export default function Hero() {
       {/* Animated background orbs */}
       <div className="absolute inset-0 pointer-events-none">
         <motion.div
-          className="hero-orb-1 absolute w-[600px] h-[600px] rounded-full"
+          className="hero-orb-1 absolute w-[clamp(300px,30vw,600px)] h-[clamp(300px,30vw,600px)] rounded-full"
           style={{ top: '10%', left: '-10%' }}
           animate={{ x: [0, 40, 0], y: [0, -30, 0] }}
           transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
         />
         <motion.div
-          className="hero-orb-2 absolute w-[500px] h-[500px] rounded-full"
+          className="hero-orb-2 absolute w-[clamp(250px,25vw,500px)] h-[clamp(250px,25vw,500px)] rounded-full"
           style={{ bottom: '20%', right: '-5%' }}
           animate={{ x: [0, -30, 0], y: [0, 25, 0] }}
           transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut', delay: 2 }}

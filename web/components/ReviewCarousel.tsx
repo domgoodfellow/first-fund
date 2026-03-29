@@ -120,7 +120,7 @@ export default function ReviewCarousel() {
         {TRACK.map((review, idx) => (
           <div
             key={idx}
-            className="w-[340px] shrink-0 bg-ff-surface border border-ff-border rounded-2xl p-6 flex flex-col"
+            className="w-[340px] 3xl:w-[380px] 4xl:w-[420px] shrink-0 bg-ff-surface border border-ff-border rounded-2xl p-6 flex flex-col"
           >
             {/* Stars + quote icon */}
             <div className="flex items-center justify-between mb-4">

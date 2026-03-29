@@ -32,9 +32,9 @@ export default function Testimonials() {
   return (
     <section
       id="testimonials"
-      className="snap-section md:min-h-screen flex flex-col justify-center py-14 md:py-24 bg-ff-bg"
+      className="snap-section min-h-screen flex flex-col justify-center py-14 md:py-24 bg-ff-bg"
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 w-full">
+      <div className="section-container px-4 sm:px-6">
         {/* Header */}
         <motion.div
           className="text-center mb-14"

@@ -40,9 +40,9 @@ export default function Services() {
   return (
     <section
       id="services"
-      className="snap-section md:min-h-screen flex flex-col justify-center py-14 md:py-24 bg-ff-surface"
+      className="snap-section min-h-screen flex flex-col justify-center py-14 md:py-24 bg-ff-surface"
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 w-full">
+      <div className="section-container px-4 sm:px-6">
         {/* Header */}
         <motion.div
           className="text-center mb-4"

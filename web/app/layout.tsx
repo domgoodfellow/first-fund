@@ -1,16 +1,16 @@
 import type { Metadata } from 'next'
-import { Playfair_Display, Montserrat } from 'next/font/google'
+import { Cormorant_Garamond, Inter } from 'next/font/google'
 import './globals.css'
 import { CountryProvider } from '@/contexts/CountryContext'
 
-const playfairDisplay = Playfair_Display({
+const cormorantGaramond = Cormorant_Garamond({
   subsets: ['latin'],
-  weight: ['700', '800', '900'],
+  weight: ['700'],
   variable: '--font-playfair',
   display: 'swap',
 })
 
-const montserrat = Montserrat({
+const inter = Inter({
   subsets: ['latin'],
   weight: ['300', '400', '500', '600'],
   variable: '--font-montserrat',
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${playfairDisplay.variable} ${montserrat.variable}`}>
+    <html lang="en" className={`${cormorantGaramond.variable} ${inter.variable}`} suppressHydrationWarning>
       <body>
         <CountryProvider>{children}</CountryProvider>
       </body>

@@ -41,6 +41,7 @@
   @media (min-width: 768px) {
     html {
       scroll-snap-type: y mandatory;
+      overflow-y: scroll;
     }
     html:has(.no-snap) {
       scroll-snap-type: none;
@@ -48,6 +49,8 @@
     .snap-section {
       scroll-snap-align: start;
       scroll-snap-stop: always;
+      overflow: hidden;
+      min-height: 100vh;
     }
   }
 
@@ -71,6 +74,46 @@
     box-shadow: 0 0 35px rgba(var(--ff-accent-rgb), 0.18);
     transform: translateY(-4px);
   }
+
+  /* Responsive section container — single source of truth for content width.
+     Uses vw% + cap so it works at any Windows DPI scaling (100%, 125%, 150%).
+     Fixed-pixel breakpoints alone miss intermediate DPI-scaled resolutions. */
+  .section-container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 80rem; /* mobile default: up to 1280px */
+  }
+  @media (min-width: 768px) {
+    /* From tablet up: track 88% of viewport width, never exceeding 80rem (1280px).
+       At 1707px CSS (2560p × 150% DPI): 88vw = 1502px — much wider than fixed 1280px */
+    .section-container { max-width: min(88vw, 80rem); }
+  }
+  @media (min-width: 1280px) {
+    /* Larger screens: allow up to 100rem (1600px) */
+    .section-container { max-width: min(88vw, 100rem); }
+  }
+  @media (min-width: 1920px) {
+    /* Full HD and above: allow up to 120rem (1920px) */
+    .section-container { max-width: min(85vw, 120rem); }
+  }
+
+  /* Scale section padding with viewport HEIGHT so content fills tall sections
+     (e.g. 1440p where 100vh = 1440px) proportionally — prevents floating content.
+     Declared in @layer utilities so it wins over md:py-24 on the elements. */
+  @media (min-width: 768px) {
+    .snap-section {
+      padding-top:    clamp(3.5rem, 8vh, 10rem);
+      padding-bottom: clamp(3.5rem, 8vh, 10rem);
+    }
+  }
+
+  /* Scale section headings with viewport height so text fills taller sections */
+  @media (min-height: 1100px) {
+    .snap-section h2 { font-size: clamp(3rem, 4.5vh, 5rem); }
+    .snap-section h1 { font-size: clamp(3.5rem, 5.5vh, 7rem); }
+  }
+
 }
 
 /* Infinite review carousel scroll */
