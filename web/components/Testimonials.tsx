@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { useCountry } from '@/contexts/CountryContext'
+import { useLanguage } from '@/contexts/LanguageContext'
 import ReviewCarousel from './ReviewCarousel'
 
 function Stars({ count }: { count: number }) {
@@ -27,7 +27,7 @@ const fadeUp = {
 }
 
 export default function Testimonials() {
-  const { t } = useCountry()
+  const { t } = useLanguage()
 
   return (
     <section

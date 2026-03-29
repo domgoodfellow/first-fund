@@ -12,9 +12,9 @@ export default function PrivacyPage() {
 
           <div className="prose prose-invert prose-sm max-w-none text-ff-muted leading-relaxed space-y-6">
             <p>
-              At Next Fund (9508-8142 Québec Inc.), protecting your personal information is a priority. This Privacy
-              Policy explains how we collect, use, disclose, and protect your personal information when you visit our
-              website or use our commercial financing services.
+              At FirsFund, protecting your personal information is a priority. This Privacy Policy explains how we
+              collect, use, disclose, and protect your personal information when you visit our website or use our
+              commercial financing services.
             </p>
 
             {[
@@ -35,7 +35,7 @@ export default function PrivacyPage() {
                 body: 'We implement appropriate technical, administrative, and organizational safeguards to protect your personal information against unauthorized access, disclosure, alteration, or destruction. While we strive to protect your data, no method of electronic transmission or storage is completely secure.',
               },
               {
-                title: '5. Your Rights (Québec Law 25 & Canadian Privacy Standards)',
+                title: '5. Your Privacy Rights',
                 body: 'Subject to applicable laws, you may request: access to your personal information; correction of inaccurate information; withdrawal of consent (where applicable); deletion of your information, subject to legal retention obligations. Requests may be submitted using the contact information below.',
               },
               {
@@ -44,7 +44,7 @@ export default function PrivacyPage() {
               },
               {
                 title: '7. SMS Communications & Consent',
-                body: 'By providing your phone number on our website, you consent to receive SMS messages regarding application updates, appointment reminders, account notifications, and promotional financing offers (if consented). Message Frequency: Varies based on interaction. Message & Data Rates: May apply. Opt-Out: Reply STOP at any time. We comply with applicable Canadian Anti-Spam Legislation (CASL) and carrier requirements.',
+                body: 'By providing your phone number on our website, you consent to receive SMS messages regarding application updates, appointment reminders, account notifications, and promotional financing offers (if consented). Message Frequency: Varies based on interaction. Message & Data Rates: May apply. Opt-Out: Reply STOP at any time.',
               },
               {
                 title: '8. Data Retention',
@@ -64,13 +64,13 @@ export default function PrivacyPage() {
             <div>
               <h2 className="font-heading text-white text-lg font-semibold mb-2">10. Contact Us</h2>
               <p>
-                Next Fund (9508-8142 Québec Inc.)
+                FirsFund
                 <br />
-                Website: <span className="text-ff-accent">www.nextfund.ca</span>
+                Website: <span className="text-ff-accent">www.firsfund.com</span>
                 <br />
-                Email: <span className="text-ff-accent">info@nextfund.ca</span>
+                Email: <span className="text-ff-accent">info@firsfund.com</span>
                 <br />
-                Phone: +1 438 813 5149
+                Phone: +1 (555) 000-0000
               </p>
             </div>
           </div>

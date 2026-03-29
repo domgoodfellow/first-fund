@@ -3,20 +3,15 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
-import { useCountry, countryLanguages, Country } from '@/contexts/CountryContext'
+import { useLanguage } from '@/contexts/LanguageContext'
 import { Language } from '@/lib/i18n'
 
-const langLabels: Record<Language, string> = { en: 'EN', fr: 'FR', es: 'ES' }
+const langLabels: Record<Language, string> = { en: 'EN', es: 'ES' }
+const availableLangs: Language[] = ['en', 'es']
 
 export default function Navbar() {
-  const { country, setCountry, language, setLanguage, t } = useCountry()
+  const { language, setLanguage, t } = useLanguage()
   const [menuOpen, setMenuOpen] = useState(false)
-  const availableLangs = countryLanguages[country]
-
-  const handleCountryChange = (c: Country) => {
-    setCountry(c)
-    setMenuOpen(false)
-  }
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-ff-bg/95 backdrop-blur-md border-b border-ff-border">
@@ -26,11 +21,7 @@ export default function Navbar() {
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2 shrink-0">
               <span className="text-3xl font-heading font-extrabold text-white tracking-tight">
-                {country === 'US' ? (
-                  <><span className="text-ff-accent">First</span>Fund</>
-                ) : (
-                  <><span className="text-ff-accent">Next</span>Fund</>
-                )}
+                <span className="text-ff-accent">First</span>Fund
               </span>
             </Link>
 
@@ -61,26 +52,6 @@ export default function Navbar() {
                     {langLabels[lang]}
                   </button>
                 ))}
-              </div>
-
-              {/* Country toggle */}
-              <div className="flex items-center gap-1 bg-ff-surface border border-ff-border rounded-full p-1">
-                <button
-                  onClick={() => handleCountryChange('US')}
-                  className={`px-3 py-1 rounded-full text-xs font-semibold transition-all duration-200 ${
-                    country === 'US' ? 'bg-ff-accent text-ff-bg' : 'text-ff-muted hover:text-white'
-                  }`}
-                >
-                  USD
-                </button>
-                <button
-                  onClick={() => handleCountryChange('CA')}
-                  className={`px-3 py-1 rounded-full text-xs font-semibold transition-all duration-200 ${
-                    country === 'CA' ? 'bg-ff-accent text-ff-bg' : 'text-ff-muted hover:text-white'
-                  }`}
-                >
-                  CAD
-                </button>
               </div>
 
               <Link
@@ -145,26 +116,6 @@ export default function Navbar() {
                       {langLabels[lang]}
                     </button>
                   ))}
-                </div>
-
-                {/* Country */}
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={() => handleCountryChange('US')}
-                    className={`px-3 py-1 rounded-full text-xs font-semibold border transition-all ${
-                      country === 'US' ? 'bg-ff-accent text-ff-bg border-ff-accent' : 'border-ff-border text-ff-muted'
-                    }`}
-                  >
-                    🇺🇸 USD
-                  </button>
-                  <button
-                    onClick={() => handleCountryChange('CA')}
-                    className={`px-3 py-1 rounded-full text-xs font-semibold border transition-all ${
-                      country === 'CA' ? 'bg-ff-accent text-ff-bg border-ff-accent' : 'border-ff-border text-ff-muted'
-                    }`}
-                  >
-                    🇨🇦 CAD
-                  </button>
                 </div>
 
                 <Link

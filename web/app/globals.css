@@ -2,23 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ── CA theme (default) — green on dark ── */
+/* ── FirstFund theme — red on navy ── */
 :root {
-  --ff-bg:          #09090b;
-  --ff-surface:     #18181a;
-  --ff-surface-alt: #202022;
-  --ff-raised:      #272729;
-  --ff-dark-alt:    #27262b;
-  --ff-accent:      #00a73e;
-  --ff-glow:        #00c44a;
-  --ff-text:        #fcfcfc;
-  --ff-muted:       #8b8b8b;
-  --ff-border:      #3f3f47;
-  --ff-accent-rgb:  0, 167, 62;
-}
-
-/* ── US theme — red on navy ── */
-[data-country="US"] {
   --ff-bg:          #071E36;
   --ff-surface:     #0A2B4E;
   --ff-surface-alt: #0D3258;

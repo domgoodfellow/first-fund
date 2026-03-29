@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { useCountry } from '@/contexts/CountryContext'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 const container = {
   hidden: {},
@@ -14,7 +14,7 @@ const item = {
 }
 
 export default function Stats() {
-  const { t } = useCountry()
+  const { t } = useLanguage()
 
   const items = [t.stats.item1, t.stats.item2, t.stats.item3, t.stats.item4]
 

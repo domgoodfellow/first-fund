@@ -1,4 +1,4 @@
-export type Language = 'en' | 'fr' | 'es'
+export type Language = 'en' | 'es'
 
 export const translations = {
   en: {
@@ -90,106 +90,10 @@ export const translations = {
         about: 'About Us', careers: 'Careers', blog: 'Blog',
         mca: 'Merchant Cash Advance', loc: 'Line of Credit', mortgage: 'Mortgage Loans', fixed: 'Fixed-Term Loans',
         terms: 'Terms of Service', privacy: 'Privacy Policy',
-        email: 'info@nextfund.ca', phone: '+1 438 813 5149',
+        email: 'info@firsfund.com', phone: '+1 (555) 000-0000',
       },
       disclaimer: 'All financing applications are subject to review and underwriting. Approval and funding terms remain at the sole discretion of lending partners.',
       rights: 'All rights reserved.',
-    },
-  },
-
-  fr: {
-    nav: {
-      services: 'Services',
-      howItWorks: 'Comment ça marche',
-      stories: 'Témoignages',
-      applyNow: 'Demander',
-    },
-    hero: {
-      badge: 'Approbations en 24–48 h · Sans garantie',
-      headline: 'Financement rapide\npour les ambitieux.',
-      sub: "Obtenez jusqu'à 800 000 $ en financement d'entreprise — approuvé en 24–48 heures, sans garantie requise.",
-      cta: 'Demander en 60 secondes',
-      ctaSecondary: 'Voir comment ça marche',
-    },
-    stats: {
-      item1: { value: '24–48 h', label: 'Décisions de financement' },
-      item2: { value: '800 k$+', label: 'Financement disponible' },
-      item3: { value: '0', label: 'Garantie requise' },
-      item4: { value: 'Tous', label: 'Profils de crédit acceptés' },
-    },
-    howItWorks: {
-      sectionLabel: 'Le processus',
-      heading: 'Financé en 4 étapes simples',
-      steps: [
-        { title: 'Demandez en 60 secondes', desc: "Remplissez notre formulaire d'une page sans paperasse interminable." },
-        { title: 'Révision le jour même', desc: 'Notre équipe examine votre dossier et vous répond en 24–48 heures.' },
-        { title: 'Recevez votre offre', desc: 'Obtenez une offre personnalisée avec des modalités claires et transparentes.' },
-        { title: 'Financé et en croissance', desc: "Acceptez votre offre et recevez les fonds le jour même ou le lendemain." },
-      ],
-    },
-    services: {
-      sectionLabel: 'Nos produits',
-      heading: 'Des financements adaptés à votre entreprise',
-      sub: "Une seule demande, quatre options puissantes — choisissez la structure qui correspond à votre flux de trésorerie.",
-      items: [
-        { title: 'Avance de fonds sur ventes', abbr: 'MCA', desc: "Financement flexible remboursé par un faible pourcentage de vos ventes quotidiennes. Le remboursement suit vos revenus.", badge: 'Plus flexible' },
-        { title: 'Marge de crédit', abbr: 'LOC', desc: "Accès continu à des capitaux quand vous en avez besoin. Prélevez uniquement ce que vous utilisez.", badge: 'Plus populaire' },
-        { title: 'Prêts hypothécaires', abbr: 'MTG', desc: "Utilisez l'équité de votre propriété pour accéder à des montants plus importants à vitesse accélérée.", badge: 'Montants les plus élevés' },
-        { title: 'Prêts à terme fixe', abbr: 'FTL', desc: "Un prêt structuré avec des remboursements fixes. Budget prévisible, taux compétitifs.", badge: 'Plus prévisible' },
-      ],
-      learnMore: 'En savoir plus →',
-      apply: 'Demander',
-    },
-    testimonials: {
-      sectionLabel: 'Témoignages',
-      heading: 'Des propriétaires qui ont avancé plus vite',
-      items: [
-        { quote: "J'ai obtenu 150 000 $ approuvés en moins de 24 heures. Ça a sauvé notre expansion.", name: 'Maria S.', role: 'Propriétaire de restaurant', location: 'Montréal, QC', rating: 5 },
-        { quote: "NextFund a été plus rapide que toute banque. Le processus était simple et l'argent dans notre compte le lendemain.", name: 'James K.', role: 'Fondateur e-commerce', location: 'Toronto, ON', rating: 5 },
-        { quote: "Aucune garantie, aucun stress — juste les capitaux dont nous avions besoin. Nous avons ouvert deux nouveaux emplacements.", name: 'Sofia R.', role: "Propriétaire d'une chaîne de détail", location: 'Vancouver, BC', rating: 5 },
-      ],
-    },
-    cta: {
-      heading: 'Prêt à être financé?',
-      sub: 'Une seule demande. Sans garantie. Décision en 24–48 heures.',
-      button: 'Commencer votre demande',
-      note: 'Gratuit · Aucun impact sur votre cote de crédit',
-    },
-    apply: {
-      heading: 'Demander un financement',
-      sub: 'Remplissez le formulaire ci-dessous et notre équipe vous contactera dans les 24 heures.',
-      progressLabel: 'Progression de la demande',
-      fields: {
-        companyName: "Nom de l'entreprise",
-        fullName: 'Nom complet',
-        email: 'Adresse courriel',
-        phone: 'Numéro de téléphone',
-        revenue: {
-          label: "Revenu mensuel de votre entreprise",
-          options: ['Entre 10 000 $ et 50 000 $', 'Entre 50 000 $ et 150 000 $', 'Plus de 150 000 $'],
-        },
-        yearsRegistered: {
-          label: "Depuis combien de temps votre entreprise est-elle enregistrée?",
-          options: ["Moins d'1 an", '1 à 5 ans', '5 ans ou plus'],
-        },
-        industry: "Secteur d'activité",
-        referredBy: 'Référé par',
-        smsConsent1: "En fournissant mon numéro de téléphone, je consens à recevoir des messages SMS concernant ma demande. Des frais peuvent s'appliquer. Répondez STOP pour vous désabonner.",
-        smsConsent2: "Je consens à recevoir des SMS non promotionnels concernant mon compte et les mises à jour de demande. Répondez STOP pour vous désabonner.",
-        submit: 'Soumettre la demande',
-      },
-    },
-    footer: {
-      tagline: "Financement d'entreprise simplifié — d'un océan à l'autre.",
-      links: { company: 'Entreprise', services: 'Services', legal: 'Juridique', contact: 'Contact' },
-      nav: {
-        about: 'À propos', careers: 'Carrières', blog: 'Blogue',
-        mca: 'Avance de fonds sur ventes', loc: 'Marge de crédit', mortgage: 'Prêts hypothécaires', fixed: 'Prêts à terme fixe',
-        terms: "Conditions d'utilisation", privacy: 'Politique de confidentialité',
-        email: 'info@nextfund.ca', phone: '+1 438 813 5149',
-      },
-      disclaimer: "Toutes les demandes de financement sont soumises à révision et souscription. L'approbation reste à la discrétion des partenaires prêteurs.",
-      rights: 'Tous droits réservés.',
     },
   },
 

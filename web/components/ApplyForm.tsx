@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { motion } from 'framer-motion'
-import { useCountry } from '@/contexts/CountryContext'
+import { useLanguage, brandName } from '@/contexts/LanguageContext'
 
 /* ─── CONSTANTS ──────────────────────────────────────────── */
 
@@ -318,7 +318,7 @@ function Slide6({ form, setFile }: SlideProps) {
 /* ─── SLIDE 7 — REFERRAL & CONSENT ──────────────────────── */
 
 function Slide7({ form, set }: SlideProps) {
-  const { t } = useCountry()
+  const { t } = useLanguage()
   const f = t.apply.fields
   return (
     <div className="space-y-6">
@@ -342,7 +342,6 @@ function Slide7({ form, set }: SlideProps) {
 const SLIDES = [Slide1, Slide2, Slide3, Slide4, Slide5, Slide6, Slide7] as const
 
 export default function ApplyForm() {
-  const { brandName } = useCountry()
   const [form, setFormState] = useState<FormData>(EMPTY)
   const [cur, setCur] = useState(0)
   const [exiting, setExiting] = useState<number | null>(null)

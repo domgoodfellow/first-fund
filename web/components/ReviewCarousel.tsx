@@ -54,7 +54,7 @@ const reviews: Review[] = [
     date: '5 months ago',
     rating: 5,
     content:
-      'NEXT Fund possesses deep knowledge of the market and clearly explained all my options, ensuring I understood the pros and cons of each choice. I felt confident that the strategy we chose was genuinely tailored to my specific financial goals.',
+      'FirsFund possesses deep knowledge of the market and clearly explained all my options, ensuring I understood the pros and cons of each choice. I felt confident that the strategy we chose was genuinely tailored to my specific financial goals.',
   },
   {
     id: 12,
@@ -63,7 +63,7 @@ const reviews: Review[] = [
     date: '7 months ago',
     rating: 5,
     content:
-      "I had an exceptional experience with Next Fund! They helped me secure business financing incredibly quickly and at a very competitive rate. The process was smooth, straightforward, and professional from start to finish.",
+      "I had an exceptional experience with FirsFund! They helped me secure business financing incredibly quickly and at a very competitive rate. The process was smooth, straightforward, and professional from start to finish.",
   },
   {
     id: 13,
@@ -72,7 +72,7 @@ const reviews: Review[] = [
     date: '5 months ago',
     rating: 5,
     content:
-      "I see some mixed reviews here, but I'd like to share that my personal experience with Next Fund was excellent. All the paperwork was completed on time and handled exactly as expected.",
+      "I see some mixed reviews here, but I'd like to share that my personal experience with FirsFund was excellent. All the paperwork was completed on time and handled exactly as expected.",
   },
   {
     id: 15,

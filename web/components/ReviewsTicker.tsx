@@ -11,7 +11,7 @@ const GOOGLE_REVIEWS = [
   { name: 'Carlos M.', rating: 5, text: "Way better than any bank I've tried. Simple process, fast money." },
   { name: 'Jennifer L.', rating: 5, text: 'Used them twice now. Same great experience both times.' },
   { name: 'Ahmed R.', rating: 5, text: "Funded my restaurant expansion. Couldn't have done it without them." },
-  { name: 'Sophie B.', rating: 5, text: 'Approuvé en 24h, fonds reçus le lendemain. Parfait!' },
+  { name: 'Sophie B.', rating: 5, text: 'Approved in 24 hours, funds received the next day. Perfect!' },
   { name: 'David W.', rating: 5, text: 'No collateral, no stress. Exactly what they promised.' },
   { name: 'Natasha P.', rating: 5, text: 'Best business decision I made — highly recommend FirsFund.' },
 ]

@@ -1,10 +1,10 @@
 'use client'
 
 import Link from 'next/link'
-import { useCountry } from '@/contexts/CountryContext'
+import { useLanguage, brandName } from '@/contexts/LanguageContext'
 
 export default function Footer() {
-  const { t, brandName, country } = useCountry()
+  const { t } = useLanguage()
   const year = new Date().getFullYear()
 
   const cols = [
@@ -41,11 +41,7 @@ export default function Footer() {
           {/* Brand column */}
           <div className="md:col-span-2">
             <span className="font-heading text-2xl font-extrabold text-white block mb-3">
-              {country === 'US' ? (
-                <><span className="text-ff-accent">First</span>Fund</>
-              ) : (
-                <><span className="text-ff-accent">Next</span>Fund</>
-              )}
+              <span className="text-ff-accent">First</span>Fund
             </span>
             <p className="text-ff-muted text-sm leading-relaxed max-w-xs mb-5">{t.footer.tagline}</p>
             <div className="flex flex-col gap-1.5 text-sm">
@@ -84,7 +80,7 @@ export default function Footer() {
         <div className="mt-12 pt-6 border-t border-ff-border">
           <p className="text-ff-muted text-xs leading-relaxed mb-4">{t.footer.disclaimer}</p>
           <div className="flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-ff-muted">
-            <span>© {year} {brandName} · 9508-8142 Québec Inc. · {t.footer.rights}</span>
+            <span>© {year} {brandName} · {t.footer.rights}</span>
             <div className="flex items-center gap-4">
               <Link href="/terms" className="hover:text-ff-accent transition-colors">{t.footer.nav.terms}</Link>
               <Link href="/privacy" className="hover:text-ff-accent transition-colors">{t.footer.nav.privacy}</Link>

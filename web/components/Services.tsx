@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import { useCountry } from '@/contexts/CountryContext'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 const SERVICE_ICONS = [
   <svg key="mca" className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -35,7 +35,7 @@ const card = {
 }
 
 export default function Services() {
-  const { t } = useCountry()
+  const { t } = useLanguage()
 
   return (
     <section

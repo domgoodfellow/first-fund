@@ -2,9 +2,9 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { useCountry } from '@/contexts/CountryContext'
+import { useLanguage } from '@/contexts/LanguageContext'
 export default function Hero() {
-  const { t } = useCountry()
+  const { t } = useLanguage()
   const stats = [t.stats.item1, t.stats.item2, t.stats.item3, t.stats.item4]
 
   return (

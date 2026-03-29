@@ -12,15 +12,15 @@ export default function TermsPage() {
 
           <div className="prose prose-invert prose-sm max-w-none text-ff-muted leading-relaxed space-y-6">
             <p>
-              Welcome to Next Fund, operated by 9508-8142 Québec Inc. ("Next Fund", "we", "our", "us"). These Terms
-              govern your access to and use of our website and all services offered through it. By accessing our website
-              or using our Services, you agree to be bound by these Terms.
+              Welcome to FirsFund ("FirsFund", "we", "our", "us"). These Terms govern your access to and use of our
+              website and all services offered through it. By accessing our website or using our Services, you agree to
+              be bound by these Terms.
             </p>
 
             {[
               {
                 title: '1. Purpose and Acceptance',
-                body: 'You agree to use our Services only for lawful purposes and in compliance with the applicable laws of Québec and Canada.',
+                body: 'You agree to use our Services only for lawful purposes and in compliance with applicable laws.',
               },
               {
                 title: '2. Acceptable Use',
@@ -32,23 +32,23 @@ export default function TermsPage() {
               },
               {
                 title: '4. Our Services',
-                body: 'Next Fund provides commercial financing services, including business loans, equipment financing, business lines of credit, merchant cash advances, alternative funding solutions, and financial analysis and advisory support. Next Fund acts as an intermediary or facilitator with third-party lenders. Final approval and funding terms remain at the sole discretion of the lending partners.',
+                body: 'FirsFund provides commercial financing services, including business loans, equipment financing, business lines of credit, merchant cash advances, alternative funding solutions, and financial analysis and advisory support. FirsFund acts as an intermediary or facilitator with third-party lenders. Final approval and funding terms remain at the sole discretion of the lending partners.',
               },
               {
                 title: '5. Applications and Approvals',
-                body: 'All financing applications submitted by form, email, or phone are subject to review and underwriting. Financing offers are conditional upon verification of the information provided and may be modified or withdrawn at any time. Next Fund does not guarantee approval or funding.',
+                body: 'All financing applications submitted by form, email, or phone are subject to review and underwriting. Financing offers are conditional upon verification of the information provided and may be modified or withdrawn at any time. FirsFund does not guarantee approval or funding.',
               },
               {
                 title: '6. Information Provided by Users',
                 body: 'You represent and warrant that all information submitted is accurate, complete, and up to date. You consent to our use of such information to evaluate your eligibility, present financing options, communicate with you, and manage and follow up on your file.',
               },
               {
-                title: '7. Communications (SMS & Email) – CASL & A2P Compliance',
+                title: '7. Communications (SMS & Email)',
                 body: 'By submitting a form on our website, you consent to receive SMS and/or email communications related to application updates, appointment reminders, file-related notifications, and promotional offers and financing opportunities. Message frequency varies. Message & data rates may apply. Reply STOP to opt out. Reply HELP for assistance.',
               },
               {
                 title: '8. Intellectual Property',
-                body: "All website content (texts, logos, images, graphics, videos, layout) is the exclusive property of Next Fund or its licensors. Unauthorized reproduction or distribution is strictly prohibited.",
+                body: 'All website content (texts, logos, images, graphics, videos, layout) is the exclusive property of FirsFund or its licensors. Unauthorized reproduction or distribution is strictly prohibited.',
               },
               {
                 title: '9. No Warranties',
@@ -56,11 +56,11 @@ export default function TermsPage() {
               },
               {
                 title: '10. Limitation of Liability',
-                body: 'To the maximum extent permitted by law, Next Fund shall not be liable for any indirect, incidental, special, or consequential damages arising from the use or inability to use the Services.',
+                body: 'To the maximum extent permitted by law, FirsFund shall not be liable for any indirect, incidental, special, or consequential damages arising from the use or inability to use the Services.',
               },
               {
                 title: '11. Governing Law',
-                body: 'These Terms are governed by the laws of the Province of Québec and the applicable federal laws of Canada. Any disputes shall be submitted to the competent courts of the district of Montréal, Québec.',
+                body: 'These Terms are governed by the laws of the State of Delaware and applicable federal laws of the United States. Any disputes shall be submitted to the competent courts of the United States.',
               },
             ].map((section) => (
               <div key={section.title}>
@@ -73,11 +73,11 @@ export default function TermsPage() {
               <h2 className="font-heading text-white text-lg font-semibold mb-2">12. Contact Us</h2>
               <p>
                 Website:{' '}
-                <span className="text-ff-accent">www.nextfund.ca</span>
+                <span className="text-ff-accent">www.firsfund.com</span>
                 <br />
-                Email: <span className="text-ff-accent">info@nextfund.ca</span>
+                Email: <span className="text-ff-accent">info@firsfund.com</span>
                 <br />
-                Phone: +1 438 813 5149
+                Phone: +1 (555) 000-0000
               </p>
             </div>
           </div>

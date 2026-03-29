@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { useCountry } from '@/contexts/CountryContext'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 const STEP_ICONS = [
   <svg key="1" className="w-10 h-10" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
@@ -34,7 +34,7 @@ const step = {
 }
 
 export default function HowItWorks() {
-  const { t } = useCountry()
+  const { t } = useLanguage()
 
   return (
     <section

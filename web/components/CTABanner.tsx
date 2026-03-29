@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { useEffect, useRef } from 'react'
-import { useCountry } from '@/contexts/CountryContext'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 const content = {
   hidden: { opacity: 0, y: 40 },
@@ -15,7 +15,7 @@ const content = {
 }
 
 export default function CTABanner() {
-  const { t } = useCountry()
+  const { t } = useLanguage()
   const videoRef = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
