@@ -8,16 +8,6 @@ import { useLanguage, brandName } from '@/contexts/LanguageContext'
 
 const TOTAL = 7
 
-const INDUSTRIES = [
-  'Retail', 'Restaurant / Food & Beverage', 'E-commerce', 'Healthcare',
-  'Construction', 'Manufacturing', 'Professional Services', 'Automotive',
-  'Hospitality / Hotel', 'Technology', 'Transportation', 'Beauty / Wellness', 'Other',
-]
-
-const BUSINESS_TYPES = [
-  'Sole Proprietorship', 'Partnership', 'LLC', 'Corporation', 'Other',
-]
-
 const PROVINCES_STATES = [
   'Alberta', 'British Columbia', 'Manitoba', 'New Brunswick',
   'Newfoundland and Labrador', 'Nova Scotia', 'Ontario', 'Prince Edward Island',
@@ -31,40 +21,6 @@ const PROVINCES_STATES = [
   'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota',
   'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington',
   'West Virginia', 'Wisconsin', 'Wyoming',
-]
-
-const REVENUE_OPTIONS = [
-  'Between $10,000 and $50,000',
-  'Between $50,000 and $150,000',
-  'More than $150,000',
-]
-
-const YEARS_OPTIONS = ['Less than 1 year', '1–5 years', '5 years or more']
-
-const FUNDING_AMOUNTS = [
-  '$10,000 – $50,000',
-  '$50,000 – $150,000',
-  '$150,000 – $500,000',
-  '$500,000+',
-]
-
-const FUNDING_PURPOSES = [
-  'Working Capital',
-  'Equipment Purchase',
-  'Business Expansion',
-  'Inventory',
-  'Debt Refinancing',
-  'Other',
-]
-
-const ID_TYPES = ["Driver's License", 'Passport', 'Provincial ID / State ID']
-
-const REFERRAL_OPTIONS = [
-  'Facebook',
-  'Instagram',
-  'Friend',
-  'Google',
-  'Other',
 ]
 
 /* ─── FORM DATA ──────────────────────────────────────────── */
@@ -135,46 +91,6 @@ function slideValid(slide: number, form: FormData): boolean {
   }
 }
 
-/* ─── SLIDE METADATA ─────────────────────────────────────── */
-
-const SLIDE_META = [
-  {
-    eyebrow: '01 · Business Info',
-    heading: 'Tell us about\nyour business.',
-    sub: 'Basic details about your company.',
-  },
-  {
-    eyebrow: '02 · Business Address',
-    heading: 'Where is your\nbusiness located?',
-    sub: 'Your registered business address.',
-  },
-  {
-    eyebrow: '03 · Contact Info',
-    heading: "Who's the primary\npoint of contact?",
-    sub: "We'll use this to reach you about your application.",
-  },
-  {
-    eyebrow: '04 · Financial Profile',
-    heading: "What's your\nfunding need?",
-    sub: 'Help us understand your business finances.',
-  },
-  {
-    eyebrow: '05 · ID Verification',
-    heading: 'Verify your\nidentity.',
-    sub: 'Required by regulation for all applicants.',
-  },
-  {
-    eyebrow: '06 · Documents',
-    heading: 'Upload your\nsupporting documents.',
-    sub: 'All uploads are encrypted and securely stored.',
-  },
-  {
-    eyebrow: '07 · Final Details',
-    heading: 'Almost there.',
-    sub: 'Last step before we review your application.',
-  },
-]
-
 /* ─── SHARED TYPES ───────────────────────────────────────── */
 
 type ChangeHandler = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void
@@ -188,12 +104,14 @@ type SlideProps = {
 /* ─── SLIDE 1 — BUSINESS INFO ────────────────────────────── */
 
 function Slide1({ form, set }: SlideProps) {
+  const { t } = useLanguage()
+  const f = t.apply.fields
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-      <Field label="Company Name *" value={form.companyName} onChange={set('companyName')} placeholder="Acme Corp" required />
-      <SelectField label="Business Type *" value={form.businessType} onChange={set('businessType')} options={BUSINESS_TYPES} required />
-      <SelectField label="Industry *" value={form.industry} onChange={set('industry')} options={INDUSTRIES} required />
-      <Field label="Website" value={form.website} onChange={set('website')} placeholder="https://acme.com" />
+      <Field label={`${f.companyName} *`} value={form.companyName} onChange={set('companyName')} placeholder="Acme Corp" required />
+      <SelectField label={`${f.businessType.label} *`} value={form.businessType} onChange={set('businessType')} options={f.businessType.options} placeholder={t.apply.selectPlaceholder} required />
+      <SelectField label={`${f.industry.label} *`} value={form.industry} onChange={set('industry')} options={f.industry.options} placeholder={t.apply.selectPlaceholder} required />
+      <Field label={f.website} value={form.website} onChange={set('website')} placeholder="https://acme.com" />
     </div>
   )
 }
@@ -201,20 +119,22 @@ function Slide1({ form, set }: SlideProps) {
 /* ─── SLIDE 2 — ADDRESS ──────────────────────────────────── */
 
 function Slide2({ form, set }: SlideProps) {
+  const { t } = useLanguage()
+  const f = t.apply.fields
   return (
     <div className="space-y-5">
       <Field
-        label="Street Address *"
+        label={`${f.street} *`}
         value={form.street}
         onChange={set('street')}
         placeholder="123 Main Street, Suite 400"
         required
       />
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-        <Field label="City *" value={form.city} onChange={set('city')} placeholder="Toronto" required />
-        <SelectField label="Province / State *" value={form.provinceState} onChange={set('provinceState')} options={PROVINCES_STATES} required />
-        <Field label="Postal / ZIP Code *" value={form.postalZip} onChange={set('postalZip')} placeholder="M5V 3L9" required />
-        <SelectField label="Country *" value={form.country} onChange={set('country')} options={['Canada', 'United States']} required />
+        <Field label={`${f.city} *`} value={form.city} onChange={set('city')} placeholder="Toronto" required />
+        <SelectField label={`${f.provinceState} *`} value={form.provinceState} onChange={set('provinceState')} options={PROVINCES_STATES} placeholder={t.apply.selectPlaceholder} required />
+        <Field label={`${f.postalZip} *`} value={form.postalZip} onChange={set('postalZip')} placeholder="M5V 3L9" required />
+        <SelectField label={`${f.country.label} *`} value={form.country} onChange={set('country')} options={f.country.options} placeholder={t.apply.selectPlaceholder} required />
       </div>
     </div>
   )
@@ -223,12 +143,14 @@ function Slide2({ form, set }: SlideProps) {
 /* ─── SLIDE 3 — CONTACT INFO ─────────────────────────────── */
 
 function Slide3({ form, set }: SlideProps) {
+  const { t } = useLanguage()
+  const f = t.apply.fields
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-      <Field label="Full Name *" value={form.fullName} onChange={set('fullName')} placeholder="Jane Smith" required />
-      <Field label="Email Address *" type="email" value={form.email} onChange={set('email')} placeholder="jane@acme.com" required />
-      <Field label="Phone Number" type="tel" value={form.phone} onChange={set('phone')} placeholder="+1 (555) 000-0000" />
-      <Field label="Job Title" value={form.jobTitle} onChange={set('jobTitle')} placeholder="CEO" />
+      <Field label={`${f.fullName} *`} value={form.fullName} onChange={set('fullName')} placeholder="Jane Smith" required />
+      <Field label={`${f.email} *`} type="email" value={form.email} onChange={set('email')} placeholder="jane@acme.com" required />
+      <Field label={f.phone} type="tel" value={form.phone} onChange={set('phone')} placeholder="+1 (555) 000-0000" />
+      <Field label={f.jobTitle} value={form.jobTitle} onChange={set('jobTitle')} placeholder="CEO" />
     </div>
   )
 }
@@ -236,12 +158,14 @@ function Slide3({ form, set }: SlideProps) {
 /* ─── SLIDE 4 — FINANCIAL PROFILE ────────────────────────── */
 
 function Slide4({ form, set }: SlideProps) {
+  const { t } = useLanguage()
+  const f = t.apply.fields
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-      <SelectField label="Monthly Revenue *" value={form.revenue} onChange={set('revenue')} options={REVENUE_OPTIONS} required />
-      <SelectField label="Years in Business *" value={form.yearsRegistered} onChange={set('yearsRegistered')} options={YEARS_OPTIONS} required />
-      <SelectField label="Funding Amount Requested *" value={form.fundingAmount} onChange={set('fundingAmount')} options={FUNDING_AMOUNTS} required />
-      <SelectField label="Purpose of Funds *" value={form.fundingPurpose} onChange={set('fundingPurpose')} options={FUNDING_PURPOSES} required />
+      <SelectField label={`${f.revenue.label} *`} value={form.revenue} onChange={set('revenue')} options={f.revenue.options} placeholder={t.apply.selectPlaceholder} required />
+      <SelectField label={`${f.yearsRegistered.label} *`} value={form.yearsRegistered} onChange={set('yearsRegistered')} options={f.yearsRegistered.options} placeholder={t.apply.selectPlaceholder} required />
+      <SelectField label={`${f.fundingAmount.label} *`} value={form.fundingAmount} onChange={set('fundingAmount')} options={f.fundingAmount.options} placeholder={t.apply.selectPlaceholder} required />
+      <SelectField label={`${f.fundingPurpose.label} *`} value={form.fundingPurpose} onChange={set('fundingPurpose')} options={f.fundingPurpose.options} placeholder={t.apply.selectPlaceholder} required />
     </div>
   )
 }
@@ -249,24 +173,25 @@ function Slide4({ form, set }: SlideProps) {
 /* ─── SLIDE 5 — ID VERIFICATION ─────────────────────────── */
 
 function Slide5({ form, set }: SlideProps) {
+  const { t } = useLanguage()
+  const f = t.apply.fields
   return (
     <div className="space-y-6">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <Field
-          label="Date of Birth *"
+          label={`${f.dob} *`}
           type="date"
           value={form.dob}
           onChange={set('dob')}
           required
         />
-        <SelectField label="Government ID Type *" value={form.idType} onChange={set('idType')} options={ID_TYPES} required />
-        <Field label="ID Number *" value={form.idNumber} onChange={set('idNumber')} placeholder="e.g. DL-1234567" required />
-        <Field label="Issuing Province / State" value={form.idIssuingProvince} onChange={set('idIssuingProvince')} placeholder="Ontario" />
+        <SelectField label={`${f.idType.label} *`} value={form.idType} onChange={set('idType')} options={f.idType.options} placeholder={t.apply.selectPlaceholder} required />
+        <Field label={`${f.idNumber} *`} value={form.idNumber} onChange={set('idNumber')} placeholder="e.g. DL-1234567" required />
+        <Field label={f.idIssuingProvince} value={form.idIssuingProvince} onChange={set('idIssuingProvince')} placeholder="Ontario" />
       </div>
       <div className="bg-ff-surface border border-ff-border rounded-xl px-5 py-4">
         <p className="text-ff-muted text-xs leading-relaxed">
-          Your identity information is used solely for compliance and fraud prevention purposes.
-          It is encrypted in transit and at rest, and never shared with third parties.
+          {t.apply.idDisclaimer}
         </p>
       </div>
     </div>
@@ -276,39 +201,46 @@ function Slide5({ form, set }: SlideProps) {
 /* ─── SLIDE 6 — DOCUMENT UPLOAD ──────────────────────────── */
 
 function Slide6({ form, setFile }: SlideProps) {
+  const { t } = useLanguage()
+  const f = t.apply.fields
   return (
     <div className="space-y-6">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <FileDropZone
-          label="Government ID — Front *"
-          hint="Driver's Licence, Passport, or Provincial ID"
+          label={`${f.idFront} *`}
+          hint={f.idFrontHint}
           file={form.idFront}
           onChange={setFile('idFront')}
-          required
+          dropHint={t.apply.dropHint}
+          dropBrowse={t.apply.dropBrowse}
         />
         <FileDropZone
-          label="Government ID — Back"
-          hint="Required for Driver's Licence and Provincial ID"
+          label={f.idBack}
+          hint={f.idBackHint}
           file={form.idBack}
           onChange={setFile('idBack')}
+          dropHint={t.apply.dropHint}
+          dropBrowse={t.apply.dropBrowse}
         />
       </div>
       <FileDropZone
-        label="Business Registration / Articles of Incorporation"
-        hint="Certificate of incorporation, business licence, or registration document"
+        label={f.businessReg}
+        hint={f.businessRegHint}
         file={form.businessReg}
         onChange={setFile('businessReg')}
+        dropHint={t.apply.dropHint}
+        dropBrowse={t.apply.dropBrowse}
       />
       <div>
         <p className="text-white text-sm font-medium mb-3">
-          Bank Statements — Last 3 Months{' '}
+          {f.bankStatements}{' '}
           <span className="text-ff-accent">*</span>
-          <span className="text-ff-muted font-normal ml-2 text-xs">(at least Month 1 required)</span>
+          <span className="text-ff-muted font-normal ml-2 text-xs">{f.bankStatementsNote}</span>
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <FileDropZone label="Month 1 *" hint="Most recent" file={form.bankStatement1} onChange={setFile('bankStatement1')} required />
-          <FileDropZone label="Month 2" hint="" file={form.bankStatement2} onChange={setFile('bankStatement2')} />
-          <FileDropZone label="Month 3" hint="" file={form.bankStatement3} onChange={setFile('bankStatement3')} />
+          <FileDropZone label={`${f.month1} *`} hint={f.mostRecent} file={form.bankStatement1} onChange={setFile('bankStatement1')} dropHint={t.apply.dropHint} dropBrowse={t.apply.dropBrowse} />
+          <FileDropZone label={f.month2} hint="" file={form.bankStatement2} onChange={setFile('bankStatement2')} dropHint={t.apply.dropHint} dropBrowse={t.apply.dropBrowse} />
+          <FileDropZone label={f.month3} hint="" file={form.bankStatement3} onChange={setFile('bankStatement3')} dropHint={t.apply.dropHint} dropBrowse={t.apply.dropBrowse} />
         </div>
       </div>
     </div>
@@ -323,10 +255,11 @@ function Slide7({ form, set }: SlideProps) {
   return (
     <div className="space-y-6">
       <SelectField
-        label="Referred By *"
+        label={`${f.referredBy.label} *`}
         value={form.referredBy}
         onChange={set('referredBy')}
-        options={REFERRAL_OPTIONS}
+        options={f.referredBy.options}
+        placeholder={t.apply.selectPlaceholder}
         required
       />
       <div className="space-y-4 pt-4 border-t border-ff-border">
@@ -342,6 +275,7 @@ function Slide7({ form, set }: SlideProps) {
 const SLIDES = [Slide1, Slide2, Slide3, Slide4, Slide5, Slide6, Slide7] as const
 
 export default function ApplyForm() {
+  const { t } = useLanguage()
   const [form, setFormState] = useState<FormData>(EMPTY)
   const [cur, setCur] = useState(0)
   const [exiting, setExiting] = useState<number | null>(null)
@@ -400,15 +334,15 @@ export default function ApplyForm() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
           </div>
-          <h2 className="font-heading text-3xl font-extrabold text-white mb-3">Application Received!</h2>
+          <h2 className="font-heading text-3xl font-extrabold text-white mb-3">{t.apply.success.heading}</h2>
           <p className="text-ff-muted mb-8">
-            Our team will review your file and reach out within 24 hours. Welcome to {brandName}.
+            {t.apply.success.message} {brandName}.
           </p>
           <button
             onClick={() => { setSubmitted(false); setFormState(EMPTY); setCur(0) }}
             className="text-ff-accent text-sm underline underline-offset-4"
           >
-            Submit another application
+            {t.apply.success.again}
           </button>
         </motion.div>
       </div>
@@ -418,6 +352,7 @@ export default function ApplyForm() {
   const progress = ((cur + 1) / TOTAL) * 100
   const valid = slideValid(cur, form)
   const slideProps: SlideProps = { form, set, setFile }
+  const slideMeta = t.apply.slides
 
   return (
     <div className="no-snap">
@@ -430,7 +365,7 @@ export default function ApplyForm() {
         {SLIDES.map((SlideComp, idx) => {
           const isActive  = idx === cur
           const isExiting = idx === exiting
-          const meta = SLIDE_META[idx]
+          const meta = slideMeta[idx]
           return (
             <div
               key={idx}
@@ -473,7 +408,7 @@ export default function ApplyForm() {
                     disabled={cur === 0}
                     className="flex items-center gap-1.5 text-ff-muted hover:text-white transition-colors text-sm font-medium disabled:opacity-0 disabled:pointer-events-none"
                   >
-                    ‹ Back
+                    {t.apply.nav.back}
                   </button>
 
                   {cur < TOTAL - 1 ? (
@@ -483,7 +418,7 @@ export default function ApplyForm() {
                       disabled={!valid}
                       className="bg-ff-accent text-ff-bg font-bold text-sm px-7 py-3 rounded-xl hover:bg-ff-glow transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                     >
-                      Continue ›
+                      {t.apply.nav.continue}
                     </button>
                   ) : (
                     <button
@@ -492,17 +427,17 @@ export default function ApplyForm() {
                       disabled={!valid}
                       className="bg-ff-accent text-ff-bg font-bold text-sm px-7 py-3 rounded-xl hover:bg-ff-glow transition-colors disabled:opacity-40 disabled:cursor-not-allowed animate-pulse-glow"
                     >
-                      Submit Application
+                      {t.apply.nav.submit}
                     </button>
                   )}
                 </div>
 
                 {cur === TOTAL - 1 && (
                   <p className="text-ff-muted text-xs text-center mt-4">
-                    By submitting, you agree to our{' '}
-                    <a href="/terms" className="text-ff-accent underline underline-offset-2">Terms of Service</a>
-                    {' '}and{' '}
-                    <a href="/privacy" className="text-ff-accent underline underline-offset-2">Privacy Policy</a>.
+                    {t.apply.agreement}{' '}
+                    <a href="/terms" className="text-ff-accent underline underline-offset-2">{t.apply.termsLabel}</a>
+                    {' '}{t.apply.andWord}{' '}
+                    <a href="/privacy" className="text-ff-accent underline underline-offset-2">{t.apply.privacyLabel}</a>.
                   </p>
                 )}
 
@@ -557,12 +492,13 @@ function Field({
 }
 
 function SelectField({
-  label, value, onChange, options, required,
+  label, value, onChange, options, placeholder, required,
 }: {
   label: string
   value: string
   onChange: ChangeHandler
   options: readonly string[]
+  placeholder?: string
   required?: boolean
 }) {
   return (
@@ -575,7 +511,7 @@ function SelectField({
         className="bg-ff-bg border border-ff-border rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-ff-accent transition-colors appearance-none cursor-pointer"
         style={{ color: value ? '#fcfcfc' : '#8b8b8b' }}
       >
-        <option value="" disabled>Select an option</option>
+        <option value="" disabled>{placeholder ?? 'Select an option'}</option>
         {options.map((o) => (
           <option key={o} value={o} className="text-white bg-ff-surface">{o}</option>
         ))}
@@ -609,14 +545,16 @@ function ConsentCheckbox({
 }
 
 function FileDropZone({
-  label, hint, file, onChange, required, accept = '.pdf,.jpg,.jpeg,.png',
+  label, hint, file, onChange, accept = '.pdf,.jpg,.jpeg,.png',
+  dropHint, dropBrowse,
 }: {
   label: string
   hint?: string
   file: File | null
   onChange: (f: File | null) => void
-  required?: boolean
   accept?: string
+  dropHint: string
+  dropBrowse: string
 }) {
   const inputRef = useRef<HTMLInputElement>(null)
   const [dragging, setDragging] = useState(false)
@@ -670,7 +608,7 @@ function FileDropZone({
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
           </svg>
           <p className="text-ff-muted text-sm text-center">
-            Drop file here or <span className="text-ff-accent">browse</span>
+            {dropHint} <span className="text-ff-accent">{dropBrowse}</span>
           </p>
           {hint && <p className="text-ff-muted text-xs text-center">{hint}</p>}
         </div>
