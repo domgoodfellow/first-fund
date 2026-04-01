@@ -1,13 +1,13 @@
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
+import Navbar from '@/components/layout/Navbar'
+import Footer from '@/components/layout/Footer'
 
 export default function TermsPage() {
   return (
     <main>
       <Navbar />
-      <section className="pt-32 pb-20 px-4">
+      <section className="pt-12 pb-20 px-4">
         <div className="max-w-3xl mx-auto">
-          <h1 className="font-heading text-3xl md:text-4xl font-bold text-white mb-2">Terms of Service</h1>
+          <h1 className="font-heading text-3xl md:text-4xl font-bold text-ff-text mb-2">Terms of Service</h1>
           <p className="text-ff-muted text-sm mb-10">Effective Date: March 6, 2025</p>
 
           <div className="prose prose-invert prose-sm max-w-none text-ff-muted leading-relaxed space-y-6">
@@ -64,13 +64,13 @@ export default function TermsPage() {
               },
             ].map((section) => (
               <div key={section.title}>
-                <h2 className="font-heading text-white text-lg font-semibold mb-2">{section.title}</h2>
+                <h2 className="font-heading text-ff-text text-lg font-semibold mb-2">{section.title}</h2>
                 <p>{section.body}</p>
               </div>
             ))}
 
             <div>
-              <h2 className="font-heading text-white text-lg font-semibold mb-2">12. Contact Us</h2>
+              <h2 className="font-heading text-ff-text text-lg font-semibold mb-2">12. Contact Us</h2>
               <p>
                 Website:{' '}
                 <span className="text-ff-accent">www.firsfund.com</span>

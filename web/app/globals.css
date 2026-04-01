@@ -2,19 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ── FirstFund theme — red on navy ── */
+/* ── FirstFund theme — blue on white ── */
 :root {
-  --ff-bg:          #071E36;
-  --ff-surface:     #0A2B4E;
-  --ff-surface-alt: #0D3258;
-  --ff-raised:      #123A66;
-  --ff-dark-alt:    #123A66;
-  --ff-accent:      #B11313;
-  --ff-glow:        #CC1818;
-  --ff-text:        #fcfcfc;
-  --ff-muted:       #D9E2E7;
-  --ff-border:      #1A3F72;
-  --ff-accent-rgb:  177, 19, 19;
+  --ff-bg:            #FFFFFF;
+  --ff-surface:       #F8FAFC;
+  --ff-surface-alt:   #F1F5F9;
+  --ff-raised:        #EFF6FF;
+  --ff-brand-tint:    #DBEAFE;
+  --ff-dark-alt:      #0F1C2E;
+  --ff-accent:        #1E40AF;
+  --ff-glow:          #1D4ED8;
+  --ff-text:          #0F172A;
+  --ff-muted:         #64748B;
+  --ff-subtle:        #94A3B8;
+  --ff-border:        #E2E8F0;
+  --ff-border-strong: #CBD5E1;
+  --ff-border-blue:   #BFDBFE;
+  --ff-accent-rgb:    30, 64, 175;
 }
 
 @layer base {
@@ -22,27 +26,11 @@
     scroll-behavior: smooth;
   }
 
-  /* Scroll snap + section alignment — desktop only */
-  @media (min-width: 768px) {
-    html {
-      scroll-snap-type: y mandatory;
-      overflow-y: scroll;
-    }
-    html:has(.no-snap) {
-      scroll-snap-type: none;
-    }
-    .snap-section {
-      scroll-snap-align: start;
-      scroll-snap-stop: always;
-      overflow: hidden;
-      min-height: 100vh;
-    }
-  }
-
   body {
     @apply bg-ff-bg font-body antialiased;
-    color: #fcfcfc;
+    color: var(--ff-text);
   }
+
   h1, h2, h3, h4 {
     @apply font-heading;
   }
@@ -52,53 +40,59 @@
   .text-gradient {
     @apply bg-gradient-to-r from-ff-accent to-ff-glow bg-clip-text text-transparent;
   }
+
   .card-hover {
-    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    transition: box-shadow 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
   }
   .card-hover:hover {
-    box-shadow: 0 0 35px rgba(var(--ff-accent-rgb), 0.18);
+    box-shadow: 0 4px 20px rgba(var(--ff-accent-rgb), 0.12);
+    border-color: var(--ff-border-blue);
     transform: translateY(-4px);
   }
 
-  /* Responsive section container — single source of truth for content width.
-     Uses vw% + cap so it works at any Windows DPI scaling (100%, 125%, 150%).
-     Fixed-pixel breakpoints alone miss intermediate DPI-scaled resolutions. */
+  /* Responsive section container */
   .section-container {
     width: 100%;
     margin-left: auto;
     margin-right: auto;
-    max-width: 80rem; /* mobile default: up to 1280px */
+    max-width: 80rem;
   }
   @media (min-width: 768px) {
-    /* From tablet up: track 88% of viewport width, never exceeding 80rem (1280px).
-       At 1707px CSS (2560p × 150% DPI): 88vw = 1502px — much wider than fixed 1280px */
     .section-container { max-width: min(88vw, 80rem); }
   }
   @media (min-width: 1280px) {
-    /* Larger screens: allow up to 100rem (1600px) */
     .section-container { max-width: min(88vw, 100rem); }
   }
   @media (min-width: 1920px) {
-    /* Full HD and above: allow up to 120rem (1920px) */
     .section-container { max-width: min(85vw, 120rem); }
   }
 
-  /* Scale section padding with viewport HEIGHT so content fills tall sections
-     (e.g. 1440p where 100vh = 1440px) proportionally — prevents floating content.
-     Declared in @layer utilities so it wins over md:py-24 on the elements. */
-  @media (min-width: 768px) {
-    .snap-section {
-      padding-top:    clamp(3.5rem, 8vh, 10rem);
-      padding-bottom: clamp(3.5rem, 8vh, 10rem);
-    }
+  /* Section header pattern */
+  .eyebrow {
+    @apply text-ff-accent text-xs font-semibold uppercase tracking-[0.12em] mb-3 block;
   }
 
-  /* Scale section headings with viewport height so text fills taller sections */
-  @media (min-height: 1100px) {
-    .snap-section h2 { font-size: clamp(3rem, 4.5vh, 5rem); }
-    .snap-section h1 { font-size: clamp(3.5rem, 5.5vh, 7rem); }
+  /* Primary button */
+  .btn-primary {
+    @apply bg-ff-accent text-white font-semibold text-[15px] px-7 py-3.5 rounded-full
+           hover:bg-ff-glow shadow-[0_1px_3px_rgba(30,64,175,0.3)]
+           transition-all duration-200 inline-block;
   }
 
+  /* Secondary button */
+  .btn-secondary {
+    @apply bg-transparent border border-ff-border-strong text-ff-text font-semibold
+           text-[15px] px-7 py-3.5 rounded-full hover:border-ff-accent hover:text-ff-accent
+           transition-all duration-200 inline-block;
+  }
+
+  /* Standard card */
+  .card {
+    @apply bg-ff-bg border border-ff-border rounded-2xl p-6
+           shadow-[0_1px_4px_rgba(15,23,42,0.06)]
+           hover:shadow-[0_4px_20px_rgba(30,64,175,0.12)]
+           hover:border-ff-border-blue transition-all duration-300;
+  }
 }
 
 /* Infinite review carousel scroll */
@@ -107,12 +101,18 @@
   to   { transform: translateX(-50%); }
 }
 
+/* Shimmer sweep for badges */
+@keyframes shimmerSwipe {
+  0%   { transform: translateX(-100%) skewX(-15deg); }
+  100% { transform: translateX(250%) skewX(-15deg); }
+}
+
 /* Hero animated gradient orbs */
 .hero-orb-1 {
-  background: radial-gradient(circle, rgba(var(--ff-accent-rgb), 0.12) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(var(--ff-accent-rgb), 0.08) 0%, transparent 70%);
   filter: blur(60px);
 }
 .hero-orb-2 {
-  background: radial-gradient(circle, rgba(var(--ff-accent-rgb), 0.07) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(var(--ff-accent-rgb), 0.04) 0%, transparent 70%);
   filter: blur(80px);
 }

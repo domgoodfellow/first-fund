@@ -1,8 +1,8 @@
 'use client'
 
-import { motion } from 'framer-motion'
 import { useLanguage } from '@/contexts/LanguageContext'
 import ReviewCarousel from './ReviewCarousel'
+import BlurFade from '@/components/motion/BlurFade'
 
 function Stars({ count }: { count: number }) {
   return (
@@ -16,60 +16,23 @@ function Stars({ count }: { count: number }) {
   )
 }
 
-const header = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
-}
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
-}
-
 export default function Testimonials() {
   const { t } = useLanguage()
 
   return (
-    <section
-      id="testimonials"
-      className="snap-section min-h-screen flex flex-col justify-center py-14 md:py-24 bg-ff-bg"
-    >
+    <section id="testimonials" className="py-20 md:py-28 bg-ff-bg">
       <div className="section-container px-4 sm:px-6">
-        {/* Header */}
-        <motion.div
-          className="text-center mb-14"
-          variants={header}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: false, amount: 0.6, margin: '0px 0px -60px 0px' }}
-        >
-          <span className="text-ff-accent text-xs font-semibold uppercase tracking-widest mb-3 block">
-            {t.testimonials.sectionLabel}
-          </span>
-          <h2 className="font-heading text-4xl md:text-5xl font-extrabold text-white">
+        <BlurFade className="text-center mb-14">
+          <span className="eyebrow">{t.testimonials.sectionLabel}</span>
+          <h2 className="font-heading text-3xl md:text-5xl font-bold text-ff-text">
             {t.testimonials.heading}
           </h2>
-        </motion.div>
+        </BlurFade>
 
-        {/* Carousel */}
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: false, amount: 0.3, margin: '0px 0px -60px 0px' }}
-        >
-          <ReviewCarousel />
-        </motion.div>
+        <ReviewCarousel />
 
-        {/* Google rating badge */}
-        <motion.div
-          className="mt-14 flex justify-center"
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: false, amount: 0.6, margin: '0px 0px -60px 0px' }}
-        >
-          <div className="inline-flex items-center gap-3 bg-ff-surface border border-ff-border rounded-full px-6 py-3">
+        <BlurFade className="mt-14 flex justify-center" delay={0.2}>
+          <div className="inline-flex items-center gap-3 bg-ff-bg border border-ff-border rounded-full px-6 py-3 shadow-[0_1px_4px_rgba(15,23,42,0.06)]">
             <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none">
               <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
               <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
@@ -78,11 +41,11 @@ export default function Testimonials() {
             </svg>
             <div className="flex items-center gap-1.5">
               <Stars count={5} />
-              <span className="text-white font-semibold text-sm">5.0</span>
+              <span className="text-ff-text font-semibold text-sm">5.0</span>
               <span className="text-ff-muted text-xs">on Google</span>
             </div>
           </div>
-        </motion.div>
+        </BlurFade>
       </div>
     </section>
   )

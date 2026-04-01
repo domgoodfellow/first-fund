@@ -1,8 +1,9 @@
 'use client'
 
-import { useState, useEffect, useCallback, useRef } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { motion } from 'framer-motion'
 import { useLanguage, brandName } from '@/contexts/LanguageContext'
+import { Field, SelectField, ConsentCheckbox, FileDropZone } from './FormPrimitives'
 
 /* ─── CONSTANTS ──────────────────────────────────────────── */
 
@@ -232,7 +233,7 @@ function Slide6({ form, setFile }: SlideProps) {
         dropBrowse={t.apply.dropBrowse}
       />
       <div>
-        <p className="text-white text-sm font-medium mb-3">
+        <p className="text-ff-text text-sm font-medium mb-3">
           {f.bankStatements}{' '}
           <span className="text-ff-accent">*</span>
           <span className="text-ff-muted font-normal ml-2 text-xs">{f.bankStatementsNote}</span>
@@ -323,7 +324,7 @@ export default function ApplyForm() {
 
   if (submitted) {
     return (
-      <div className="no-snap bg-ff-bg fixed inset-0 flex items-center justify-center" style={{ top: 64 }}>
+      <div className="no-snap bg-ff-bg fixed inset-0 flex items-center justify-center" style={{ top: 84 }}>
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -334,7 +335,7 @@ export default function ApplyForm() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
           </div>
-          <h2 className="font-heading text-3xl font-extrabold text-white mb-3">{t.apply.success.heading}</h2>
+          <h2 className="font-heading text-3xl font-extrabold text-ff-text mb-3">{t.apply.success.heading}</h2>
           <p className="text-ff-muted mb-8">
             {t.apply.success.message} {brandName}.
           </p>
@@ -360,7 +361,7 @@ export default function ApplyForm() {
       {/* ── Slides container — fixed below the navbar ── */}
       <div
         className="fixed bg-ff-bg overflow-hidden"
-        style={{ top: 64, left: 0, right: 0, bottom: 0 }}
+        style={{ top: 84, left: 0, right: 0, bottom: 0 }}
       >
         {SLIDES.map((SlideComp, idx) => {
           const isActive  = idx === cur
@@ -389,7 +390,7 @@ export default function ApplyForm() {
                   <p className="text-ff-muted text-xs font-mono tracking-widest uppercase mb-3">
                     {meta.eyebrow}
                   </p>
-                  <h1 className="font-heading text-3xl md:text-4xl font-extrabold text-white mb-2 whitespace-pre-line">
+                  <h1 className="font-heading text-3xl md:text-4xl font-extrabold text-ff-text mb-2 whitespace-pre-line">
                     {meta.heading}
                   </h1>
                   <p className="text-ff-muted text-sm">{meta.sub}</p>
@@ -406,7 +407,7 @@ export default function ApplyForm() {
                     type="button"
                     onClick={() => go(-1)}
                     disabled={cur === 0}
-                    className="flex items-center gap-1.5 text-ff-muted hover:text-white transition-colors text-sm font-medium disabled:opacity-0 disabled:pointer-events-none"
+                    className="flex items-center gap-1.5 text-ff-muted hover:text-ff-text transition-colors text-sm font-medium disabled:opacity-0 disabled:pointer-events-none"
                   >
                     {t.apply.nav.back}
                   </button>
@@ -416,7 +417,7 @@ export default function ApplyForm() {
                       type="button"
                       onClick={() => go(1)}
                       disabled={!valid}
-                      className="bg-ff-accent text-ff-bg font-bold text-sm px-7 py-3 rounded-xl hover:bg-ff-glow transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                      className="bg-ff-accent text-white font-bold text-sm px-7 py-3 rounded-xl hover:bg-ff-glow transition-colors disabled:opacity-40 disabled:cursor-not-allowed shadow-[0_1px_3px_rgba(30,64,175,0.3)]"
                     >
                       {t.apply.nav.continue}
                     </button>
@@ -425,7 +426,7 @@ export default function ApplyForm() {
                       type="button"
                       onClick={handleSubmit}
                       disabled={!valid}
-                      className="bg-ff-accent text-ff-bg font-bold text-sm px-7 py-3 rounded-xl hover:bg-ff-glow transition-colors disabled:opacity-40 disabled:cursor-not-allowed animate-pulse-glow"
+                      className="bg-ff-accent text-white font-bold text-sm px-7 py-3 rounded-xl hover:bg-ff-glow transition-colors disabled:opacity-40 disabled:cursor-not-allowed shadow-[0_1px_3px_rgba(30,64,175,0.3)]"
                     >
                       {t.apply.nav.submit}
                     </button>
@@ -463,163 +464,3 @@ export default function ApplyForm() {
   )
 }
 
-/* ─── PRIMITIVES ─────────────────────────────────────────── */
-
-function Field({
-  label, value, onChange, type = 'text', placeholder, required,
-}: {
-  label: string
-  value: string
-  onChange: ChangeHandler
-  type?: string
-  placeholder?: string
-  required?: boolean
-}) {
-  return (
-    <div className="flex flex-col gap-1.5">
-      <label className="text-white text-sm font-medium">{label}</label>
-      <input
-        type={type}
-        value={value}
-        onChange={onChange}
-        placeholder={placeholder}
-        required={required}
-        className="bg-ff-bg border border-ff-border rounded-lg px-4 py-3 text-white placeholder:text-ff-muted text-sm focus:outline-none focus:border-ff-accent transition-colors"
-        style={type === 'date' ? { colorScheme: 'dark' } : undefined}
-      />
-    </div>
-  )
-}
-
-function SelectField({
-  label, value, onChange, options, placeholder, required,
-}: {
-  label: string
-  value: string
-  onChange: ChangeHandler
-  options: readonly string[]
-  placeholder?: string
-  required?: boolean
-}) {
-  return (
-    <div className="flex flex-col gap-1.5">
-      <label className="text-white text-sm font-medium">{label}</label>
-      <select
-        value={value}
-        onChange={onChange}
-        required={required}
-        className="bg-ff-bg border border-ff-border rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-ff-accent transition-colors appearance-none cursor-pointer"
-        style={{ color: value ? '#fcfcfc' : '#8b8b8b' }}
-      >
-        <option value="" disabled>{placeholder ?? 'Select an option'}</option>
-        {options.map((o) => (
-          <option key={o} value={o} className="text-white bg-ff-surface">{o}</option>
-        ))}
-      </select>
-    </div>
-  )
-}
-
-function ConsentCheckbox({
-  id, checked, onChange, label,
-}: {
-  id: string
-  checked: boolean
-  onChange: ChangeHandler
-  label: string
-}) {
-  return (
-    <label htmlFor={id} className="flex gap-3 cursor-pointer group">
-      <input
-        id={id}
-        type="checkbox"
-        checked={checked}
-        onChange={onChange}
-        className="mt-0.5 w-4 h-4 shrink-0 rounded border-ff-border bg-ff-bg accent-ff-accent cursor-pointer"
-      />
-      <span className="text-ff-muted text-xs leading-relaxed group-hover:text-white transition-colors">
-        {label}
-      </span>
-    </label>
-  )
-}
-
-function FileDropZone({
-  label, hint, file, onChange, accept = '.pdf,.jpg,.jpeg,.png',
-  dropHint, dropBrowse,
-}: {
-  label: string
-  hint?: string
-  file: File | null
-  onChange: (f: File | null) => void
-  accept?: string
-  dropHint: string
-  dropBrowse: string
-}) {
-  const inputRef = useRef<HTMLInputElement>(null)
-  const [dragging, setDragging] = useState(false)
-
-  const handleDrop = (e: React.DragEvent) => {
-    e.preventDefault()
-    setDragging(false)
-    const f = e.dataTransfer.files[0]
-    if (f) onChange(f)
-  }
-
-  const fmtSize = (bytes: number) => {
-    if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(0)} KB`
-    return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
-  }
-
-  return (
-    <div className="flex flex-col gap-1.5">
-      <label className="text-white text-sm font-medium">{label}</label>
-      {file ? (
-        <div className="flex items-center gap-3 bg-ff-bg border border-ff-accent rounded-lg px-4 py-3">
-          <svg className="w-5 h-5 text-ff-accent shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-          </svg>
-          <div className="flex-1 min-w-0">
-            <p className="text-white text-sm truncate">{file.name}</p>
-            <p className="text-ff-muted text-xs">{fmtSize(file.size)}</p>
-          </div>
-          <button
-            type="button"
-            onClick={() => onChange(null)}
-            className="text-ff-muted hover:text-white transition-colors ml-1 shrink-0 text-sm"
-            aria-label="Remove file"
-          >
-            ✕
-          </button>
-        </div>
-      ) : (
-        <div
-          onClick={() => inputRef.current?.click()}
-          onDragOver={(e) => { e.preventDefault(); setDragging(true) }}
-          onDragLeave={() => setDragging(false)}
-          onDrop={handleDrop}
-          className={`border-2 border-dashed rounded-lg px-4 py-6 flex flex-col items-center gap-2 cursor-pointer transition-colors ${
-            dragging
-              ? 'border-ff-accent bg-ff-surface'
-              : 'border-ff-border hover:border-ff-accent hover:bg-ff-surface/40'
-          }`}
-        >
-          <svg className="w-7 h-7 text-ff-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-          </svg>
-          <p className="text-ff-muted text-sm text-center">
-            {dropHint} <span className="text-ff-accent">{dropBrowse}</span>
-          </p>
-          {hint && <p className="text-ff-muted text-xs text-center">{hint}</p>}
-        </div>
-      )}
-      <input
-        ref={inputRef}
-        type="file"
-        accept={accept}
-        className="hidden"
-        onChange={(e) => onChange(e.target.files?.[0] ?? null)}
-      />
-    </div>
-  )
-}

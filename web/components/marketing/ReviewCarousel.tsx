@@ -54,7 +54,7 @@ const reviews: Review[] = [
     date: '5 months ago',
     rating: 5,
     content:
-      'FirsFund possesses deep knowledge of the market and clearly explained all my options, ensuring I understood the pros and cons of each choice. I felt confident that the strategy we chose was genuinely tailored to my specific financial goals.',
+      'FirstFund possesses deep knowledge of the market and clearly explained all my options, ensuring I understood the pros and cons of each choice. I felt confident that the strategy we chose was genuinely tailored to my specific financial goals.',
   },
   {
     id: 12,
@@ -63,7 +63,7 @@ const reviews: Review[] = [
     date: '7 months ago',
     rating: 5,
     content:
-      "I had an exceptional experience with FirsFund! They helped me secure business financing incredibly quickly and at a very competitive rate. The process was smooth, straightforward, and professional from start to finish.",
+      "I had an exceptional experience with FirstFund! They helped me secure business financing incredibly quickly and at a very competitive rate. The process was smooth, straightforward, and professional from start to finish.",
   },
   {
     id: 13,
@@ -72,7 +72,7 @@ const reviews: Review[] = [
     date: '5 months ago',
     rating: 5,
     content:
-      "I see some mixed reviews here, but I'd like to share that my personal experience with FirsFund was excellent. All the paperwork was completed on time and handled exactly as expected.",
+      "I see some mixed reviews here, but I'd like to share that my personal experience with FirstFund was excellent. All the paperwork was completed on time and handled exactly as expected.",
   },
   {
     id: 15,
@@ -85,7 +85,6 @@ const reviews: Review[] = [
   },
 ]
 
-// Duplicate so the loop is seamless
 const TRACK = [...reviews, ...reviews]
 
 function Stars({ count }: { count: number }) {
@@ -120,28 +119,25 @@ export default function ReviewCarousel() {
         {TRACK.map((review, idx) => (
           <div
             key={idx}
-            className="w-[340px] 3xl:w-[380px] 4xl:w-[420px] shrink-0 bg-ff-surface border border-ff-border rounded-2xl p-6 flex flex-col"
+            className="w-[340px] 3xl:w-[380px] 4xl:w-[420px] shrink-0 bg-ff-bg border border-ff-border rounded-2xl p-6 flex flex-col shadow-[0_1px_4px_rgba(15,23,42,0.04)] hover:border-ff-border-blue hover:shadow-[0_4px_16px_rgba(30,64,175,0.08)] transition-all duration-300"
           >
-            {/* Stars + quote icon */}
             <div className="flex items-center justify-between mb-4">
               <Stars count={review.rating} />
-              <svg className="w-6 h-6 text-ff-accent/25" fill="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6 text-ff-accent/20" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
               </svg>
             </div>
 
-            {/* Review text */}
-            <p className="text-[#fcfcfc] text-sm leading-relaxed flex-1 line-clamp-4">
+            <p className="text-ff-text text-sm leading-relaxed flex-1 line-clamp-4">
               &ldquo;{review.content}&rdquo;
             </p>
 
-            {/* Author */}
             <div className="mt-5 pt-4 border-t border-ff-border">
-              <div className="font-heading font-semibold text-white text-sm">{review.name}</div>
+              <div className="font-heading font-semibold text-ff-text text-sm">{review.name}</div>
               {review.title && (
                 <div className="text-ff-muted text-xs mt-0.5">{review.title}</div>
               )}
-              <div className="text-ff-muted text-xs mt-1">{review.date}</div>
+              <div className="text-ff-subtle text-xs mt-1">{review.date}</div>
             </div>
           </div>
         ))}

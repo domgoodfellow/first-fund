@@ -34,7 +34,7 @@ export const translations = {
     services: {
       sectionLabel: 'Our Products',
       heading: 'Financing Built Around Your Business',
-      sub: 'One application, four powerful options — pick the structure that fits your cash flow.',
+      sub: 'One application, six powerful options — pick the structure that fits your cash flow.',
       items: [
         { title: 'Merchant Cash Advance', abbr: 'MCA', desc: 'Flexible funding repaid through a small percentage of your daily debit and credit card sales. Repayment moves with your revenue — busy months pay more, slow months less.', badge: 'Most Flexible' },
         { title: 'Line of Credit', abbr: 'LOC', desc: 'Ongoing access to capital whenever you need it. Draw only what you use, repay on your schedule, and draw again. Perfect for managing cash flow gaps.', badge: 'Most Popular' },
