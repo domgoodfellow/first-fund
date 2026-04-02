@@ -27,9 +27,11 @@ interface NavItemProps {
   onLeave: () => void
   onClick?: () => void
   children?: React.ReactNode
+  dropdownNote?: string
+  compareAll?: string
 }
 
-function NavItem({ label, href, isActive, onHover, onLeave, onClick, children }: NavItemProps) {
+function NavItem({ label, href, isActive, onHover, onLeave, onClick, children, dropdownNote, compareAll }: NavItemProps) {
   const [dropOpen, setDropOpen] = useState(false)
   const hasChildren = !!children
   const timerRef = useRef<NodeJS.Timeout | null>(null)
@@ -110,13 +112,13 @@ function NavItem({ label, href, isActive, onHover, onLeave, onClick, children }:
                 ))}
               </div>
               <div className="border-t border-ff-border px-4 py-3 flex items-center justify-between bg-ff-surface">
-                <span className="text-ff-muted text-xs">One application covers all products</span>
+                <span className="text-ff-muted text-xs">{dropdownNote}</span>
                 <Link
                   href="/services"
                   onClick={() => setDropOpen(false)}
                   className="text-ff-accent text-xs font-semibold hover:underline"
                 >
-                  Compare all →
+                  {compareAll}
                 </Link>
               </div>
             </motion.div>
@@ -175,31 +177,33 @@ export default function Navbar() {
                 </AnimatePresence>
 
                 <NavItem
-                  label="About"
+                  label={t.nav.about}
                   href="/about"
                   isActive={isActive('/about')}
                   onHover={() => setHoveredItem('about')}
                   onLeave={() => setHoveredItem(null)}
                 />
                 <NavItem
-                  label="Services"
+                  label={t.nav.services}
                   href="/services"
                   isActive={isActive('/services')}
                   onHover={() => setHoveredItem('services')}
                   onLeave={() => setHoveredItem(null)}
+                  dropdownNote={t.nav.dropdownNote}
+                  compareAll={t.nav.compareAll}
                 >
                   {/* children presence triggers dropdown mode */}
                   <span />
                 </NavItem>
                 <NavItem
-                  label="FAQ"
+                  label={t.nav.faq}
                   href="/faq"
                   isActive={isActive('/faq')}
                   onHover={() => setHoveredItem('faq')}
                   onLeave={() => setHoveredItem(null)}
                 />
                 <NavItem
-                  label="Contact"
+                  label={t.nav.contact}
                   href="/contact"
                   isActive={isActive('/contact')}
                   onHover={() => setHoveredItem('contact')}
@@ -233,7 +237,7 @@ export default function Navbar() {
                     href="/book-a-call"
                     className="text-ff-text text-sm font-semibold border border-ff-border-strong px-4 py-2 rounded-xl hover:border-ff-accent hover:text-ff-accent transition-all"
                   >
-                    Book a Call
+                    {t.nav.bookACall}
                   </Link>
                   <Link
                     href="/apply"
@@ -279,7 +283,7 @@ export default function Navbar() {
                         className={`px-4 py-2.5 rounded-xl text-sm font-semibold transition-colors ${isActive('/about') ? 'bg-ff-raised text-ff-accent' : 'text-ff-text hover:bg-ff-surface'}`}
                         onClick={() => setMenuOpen(false)}
                       >
-                        About
+                        {t.nav.about}
                       </Link>
 
                       {/* Services accordion */}
@@ -288,7 +292,7 @@ export default function Navbar() {
                           onClick={() => setMobileServicesOpen((v) => !v)}
                           className={`w-full flex items-center justify-between px-4 py-2.5 rounded-xl text-sm font-semibold transition-colors ${isActive('/services') ? 'bg-ff-raised text-ff-accent' : 'text-ff-text hover:bg-ff-surface'}`}
                         >
-                          Services
+                          {t.nav.services}
                           <motion.svg
                             animate={{ rotate: mobileServicesOpen ? 180 : 0 }}
                             transition={{ duration: 0.2 }}
@@ -331,14 +335,14 @@ export default function Navbar() {
                         className={`px-4 py-2.5 rounded-xl text-sm font-semibold transition-colors ${isActive('/faq') ? 'bg-ff-raised text-ff-accent' : 'text-ff-text hover:bg-ff-surface'}`}
                         onClick={() => setMenuOpen(false)}
                       >
-                        FAQ
+                        {t.nav.faq}
                       </Link>
                       <Link
                         href="/contact"
                         className={`px-4 py-2.5 rounded-xl text-sm font-semibold transition-colors ${isActive('/contact') ? 'bg-ff-raised text-ff-accent' : 'text-ff-text hover:bg-ff-surface'}`}
                         onClick={() => setMenuOpen(false)}
                       >
-                        Contact
+                        {t.nav.contact}
                       </Link>
                     </>
                   )}
@@ -347,7 +351,7 @@ export default function Navbar() {
 
                   {/* Language */}
                   <div className="flex items-center gap-2 px-2">
-                    <span className="text-ff-muted text-xs font-medium">Language:</span>
+                    <span className="text-ff-muted text-xs font-medium">{t.nav.language}</span>
                     {availableLangs.map((lang) => (
                       <button
                         key={lang}
@@ -370,7 +374,7 @@ export default function Navbar() {
                         className="flex-1 border border-ff-border-strong text-ff-text font-semibold text-sm py-2.5 rounded-xl text-center hover:border-ff-accent hover:text-ff-accent transition-colors"
                         onClick={() => setMenuOpen(false)}
                       >
-                        Book a Call
+                        {t.nav.bookACall}
                       </Link>
                       <Link
                         href="/apply"

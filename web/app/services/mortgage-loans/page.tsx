@@ -6,7 +6,7 @@ export const metadata = {
   description: 'Access larger capital amounts through your home equity at expedited speeds. Approvals in 3–5 days.',
 }
 
-const data: ServicePageData = {
+const enData: ServicePageData = {
   badge: 'Largest Amounts',
   title: 'Mortgage\nLoans',
   subtitle: 'Tap into your home equity to unlock larger capital amounts at speeds traditional lenders cannot match.',
@@ -68,6 +68,43 @@ const data: ServicePageData = {
   ],
 }
 
+const esData: ServicePageData = {
+  badge: 'Mayores montos',
+  title: 'Préstamos\nHipotecarios',
+  subtitle: 'Aprovecha el valor de tu propiedad para desbloquear montos de capital más grandes a velocidades que los prestamistas tradicionales no pueden igualar.',
+  overview: 'Nuestro producto de Préstamo Hipotecario permite a los dueños de negocios aprovechar el capital acumulado en su propiedad residencial o comercial para acceder a capital significativo. A diferencia de las hipotecas bancarias que tardan meses, nos movemos a la velocidad que tu negocio exige — con términos transparentes y un proceso simplificado diseñado para emprendedores.',
+  bestFor: [
+    'Dueños de negocios con valor acumulado en propiedades',
+    'Expansiones a gran escala que requieren $250K+',
+    'Compras de equipo o infraestructura de gran escala',
+    'Adquisiciones o inversiones inmobiliarias',
+    'Dueños que quieren tasas más bajas a cambio de garantía',
+    'Necesidades de capital a largo plazo con pago predecible',
+  ],
+  benefits: [
+    { label: 'Mayores montos disponibles', desc: 'Accede hasta $800K — mucho más de lo que permiten los productos sin garantía.' },
+    { label: 'Procesamiento expedito', desc: 'Nos movemos más rápido que los prestamistas tradicionales — decisiones en 3–5 días hábiles.' },
+    { label: 'Pagos mensuales fijos', desc: 'Calendario de pago predecible que simplifica la presupuestación.' },
+    { label: 'Tasas competitivas', desc: 'Los productos con garantía generalmente tienen tasas más bajas que las alternativas sin garantía.' },
+    { label: 'Todos los perfiles de crédito', desc: 'El financiamiento basado en capital da más flexibilidad en los requisitos crediticios.' },
+    { label: 'Usa la propiedad que ya tienes', desc: 'Convierte el capital inactivo en capital de trabajo sin vender tu propiedad.' },
+  ],
+  useCases: [
+    'Abrir una segunda o tercera ubicación del negocio',
+    'Comprar bienes raíces comerciales para tu negocio',
+    'Adquisición de equipo a gran escala o mejoras de instalaciones',
+    'Adquirir un competidor o socio comercial',
+    'Proyectos de renovación o construcción a gran escala',
+  ],
+  faqItems: [
+    { question: '¿Qué tipo de propiedad puedo usar?', answer: 'Tanto las propiedades residenciales como las comerciales son elegibles, siempre que tengas suficiente capital acumulado. Nuestro equipo lo evaluará durante la revisión de la solicitud.' },
+    { question: '¿Cuánto tiempo tarda la aprobación?', answer: 'Los Préstamos Hipotecarios tardan 3–5 días hábiles debido a la verificación de la propiedad — aún significativamente más rápido que los prestamistas tradicionales que pueden tardar semanas o meses.' },
+    { question: '¿Cuál es el monto máximo del préstamo?', answer: 'Hasta $800,000 dependiendo de tu posición de capital y perfil empresarial.' },
+    { question: '¿Es importante mi calificación crediticia?', answer: 'Se considera, pero tu posición de capital tiene un peso significativo. Trabajamos con todos los perfiles de crédito.' },
+    { question: '¿Qué pasa si ya tengo una hipoteca sobre mi propiedad?', answer: 'Las hipotecas existentes reducen el capital disponible pero no te descalifican automáticamente. Nuestro equipo calculará tu capital utilizable durante la revisión.' },
+  ],
+}
+
 export default function MortgagePage() {
-  return <ServicePageTemplate data={data} />
+  return <ServicePageTemplate en={enData} es={esData} />
 }

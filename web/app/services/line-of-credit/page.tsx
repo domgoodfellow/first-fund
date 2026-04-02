@@ -6,7 +6,7 @@ export const metadata = {
   description: 'Ongoing access to business credit — draw what you need, repay, and draw again. Approvals in 24–48 hours.',
 }
 
-const data: ServicePageData = {
+const enData: ServicePageData = {
   badge: 'Most Popular',
   title: 'Line of\nCredit',
   subtitle: 'Revolving access to capital — draw what you need, when you need it, and only pay for what you use.',
@@ -70,6 +70,44 @@ const data: ServicePageData = {
   ],
 }
 
+const esData: ServicePageData = {
+  badge: 'Más popular',
+  title: 'Línea de\nCrédito',
+  subtitle: 'Acceso revolvente a capital — retira lo que necesitas, cuando lo necesitas, y solo paga por lo que usas.',
+  overview: 'Una Línea de Crédito Empresarial te da un límite de crédito preaprobado del que puedes retirar en cualquier momento. A diferencia de un préstamo de suma global, solo pagas intereses sobre el monto que realmente usas. Una vez pagado, los fondos están disponibles nuevamente — convirtiéndola en la herramienta de financiamiento continuo más flexible para negocios activos.',
+  accessNote: 'Una vez aprobado, puedes retirar fondos de inmediato hasta tu límite de crédito. A medida que pagas, tu saldo disponible se restablece. Esta estructura revolvente significa que siempre tienes capital disponible sin volver a aplicar.',
+  bestFor: [
+    'Negocios con necesidades de flujo de caja continuas o impredecibles',
+    'Dueños que quieren capital disponible, no una suma global',
+    'Gestión de desfases de facturas o pagos tardíos de clientes',
+    'Cubrir gastos operativos entre períodos de alta demanda',
+    'Negocios que quieren pagar intereses solo sobre lo que usan',
+    'Empresas con gastos variables recurrentes',
+  ],
+  benefits: [
+    { label: 'Acceso revolvente', desc: 'Retira, paga y vuelve a retirar — tu crédito se restablece a medida que lo pagas.' },
+    { label: 'Paga solo por lo que usas', desc: 'Los intereses se acumulan solo sobre tu saldo retirado — no sobre el límite completo.' },
+    { label: 'Aprobación rápida', desc: 'Decisiones en 24–48 horas para que tengas acceso al capital antes de que lo necesites.' },
+    { label: 'Sin garantía', desc: 'La mayoría de las líneas de crédito son sin garantía — sin activos requeridos.' },
+    { label: 'Todos los perfiles de crédito', desc: 'Evaluamos el rendimiento de tu negocio, no solo tu calificación crediticia personal.' },
+    { label: 'Calendario de retiro flexible', desc: 'Sin calendario fijo para retirar o pagar — úsala cuando tu negocio lo necesite.' },
+  ],
+  useCases: [
+    'Cubrir nómina u overhead operativo durante un mes lento',
+    'Cubrir el desfase entre entregar un proyecto y recibir el pago',
+    'Abastecerse de inventario antes de una temporada alta',
+    'Manejar gastos inesperados sin interrumpir el flujo de caja',
+    'Ejecutar una campaña de marketing o promoción cuando surge la oportunidad',
+  ],
+  faqItems: [
+    { question: '¿En qué se diferencia una línea de crédito de un préstamo?', answer: 'Un préstamo te da una suma global que se paga en un calendario fijo. Una línea de crédito te permite retirar fondos repetidamente hasta un límite, pagando intereses solo sobre lo que usas.' },
+    { question: '¿Puedo retirar tantas veces como quiera?', answer: 'Sí. Mientras tengas saldo disponible, puedes retirar con la frecuencia necesaria — sin necesidad de volver a aplicar.' },
+    { question: '¿Cuál es el límite máximo de crédito?', answer: 'Las líneas de crédito en First Fund llegan hasta $250,000, según los ingresos y la salud financiera de tu negocio.' },
+    { question: '¿Pago intereses si nunca retiro?', answer: 'No. Los intereses solo se acumulan sobre los montos retirados pendientes. Si tu saldo es $0, no hay costo.' },
+    { question: '¿Qué tan rápido puedo acceder a fondos después de la aprobación?', answer: 'Una vez establecida tu línea, los retiros generalmente se procesan el mismo día hábil.' },
+  ],
+}
+
 export default function LOCPage() {
-  return <ServicePageTemplate data={data} />
+  return <ServicePageTemplate en={enData} es={esData} />
 }

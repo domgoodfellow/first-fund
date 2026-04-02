@@ -6,7 +6,7 @@ export const metadata = {
   description: 'Flexible funding repaid through a percentage of your daily card sales. Approvals in 24–48 hours, no collateral required.',
 }
 
-const data: ServicePageData = {
+const enData: ServicePageData = {
   badge: 'Most Flexible',
   title: 'Merchant Cash\nAdvance',
   subtitle: 'Flexible funding that repays itself through your daily revenue — no fixed payments, no stress on slow months.',
@@ -70,6 +70,44 @@ const data: ServicePageData = {
   ],
 }
 
+const esData: ServicePageData = {
+  badge: 'Más flexible',
+  title: 'Adelanto de\nEfectivo',
+  subtitle: 'Financiamiento flexible que se paga solo a través de tus ingresos diarios — sin pagos fijos, sin estrés en meses lentos.',
+  overview: 'Un Adelanto de Efectivo (MCA) le da a tu negocio una suma de capital a cambio de un porcentaje de tus futuras ventas diarias con tarjeta de débito y crédito. A diferencia de un préstamo tradicional, no hay pagos mensuales fijos — el pago se ajusta automáticamente a tus ingresos.',
+  repaymentNote: 'Un pequeño porcentaje fijo (llamado tasa de factor) de tus transacciones diarias con tarjeta se remite para pagar el adelanto. En días de altos ingresos pagas más; en días lentos, menos. Esto lo hace ideal para negocios estacionales o con ingresos variables.',
+  bestFor: [
+    'Negocios con ventas diarias consistentes con tarjeta',
+    'Negocios estacionales con fluctuaciones de ingresos',
+    'Dueños que prefieren pagos flexibles — no fijos',
+    'Oportunidades que no pueden esperar semanas',
+    'Negocios con historial crediticio imperfecto',
+    'Comercio minorista, restaurantes y negocios de servicios',
+  ],
+  benefits: [
+    { label: 'Aprobación en 24–48 horas', desc: 'Obtén fondos rápido — nuestro equipo revisa tu solicitud en uno o dos días hábiles.' },
+    { label: 'Pago basado en ingresos', desc: 'Los pagos se adaptan a tus ventas. Sin carga fija en meses lentos.' },
+    { label: 'Sin garantía requerida', desc: 'Tus ventas futuras son el único respaldo necesario — sin activos en riesgo.' },
+    { label: 'Todos los perfiles de crédito', desc: 'Evaluamos el flujo de caja de tu negocio — no solo una calificación crediticia.' },
+    { label: 'Papeleo mínimo', desc: 'Una solicitud corta. Sin planes de negocio ni proyecciones financieras extensas.' },
+    { label: 'Costos transparentes', desc: 'Tasa de factor clara desde el inicio — sin cargos ocultos ni sorpresas.' },
+  ],
+  useCases: [
+    'Cubrir nómina o costos operativos durante una temporada lenta',
+    'Comprar inventario antes de un período de alta demanda',
+    'Financiar una campaña de marketing o promoción',
+    'Cubrir un desfase de flujo de caja entre facturas grandes de clientes',
+    'Actualizar equipo sin interrumpir las operaciones',
+  ],
+  faqItems: [
+    { question: '¿Qué es una tasa de factor?', answer: 'Una tasa de factor (ej. 1.2–1.5) se multiplica por tu monto de adelanto para determinar el pago total. Por ejemplo, un adelanto de $100,000 a 1.3 = $130,000 en pago total a través de ventas diarias.' },
+    { question: '¿Hay un período de pago fijo?', answer: 'No. El pago depende del volumen de tus ventas. Más ventas = pago más rápido. No hay fecha de término fija.' },
+    { question: '¿Necesito buen crédito para calificar?', answer: 'No. Miramos el volumen de tus ventas diarias con tarjeta y el historial del negocio — no una calificación crediticia.' },
+    { question: '¿Cuánto puedo obtener?', answer: 'Los MCA en First Fund pueden llegar hasta $500,000, dependiendo de tus ventas mensuales promedio con tarjeta.' },
+    { question: '¿Cuánto tiempo tarda el financiamiento?', answer: 'La mayoría de los solicitantes son aprobados en 24–48 horas y reciben fondos el mismo día hábil o al siguiente después de aceptar.' },
+  ],
+}
+
 export default function MCAPage() {
-  return <ServicePageTemplate data={data} />
+  return <ServicePageTemplate en={enData} es={esData} />
 }

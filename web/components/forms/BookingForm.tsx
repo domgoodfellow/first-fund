@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import BlurFade from '@/components/motion/BlurFade'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 interface FormState {
   fullName: string
@@ -13,10 +14,10 @@ interface FormState {
   notes: string
 }
 
-const FUNDING_GOALS = ['$10,000 – $50,000', '$50,000 – $150,000', '$150,000 – $500,000', '$500,000+', 'Not sure yet']
-const CALL_TIMES = ['Morning (9am – 12pm)', 'Afternoon (12pm – 3pm)', 'Late Afternoon (3pm – 6pm)', 'Flexible']
-
 export default function BookingForm() {
+  const { t } = useLanguage()
+  const f = t.bookACallPage.form
+
   const [form, setForm] = useState<FormState>({
     fullName: '', businessName: '', email: '', phone: '',
     fundingGoal: '', callTime: '', notes: '',
@@ -42,15 +43,13 @@ export default function BookingForm() {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
         </div>
-        <h3 className="font-heading text-2xl font-bold text-ff-text mb-2">You are booked in!</h3>
-        <p className="text-ff-muted text-sm mb-6">
-          Our team will reach out to confirm your call time within a few hours. Check your email for next steps.
-        </p>
+        <h3 className="font-heading text-2xl font-bold text-ff-text mb-2">{f.successHeading}</h3>
+        <p className="text-ff-muted text-sm mb-6">{f.successMessage}</p>
         <button
           onClick={() => { setSubmitted(false); setForm({ fullName: '', businessName: '', email: '', phone: '', fundingGoal: '', callTime: '', notes: '' }) }}
           className="text-ff-accent text-sm hover:underline"
         >
-          Submit another request
+          {f.submitAnother}
         </button>
       </BlurFade>
     )
@@ -64,48 +63,48 @@ export default function BookingForm() {
       <form onSubmit={handleSubmit} className="bg-ff-surface border border-ff-border rounded-2xl p-8 space-y-5 max-w-lg mx-auto">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           <div>
-            <label className={labelClass}>Full Name *</label>
-            <input className={inputClass} placeholder="Jane Smith" value={form.fullName} onChange={set('fullName')} required />
+            <label className={labelClass}>{f.labels.fullName}{f.required}</label>
+            <input className={inputClass} placeholder={f.placeholders.fullName} value={form.fullName} onChange={set('fullName')} required />
           </div>
           <div>
-            <label className={labelClass}>Business Name</label>
-            <input className={inputClass} placeholder="Acme Inc." value={form.businessName} onChange={set('businessName')} />
+            <label className={labelClass}>{f.labels.businessName}</label>
+            <input className={inputClass} placeholder={f.placeholders.businessName} value={form.businessName} onChange={set('businessName')} />
           </div>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           <div>
-            <label className={labelClass}>Email *</label>
-            <input type="email" className={inputClass} placeholder="you@business.com" value={form.email} onChange={set('email')} required />
+            <label className={labelClass}>{f.labels.email}{f.required}</label>
+            <input type="email" className={inputClass} placeholder={f.placeholders.email} value={form.email} onChange={set('email')} required />
           </div>
           <div>
-            <label className={labelClass}>Phone *</label>
-            <input type="tel" className={inputClass} placeholder="+1 (555) 000-0000" value={form.phone} onChange={set('phone')} required />
+            <label className={labelClass}>{f.labels.phone}{f.required}</label>
+            <input type="tel" className={inputClass} placeholder={f.placeholders.phone} value={form.phone} onChange={set('phone')} required />
           </div>
         </div>
 
         <div>
-          <label className={labelClass}>Funding Goal *</label>
+          <label className={labelClass}>{f.labels.fundingGoal}{f.required}</label>
           <select className={inputClass} value={form.fundingGoal} onChange={set('fundingGoal')} required>
-            <option value="">Select a range</option>
-            {FUNDING_GOALS.map((g) => <option key={g}>{g}</option>)}
+            <option value="">{f.placeholders.selectFunding}</option>
+            {f.fundingGoals.map((g) => <option key={g}>{g}</option>)}
           </select>
         </div>
 
         <div>
-          <label className={labelClass}>Preferred Call Time *</label>
+          <label className={labelClass}>{f.labels.callTime}{f.required}</label>
           <select className={inputClass} value={form.callTime} onChange={set('callTime')} required>
-            <option value="">Select a time window</option>
-            {CALL_TIMES.map((t) => <option key={t}>{t}</option>)}
+            <option value="">{f.placeholders.selectTime}</option>
+            {f.callTimes.map((ct) => <option key={ct}>{ct}</option>)}
           </select>
         </div>
 
         <div>
-          <label className={labelClass}>Anything else we should know?</label>
+          <label className={labelClass}>{f.labels.notes}</label>
           <textarea
             className={`${inputClass} resize-none`}
             rows={3}
-            placeholder="Brief context about your business or funding need..."
+            placeholder={f.placeholders.notes}
             value={form.notes}
             onChange={set('notes')}
           />
@@ -116,11 +115,9 @@ export default function BookingForm() {
           disabled={!isValid}
           className="w-full bg-ff-accent text-white font-bold text-sm py-3.5 rounded-xl hover:bg-ff-glow transition-colors disabled:opacity-40 disabled:cursor-not-allowed shadow-[0_1px_3px_rgba(30,64,175,0.3)]"
         >
-          Request My Call
+          {f.submitBtn}
         </button>
-        <p className="text-ff-muted text-xs text-center">
-          We will confirm within a few hours during business hours.
-        </p>
+        <p className="text-ff-muted text-xs text-center">{f.note}</p>
       </form>
     </BlurFade>
   )

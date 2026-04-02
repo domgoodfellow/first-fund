@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import BlurFade from '@/components/motion/BlurFade'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 interface FormState {
   fullName: string
@@ -11,15 +12,10 @@ interface FormState {
   message: string
 }
 
-const SUBJECTS = [
-  'General Inquiry',
-  'Application Status',
-  'Product Questions',
-  'Partnership Opportunity',
-  'Other',
-]
-
 export default function ContactForm() {
+  const { t } = useLanguage()
+  const f = t.contactPage.form
+
   const [form, setForm] = useState<FormState>({ fullName: '', email: '', phone: '', subject: '', message: '' })
   const [submitted, setSubmitted] = useState(false)
 
@@ -42,10 +38,10 @@ export default function ContactForm() {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
         </div>
-        <h3 className="font-heading text-2xl font-bold text-ff-text mb-2">Message Received</h3>
-        <p className="text-ff-muted text-sm mb-6">Our team will get back to you within one business day.</p>
+        <h3 className="font-heading text-2xl font-bold text-ff-text mb-2">{f.successHeading}</h3>
+        <p className="text-ff-muted text-sm mb-6">{f.successMessage}</p>
         <button onClick={() => { setSubmitted(false); setForm({ fullName: '', email: '', phone: '', subject: '', message: '' }) }} className="text-ff-accent text-sm hover:underline">
-          Send another message
+          {f.sendAnother}
         </button>
       </BlurFade>
     )
@@ -59,37 +55,37 @@ export default function ContactForm() {
       <form onSubmit={handleSubmit} className="space-y-5">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           <div>
-            <label className={labelClass}>Full Name *</label>
-            <input className={inputClass} placeholder="Jane Smith" value={form.fullName} onChange={set('fullName')} required />
+            <label className={labelClass}>{f.labels.fullName}{f.required}</label>
+            <input className={inputClass} placeholder={f.placeholders.fullName} value={form.fullName} onChange={set('fullName')} required />
           </div>
           <div>
-            <label className={labelClass}>Email *</label>
-            <input type="email" className={inputClass} placeholder="you@business.com" value={form.email} onChange={set('email')} required />
+            <label className={labelClass}>{f.labels.email}{f.required}</label>
+            <input type="email" className={inputClass} placeholder={f.placeholders.email} value={form.email} onChange={set('email')} required />
           </div>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           <div>
-            <label className={labelClass}>Phone</label>
-            <input type="tel" className={inputClass} placeholder="+1 (555) 000-0000" value={form.phone} onChange={set('phone')} />
+            <label className={labelClass}>{f.labels.phone}</label>
+            <input type="tel" className={inputClass} placeholder={f.placeholders.phone} value={form.phone} onChange={set('phone')} />
           </div>
           <div>
-            <label className={labelClass}>Subject *</label>
+            <label className={labelClass}>{f.labels.subject}{f.required}</label>
             <select className={inputClass} value={form.subject} onChange={set('subject')} required>
-              <option value="">Select a subject</option>
-              {SUBJECTS.map((s) => <option key={s}>{s}</option>)}
+              <option value="">{f.placeholders.selectSubject}</option>
+              {f.subjects.map((s) => <option key={s}>{s}</option>)}
             </select>
           </div>
         </div>
         <div>
-          <label className={labelClass}>Message *</label>
-          <textarea className={`${inputClass} resize-none`} rows={5} placeholder="Tell us how we can help..." value={form.message} onChange={set('message')} required />
+          <label className={labelClass}>{f.labels.message}{f.required}</label>
+          <textarea className={`${inputClass} resize-none`} rows={5} placeholder={f.placeholders.message} value={form.message} onChange={set('message')} required />
         </div>
         <button
           type="submit"
           disabled={!isValid}
           className="w-full bg-ff-accent text-white font-bold text-sm py-3.5 rounded-xl hover:bg-ff-glow transition-colors disabled:opacity-40 disabled:cursor-not-allowed shadow-[0_1px_3px_rgba(30,64,175,0.3)]"
         >
-          Send Message
+          {f.submitBtn}
         </button>
       </form>
     </BlurFade>

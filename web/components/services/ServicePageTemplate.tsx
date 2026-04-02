@@ -1,3 +1,5 @@
+'use client'
+
 import type { ReactNode } from 'react'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
@@ -7,9 +9,10 @@ import CTASection from '@/components/marketing/CTASection'
 import FAQAccordion from '@/components/content/FAQAccordion'
 import BlurFade from '@/components/motion/BlurFade'
 import type { FAQItem } from '@/components/content/FAQAccordion'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 interface Benefit {
-  icon: ReactNode
+  icon?: ReactNode
   label: string
   desc: string
 }
@@ -27,18 +30,27 @@ export interface ServicePageData {
   accessNote?: string
 }
 
-export default function ServicePageTemplate({ data }: { data: ServicePageData }) {
+export interface ServicePagesProps {
+  en: ServicePageData
+  es: ServicePageData
+}
+
+export default function ServicePageTemplate(props: ServicePagesProps) {
+  const { t, language } = useLanguage()
+  const d = language === 'es' ? props.es : props.en
+  const st = t.serviceTemplate
+
   return (
     <main className="bg-ff-bg min-h-screen">
       <Navbar />
 
       <PageHero
-        badge={data.badge}
-        title={data.title}
-        subtitle={data.subtitle}
+        badge={d.badge}
+        title={d.title}
+        subtitle={d.subtitle}
         ctas={[
-          { label: 'Apply Now', href: '/apply' },
-          { label: 'Book a Call', href: '/book-a-call', variant: 'secondary' },
+          { label: st.applyNow, href: '/apply' },
+          { label: st.bookACall, href: '/book-a-call', variant: 'secondary' },
         ]}
       />
 
@@ -49,25 +61,25 @@ export default function ServicePageTemplate({ data }: { data: ServicePageData })
         <div className="section-container px-4 sm:px-6">
           <div className="max-w-3xl mx-auto">
             <BlurFade>
-              <span className="eyebrow">What It Is</span>
-              <h2 className="font-heading text-3xl font-bold text-ff-text mb-5">Overview</h2>
-              <p className="text-ff-muted text-base leading-relaxed">{data.overview}</p>
+              <span className="eyebrow">{st.overview.eyebrow}</span>
+              <h2 className="font-heading text-3xl font-bold text-ff-text mb-5">{st.overview.heading}</h2>
+              <p className="text-ff-muted text-base leading-relaxed">{d.overview}</p>
             </BlurFade>
 
-            {data.repaymentNote && (
+            {d.repaymentNote && (
               <BlurFade delay={0.1} className="mt-8 bg-ff-raised border border-ff-border-blue rounded-xl p-5">
                 <p className="text-ff-muted text-sm leading-relaxed">
-                  <span className="text-ff-accent font-semibold">How repayment works: </span>
-                  {data.repaymentNote}
+                  <span className="text-ff-accent font-semibold">{st.repaymentLabel}</span>
+                  {d.repaymentNote}
                 </p>
               </BlurFade>
             )}
 
-            {data.accessNote && (
+            {d.accessNote && (
               <BlurFade delay={0.1} className="mt-8 bg-ff-raised border border-ff-border-blue rounded-xl p-5">
                 <p className="text-ff-muted text-sm leading-relaxed">
-                  <span className="text-ff-accent font-semibold">How access works: </span>
-                  {data.accessNote}
+                  <span className="text-ff-accent font-semibold">{st.accessLabel}</span>
+                  {d.accessNote}
                 </p>
               </BlurFade>
             )}
@@ -79,13 +91,13 @@ export default function ServicePageTemplate({ data }: { data: ServicePageData })
       <section className="py-16 bg-ff-surface">
         <div className="section-container px-4 sm:px-6">
           <BlurFade className="text-center mb-10">
-            <span className="eyebrow">Best For</span>
+            <span className="eyebrow">{st.bestFor.eyebrow}</span>
             <h2 className="font-heading text-3xl font-bold text-ff-text">
-              Is This Right for You?
+              {st.bestFor.heading}
             </h2>
           </BlurFade>
           <div className="max-w-2xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {data.bestFor.map((item, i) => (
+            {d.bestFor.map((item, i) => (
               <BlurFade key={i} delay={i * 0.07}>
                 <div className="flex items-start gap-3 bg-ff-bg border border-ff-border rounded-xl p-4 hover:border-ff-border-blue transition-colors">
                   <svg className="w-5 h-5 text-ff-accent shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -103,15 +115,15 @@ export default function ServicePageTemplate({ data }: { data: ServicePageData })
       <section className="py-16 bg-ff-bg">
         <div className="section-container px-4 sm:px-6">
           <BlurFade className="text-center mb-12">
-            <span className="eyebrow">Benefits</span>
-            <h2 className="font-heading text-3xl font-bold text-ff-text">What You Get</h2>
+            <span className="eyebrow">{st.benefits.eyebrow}</span>
+            <h2 className="font-heading text-3xl font-bold text-ff-text">{st.benefits.heading}</h2>
           </BlurFade>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {data.benefits.map((benefit, i) => (
+            {d.benefits.map((benefit, i) => (
               <BlurFade key={i} delay={i * 0.08}>
                 <div className="bg-ff-bg border border-ff-border rounded-2xl p-6 h-full hover:border-ff-border-blue hover:shadow-[0_4px_16px_rgba(30,64,175,0.08)] transition-all">
                   <div className="w-10 h-10 rounded-xl bg-ff-raised border border-ff-border-blue flex items-center justify-center text-ff-accent mb-4">
-                    {benefit.icon}
+                    {props.en.benefits[i]?.icon ?? benefit.icon}
                   </div>
                   <h3 className="font-heading font-bold text-ff-text text-base mb-2">{benefit.label}</h3>
                   <p className="text-ff-muted text-sm leading-relaxed">{benefit.desc}</p>
@@ -127,13 +139,13 @@ export default function ServicePageTemplate({ data }: { data: ServicePageData })
         <div className="section-container px-4 sm:px-6">
           <div className="max-w-2xl mx-auto">
             <BlurFade>
-              <span className="eyebrow">Typical Use Cases</span>
+              <span className="eyebrow">{st.useCases.eyebrow}</span>
               <h2 className="font-heading text-3xl font-bold text-ff-text mb-8">
-                How Businesses Use This
+                {st.useCases.heading}
               </h2>
             </BlurFade>
             <div className="space-y-3">
-              {data.useCases.map((useCase, i) => (
+              {d.useCases.map((useCase, i) => (
                 <BlurFade key={i} delay={i * 0.06}>
                   <div className="flex items-start gap-3 bg-ff-bg border border-ff-border rounded-xl p-4 hover:border-ff-border-blue transition-colors">
                     <span className="font-heading text-ff-accent font-bold text-sm shrink-0 mt-0.5">
@@ -152,18 +164,18 @@ export default function ServicePageTemplate({ data }: { data: ServicePageData })
       <section className="py-16 bg-ff-bg">
         <div className="section-container px-4 sm:px-6">
           <BlurFade className="text-center mb-10">
-            <span className="eyebrow">FAQ</span>
-            <h2 className="font-heading text-3xl font-bold text-ff-text">Common Questions</h2>
+            <span className="eyebrow">{st.faq.eyebrow}</span>
+            <h2 className="font-heading text-3xl font-bold text-ff-text">{st.faq.heading}</h2>
           </BlurFade>
           <div className="max-w-2xl mx-auto">
-            <FAQAccordion items={data.faqItems} />
+            <FAQAccordion items={[...d.faqItems]} />
           </div>
         </div>
       </section>
 
       <CTASection
-        heading="Ready to Apply?"
-        subheading="Start your application in 60 seconds. No collateral, no lengthy paperwork."
+        heading={st.cta.heading}
+        subheading={st.cta.subheading}
       />
 
       <Footer />

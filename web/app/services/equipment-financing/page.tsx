@@ -6,7 +6,7 @@ export const metadata = {
   description: 'Finance the equipment your business needs to grow without draining operating capital. Approvals in 24–48 hours.',
 }
 
-const data: ServicePageData = {
+const enData: ServicePageData = {
   badge: 'Asset-Backed',
   title: 'Equipment\nFinancing',
   subtitle: 'Get the machinery, vehicles, or technology your business needs — financed over time, so you preserve your operating capital.',
@@ -68,6 +68,43 @@ const data: ServicePageData = {
   ],
 }
 
+const esData: ServicePageData = {
+  badge: 'Respaldado por activos',
+  title: 'Financiamiento de\nEquipo',
+  subtitle: 'Obtén la maquinaria, vehículos o tecnología que tu negocio necesita — financiado en el tiempo, para preservar tu capital operativo.',
+  overview: 'El Financiamiento de Equipo le permite a tu negocio adquirir las herramientas necesarias para operar y crecer sin pagar el precio total de compra por adelantado. El equipo mismo sirve como garantía del préstamo, lo que generalmente resulta en mejores términos que el financiamiento sin garantía. Haces pagos mensuales fijos durante el plazo del préstamo y al final eres dueño del equipo por completo.',
+  bestFor: [
+    'Restaurantes y negocios de alimentos que necesitan equipo de cocina',
+    'Empresas de construcción que compran maquinaria pesada o vehículos',
+    'Consultorios médicos que adquieren equipo de diagnóstico o tratamiento',
+    'Negocios de transporte que expanden su flota',
+    'Fabricantes que invierten en maquinaria de producción',
+    'Cualquier negocio que reemplace equipo antiguo o que falla',
+  ],
+  benefits: [
+    { label: 'Equipo como garantía', desc: 'El equipo financiado asegura el préstamo — preservando tus otros activos y a menudo reduciendo el crédito requerido.' },
+    { label: 'Pagos predecibles', desc: 'Pagos mensuales fijos que simplifican la presupuestación — sabes exactamente qué debes y cuándo.' },
+    { label: 'Aprobación en 24–48 horas', desc: 'Decisiones rápidas para que puedas adquirir el equipo que necesitas sin perder tiempo u oportunidades.' },
+    { label: 'Preserva el capital operativo', desc: 'Financia el equipo en el tiempo en lugar de pagar efectivo — manteniendo tu capital operativo para necesidades del día a día.' },
+    { label: 'Todos los perfiles de crédito', desc: 'La estructura respaldada por activos nos permite aprobar negocios que podrían no calificar para productos sin garantía.' },
+    { label: 'Lo posees al final', desc: 'A diferencia del arrendamiento, el financiamiento de equipo termina con que eres dueño del activo — construyendo capital empresarial.' },
+  ],
+  useCases: [
+    'Un restaurante que reemplaza un horno comercial roto que interrumpe el servicio',
+    'Una empresa de construcción que compra una excavadora para tomar proyectos más grandes',
+    'Una clínica médica que financia una nueva máquina de imágenes para expandir sus servicios',
+    'Un negocio de entrega que agrega vehículos a su flota para satisfacer la creciente demanda',
+    'Un fabricante que actualiza maquinaria de producción para mejorar la producción y reducir costos',
+  ],
+  faqItems: [
+    { question: '¿Qué tipos de equipo se pueden financiar?', answer: 'Financiamos la mayoría del equipo empresarial — vehículos, maquinaria, electrodomésticos de cocina, equipo médico, tecnología y más. Si se usa para tu negocio, probablemente podamos financiarlo.' },
+    { question: '¿Necesito un pago inicial?', answer: 'No siempre. El financiamiento de equipo a menudo requiere poco o ningún pago inicial ya que el equipo mismo asegura el préstamo. Consulta a nuestro equipo sobre tu situación específica.' },
+    { question: '¿Es diferente a un arrendamiento de equipo?', answer: 'Sí. Con el financiamiento eres dueño del equipo al final del plazo. Con un arrendamiento lo estás rentando, a menudo con opción de compra. El financiamiento es mejor si planeas mantener el equipo a largo plazo.' },
+    { question: '¿Cuánto puedo financiar?', answer: 'El financiamiento de equipo en First Fund puede llegar hasta $500,000 dependiendo del tipo de equipo y tu perfil empresarial.' },
+    { question: '¿Cuánto tiempo tarda la aprobación?', answer: 'La mayoría de las solicitudes se revisan en 24–48 horas. Una vez aprobado, los fondos generalmente están disponibles el mismo día hábil o al siguiente.' },
+  ],
+}
+
 export default function EquipmentFinancingPage() {
-  return <ServicePageTemplate data={data} />
+  return <ServicePageTemplate en={enData} es={esData} />
 }

@@ -6,7 +6,7 @@ export const metadata = {
   description: 'Structured business loans with fixed repayment schedules and predictable monthly payments. Approvals in 24–48 hours.',
 }
 
-const data: ServicePageData = {
+const enData: ServicePageData = {
   badge: 'Most Predictable',
   title: 'Fixed-Term\nLoans',
   subtitle: 'A structured loan with fixed payments and a clear end date — the most predictable way to finance your business growth.',
@@ -68,6 +68,43 @@ const data: ServicePageData = {
   ],
 }
 
+const esData: ServicePageData = {
+  badge: 'Más predecible',
+  title: 'Préstamos a\nPlazo Fijo',
+  subtitle: 'Un préstamo estructurado con pagos fijos y una fecha de término clara — la forma más predecible de financiar el crecimiento de tu negocio.',
+  overview: 'Un Préstamo a Plazo Fijo entrega una suma global de capital que se paga en un período definido con pagos mensuales consistentes. La tasa y el calendario se fijan desde el inicio, sin sorpresas. Esto lo hace ideal para dueños que quieren planificar su presupuesto con precisión y saber exactamente cuándo estarán libres de deuda.',
+  bestFor: [
+    'Dueños de negocios que prefieren pagos mensuales predecibles',
+    'Inversiones planificadas con un cronograma de ROI claro',
+    'Compra de equipo, renovaciones o expansiones',
+    'Dueños que quieren una fecha de término definida para su financiamiento',
+    'Negocios con ingresos mensuales estables y consistentes',
+    'Refinanciamiento de deuda existente de mayor costo',
+  ],
+  benefits: [
+    { label: 'Pagos mensuales fijos', desc: 'El mismo pago cada mes — sin sorpresas, fácil de presupuestar.' },
+    { label: 'Términos transparentes', desc: 'Tasa, plazo y pago total son claros desde el primer día. Sin cargos ocultos.' },
+    { label: 'Aprobación en 24–48 horas', desc: 'Más rápido que cualquier banco. Decisiones en uno o dos días hábiles.' },
+    { label: 'Tasas competitivas', desc: 'Tasas fijas que no cambian a mitad del plazo — lo que ves es lo que obtienes.' },
+    { label: 'Sin garantía requerida', desc: 'La mayoría de los préstamos a plazo fijo son sin garantía — sin activos en riesgo.' },
+    { label: 'Todos los perfiles de crédito', desc: 'Evaluamos tu negocio de forma integral — la calificación crediticia es un factor, no el único.' },
+  ],
+  useCases: [
+    'Comprar o actualizar equipo con un costo conocido',
+    'Financiar mejoras de local u oficina',
+    'Contratar e incorporar un nuevo equipo',
+    'Refinanciar deuda existente a un costo efectivo menor',
+    'Lanzar una nueva línea de productos o servicio con costos de inicio fijos',
+  ],
+  faqItems: [
+    { question: '¿Qué plazos están disponibles?', answer: 'Los plazos varían según el monto de financiamiento y el perfil de tu negocio. Nuestro equipo presentará opciones al momento de la aprobación.' },
+    { question: '¿Puedo pagarlo antes?', answer: 'Sí. Se permite el pago anticipado. Habla con tu gerente de cuenta sobre cualquier consideración de prepago aplicable.' },
+    { question: '¿Cuál es el monto máximo del préstamo?', answer: 'Los Préstamos a Plazo Fijo llegan hasta $500,000 dependiendo de los ingresos y el perfil financiero de tu negocio.' },
+    { question: '¿En qué se diferencia esto de un MCA?', answer: 'Un MCA no tiene pago fijo — toma un porcentaje de las ventas diarias. Un Préstamo a Plazo Fijo tiene un pago mensual fijo independientemente de los ingresos, lo que facilita la planificación.' },
+    { question: '¿Qué tan rápido llega el financiamiento después de la aprobación?', answer: 'Los fondos generalmente se depositan el mismo día hábil o al siguiente después de aceptar tu oferta.' },
+  ],
+}
+
 export default function FixedTermPage() {
-  return <ServicePageTemplate data={data} />
+  return <ServicePageTemplate en={enData} es={esData} />
 }

@@ -6,7 +6,7 @@ export const metadata = {
   description: 'Turn outstanding invoices into immediate working capital. Get up to 90% of your invoice value advanced same day — no waiting 30, 60, or 90 days.',
 }
 
-const data: ServicePageData = {
+const enData: ServicePageData = {
   badge: 'Fastest Access',
   title: 'Invoice\nFactoring',
   subtitle: 'Stop waiting on slow-paying clients. Turn outstanding invoices into immediate cash — up to 90% advanced the same day.',
@@ -70,6 +70,44 @@ const data: ServicePageData = {
   ],
 }
 
+const esData: ServicePageData = {
+  badge: 'Acceso más rápido',
+  title: 'Factoraje de\nFacturas',
+  subtitle: 'Deja de esperar a clientes que pagan tarde. Convierte facturas pendientes en efectivo inmediato — hasta el 90% adelantado el mismo día.',
+  overview: 'El Factoraje de Facturas (también llamado financiamiento de cuentas por cobrar) le permite a tu negocio convertir facturas impagas en capital de trabajo inmediato. En lugar de esperar 30, 60 o 90 días para que los clientes paguen, vendes tus facturas a First Fund y recibes hasta el 90% del valor de la factura por adelantado. Cuando tu cliente paga, recibes el saldo restante menos una pequeña comisión de factoraje.',
+  repaymentNote: 'El pago es automático — proviene directamente del pago de tu cliente cuando liquida la factura. No hay pagos mensuales fijos ni calendarios de pago separados. La comisión de factoraje se deduce del saldo restante cuando tu cliente paga.',
+  bestFor: [
+    'Negocios B2B con clientes que pagan tarde (Net 30/60/90)',
+    'Empresas de personal, transporte, logística y construcción',
+    'Negocios que necesitan flujo de caja sin asumir deuda',
+    'Empresas con buenos clientes pero tiempos de pago inconsistentes',
+    'Negocios con ingresos pero historial crediticio limitado',
+    'Dueños que quieren el pago vinculado al pago del cliente, no a un calendario',
+  ],
+  benefits: [
+    { label: 'Acceso el mismo día', desc: 'Recibe hasta el 90% del valor de tu factura el mismo día — elimina los períodos de espera.' },
+    { label: 'Sin garantía', desc: 'Tus facturas son el único activo requerido. Sin equipo, propiedades ni activos personales en riesgo.' },
+    { label: 'Pago automático', desc: 'El pago ocurre a través del pago de la factura de tu cliente — sin pagos mensuales separados.' },
+    { label: 'Todos los perfiles de crédito', desc: 'Evaluamos la solvencia de tus clientes, no la tuya — haciéndolo accesible incluso con historial crediticio limitado.' },
+    { label: 'No es deuda', desc: 'El factoraje de facturas es una venta de activo — no un préstamo. No aparece como deuda en tu balance.' },
+    { label: 'Comisiones transparentes', desc: 'Una comisión de factoraje simple divulgada por adelantado. Sin cargos ocultos ni cálculos complejos.' },
+  ],
+  useCases: [
+    'Una agencia de personal con $200K en facturas impagas necesita cubrir la nómina esta semana',
+    'Una empresa de transporte que espera 60 días por el pago de facturas necesita cubrir costos de combustible',
+    'Un contratista de construcción completa un proyecto grande y necesita fondos para el siguiente antes de que el cliente pague',
+    'Una empresa B2B de SaaS ofrece términos Net 60 a clientes empresariales pero necesita efectivo antes',
+    'Un fabricante tiene inventario que comprar pero no puede esperar a que los pagos de clientes se procesen',
+  ],
+  faqItems: [
+    { question: '¿Qué porcentaje de la factura puedo recibir por adelantado?', answer: 'Normalmente se adelanta del 80 al 90% del valor nominal de la factura de inmediato. El saldo restante (menos la comisión) se libera cuando tu cliente paga.' },
+    { question: '¿En qué se diferencia el factoraje de facturas de un préstamo?', answer: 'Con el factoraje estás vendiendo un activo (tu factura) — no pidiendo dinero prestado. No hay deuda en tus libros, sin calendario de pago fijo y sin tasa de interés.' },
+    { question: '¿Qué tipos de facturas califican?', answer: 'Facturamos facturas de clientes empresariales solventes (B2B). Las facturas personales/de consumidor, contratos gubernamentales y facturas internacionales pueden tener requisitos específicos.' },
+    { question: '¿Importa mi calificación crediticia?', answer: 'Evaluamos principalmente la capacidad de pago de tus clientes, no la tuya. Esto hace el factoraje accesible a negocios con historial crediticio limitado o imperfecto.' },
+    { question: '¿Cuánto tiempo tarda en recibir fondos?', answer: 'Después de una revisión rápida de tus facturas y clientes, la mayoría de los negocios reciben fondos dentro de 24 horas de la aprobación — a menudo el mismo día.' },
+  ],
+}
+
 export default function InvoiceFactoringPage() {
-  return <ServicePageTemplate data={data} />
+  return <ServicePageTemplate en={enData} es={esData} />
 }

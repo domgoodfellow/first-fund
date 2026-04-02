@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 interface TeamMember {
   name: string
@@ -26,6 +27,8 @@ const card = {
 }
 
 export default function TeamSection() {
+  const { t } = useLanguage()
+
   return (
     <section className="py-16 md:py-20 bg-ff-bg">
       <div className="section-container px-4 sm:px-6">
@@ -36,9 +39,9 @@ export default function TeamSection() {
           viewport={{ once: false, amount: 0.5 }}
           transition={{ duration: 0.6 }}
         >
-          <span className="eyebrow">Our Team</span>
+          <span className="eyebrow">{t.team.eyebrow}</span>
           <h2 className="font-heading text-3xl md:text-4xl font-bold text-ff-text">
-            The People Behind First Fund
+            {t.team.heading}
           </h2>
         </motion.div>
 

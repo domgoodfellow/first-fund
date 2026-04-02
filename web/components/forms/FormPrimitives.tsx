@@ -31,7 +31,7 @@ export function Field({
         placeholder={placeholder}
         required={required}
         className={inputClass}
-        style={type === 'date' ? { colorScheme: 'dark' } : undefined}
+        style={type === 'date' ? { colorScheme: 'light' } : undefined}
       />
     </div>
   )
@@ -57,11 +57,11 @@ export function SelectField({
         onChange={onChange}
         required={required}
         className={`${inputClass} appearance-none cursor-pointer`}
-        style={{ color: value ? '#fcfcfc' : '#8b8b8b' }}
+        style={{ color: value ? 'var(--ff-text)' : 'var(--ff-muted)' }}
       >
         <option value="" disabled>{placeholder ?? 'Select an option'}</option>
         {options.map((o) => (
-          <option key={o} value={o} className="text-white bg-ff-surface">{o}</option>
+          <option key={o} value={o} className="bg-ff-surface">{o}</option>
         ))}
       </select>
     </div>
@@ -87,7 +87,7 @@ export function ConsentCheckbox({
         onChange={onChange}
         className="mt-0.5 w-4 h-4 shrink-0 rounded border-ff-border bg-ff-bg accent-ff-accent cursor-pointer"
       />
-      <span className="text-ff-muted text-xs leading-relaxed group-hover:text-white transition-colors">
+      <span className="text-ff-muted text-xs leading-relaxed group-hover:text-ff-text transition-colors">
         {label}
       </span>
     </label>
@@ -132,7 +132,7 @@ export function FileDropZone({
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
           </svg>
           <div className="flex-1 min-w-0">
-            <p className="text-white text-sm truncate">{file.name}</p>
+            <p className="text-ff-text text-sm truncate">{file.name}</p>
             <p className="text-ff-muted text-xs">{fmtSize(file.size)}</p>
           </div>
           <button
