@@ -20,9 +20,22 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex flex-col bg-ff-bg overflow-hidden"
+      className="relative -mt-[84px] min-h-[calc(100vh+84px)] pt-[84px] flex flex-col bg-[#08111f] overflow-hidden"
     >
-      <GridPattern opacity={0.12} />
+      <video
+        src="/video/hero.mp4"
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="auto"
+        className="absolute inset-0 h-full w-full object-cover"
+        aria-hidden="true"
+      />
+
+      <div className="absolute inset-0 bg-[#08111f]/68" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.28),_transparent_52%),linear-gradient(180deg,rgba(8,17,31,0.35)_0%,rgba(8,17,31,0.8)_100%)]" />
+      <GridPattern opacity={0.14} />
 
       {/* Blue accent orbs */}
       <div className="absolute inset-0 pointer-events-none">
@@ -58,11 +71,11 @@ export default function Hero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-            className="font-heading text-5xl sm:text-6xl md:text-7xl font-extrabold text-ff-text leading-[1.08] tracking-tight mb-6"
+            className="font-heading text-5xl sm:text-6xl md:text-7xl font-extrabold text-white leading-[1.08] tracking-tight mb-6"
           >
             {t.hero.headline.split('\n').map((line, i) => (
               <span key={i} className="block">
-                {i === 0 ? line : <span className="text-gradient">{line}</span>}
+                {i === 0 ? line : <span className="text-[#bfdbfe]">{line}</span>}
               </span>
             ))}
           </motion.h1>
@@ -72,7 +85,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            className="text-ff-muted text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed"
+            className="text-white text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed"
           >
             {t.hero.sub}
           </motion.p>
@@ -95,7 +108,7 @@ export default function Hero() {
             </Link>
             <Link
               href="/book-a-call"
-              className="inline-flex items-center gap-2 bg-transparent border border-ff-border-strong text-ff-text font-semibold text-base px-8 py-4 rounded-full hover:border-ff-accent hover:text-ff-accent transition-all"
+              className="inline-flex items-center gap-2 bg-white/6 border border-white/25 text-white font-semibold text-base px-8 py-4 rounded-full hover:border-white/55 hover:bg-white/10 transition-all"
             >
               {t.hero.ctaSecondary}
             </Link>
@@ -106,12 +119,12 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-14 bg-ff-bg border border-ff-border rounded-2xl overflow-hidden shadow-[0_1px_4px_rgba(15,23,42,0.06)]"
+            className="mt-14 bg-white/8 backdrop-blur-md border border-white/14 rounded-2xl overflow-hidden shadow-[0_20px_70px_rgba(8,17,31,0.45)]"
           >
-            <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-ff-border">
+            <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-white/10">
               {STAT_VALUES.map((stat, i) => (
                 <div key={i} className="flex flex-col items-center justify-center py-7 px-4 text-center">
-                  <span className="font-heading text-2xl md:text-3xl font-extrabold text-ff-accent mb-1">
+                  <span className="font-heading text-2xl md:text-3xl font-extrabold text-white mb-1">
                     <NumberTicker
                       value={stat.num}
                       prefix={stat.prefix ?? ''}
@@ -119,7 +132,7 @@ export default function Hero() {
                       duration={1600}
                     />
                   </span>
-                  <span className="text-ff-muted text-xs font-medium">{stat.label}</span>
+                  <span className="text-white/65 text-xs font-medium">{stat.label}</span>
                 </div>
               ))}
             </div>

@@ -2,61 +2,25 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { useEffect, useRef } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 
 export default function CTABanner() {
   const { t } = useLanguage()
-  const videoRef = useRef<HTMLVideoElement>(null)
-
-  useEffect(() => {
-    const video = videoRef.current
-    if (!video) return
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          if (video.readyState >= 2) {
-            video.play().catch(() => {})
-          } else {
-            video.addEventListener('canplay', () => video.play().catch(() => {}), { once: true })
-          }
-        } else {
-          video.pause()
-        }
-      },
-      { threshold: 0.1 }
-    )
-
-    observer.observe(video)
-    return () => observer.disconnect()
-  }, [])
 
   return (
     <section id="cta" className="relative py-6 md:py-10 bg-ff-surface overflow-hidden">
-      {/* Padded background video */}
       <div className="section-container px-4 sm:px-6">
-        <div className="relative rounded-2xl overflow-hidden min-h-[480px] md:min-h-[560px] flex items-center justify-center">
-          <video
-            ref={videoRef}
-            src="/video/hero.mp4"
-            loop
-            muted
-            playsInline
-            preload="auto"
-            className="absolute inset-0 w-full h-full object-cover"
-          />
+        <div className="relative rounded-2xl overflow-hidden min-h-[480px] md:min-h-[560px] flex items-center justify-center bg-[#08111f]">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.24),_transparent_48%),linear-gradient(135deg,#08111f_0%,#10264a_52%,#0b1730_100%)]" />
+          <div className="absolute inset-0 opacity-[0.16] [background-image:linear-gradient(rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.08)_1px,transparent_1px)] [background-size:42px_42px]" />
 
-          {/* Dark overlay */}
-          <div className="absolute inset-0 bg-black/65" />
-
-          {/* Blue accent glow */}
           <div
-            className="absolute inset-0 opacity-[0.12] pointer-events-none"
-            style={{ background: 'radial-gradient(circle at 50% 50%, #1E40AF 0%, transparent 60%)' }}
+            className="absolute -left-12 top-10 h-48 w-48 rounded-full bg-[#1d4ed8]/25 blur-3xl pointer-events-none"
+          />
+          <div
+            className="absolute -right-10 bottom-10 h-56 w-56 rounded-full bg-[#60a5fa]/20 blur-3xl pointer-events-none"
           />
 
-          {/* Content */}
           <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-8 text-center">
             <motion.div
               initial={{ opacity: 0, y: 40 }}
