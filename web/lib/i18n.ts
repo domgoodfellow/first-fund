@@ -151,8 +151,53 @@ export const translations = {
         submit: 'Submit Application',
       },
     },
+    trustBar: [
+      'One easy application',
+      'Up to $800K in funding',
+      'No asset security required',
+      '24–48 hr decisions',
+    ],
+    heroStats: [
+      { label: 'Max Funding' },
+      { label: 'Approval Time' },
+      { label: 'Approval Rate' },
+      { label: 'Products Available' },
+    ],
+    homepageFAQ: {
+      eyebrow: 'Common Questions',
+      heading: 'Answers Before You Apply',
+      items: [
+        { question: 'How fast can I get funded?', answer: 'Most applicants receive a funding decision within 24–48 hours of submitting their application. Once approved, funds are typically deposited the same or next business day.' },
+        { question: 'What credit score do I need?', answer: 'We work with businesses across all credit profiles — great, fair, and bad credit are all considered. We evaluate the overall health of your business, not just a number.' },
+        { question: 'Do I need collateral to qualify?', answer: 'Most of our financing options — including MCA and Line of Credit — require no asset security. Our Mortgage Loans use home equity, which is optional depending on your funding goals.' },
+        { question: 'What documents do I need to apply?', answer: 'Typically: government-issued ID, business registration, and your last 3 months of bank statements. You can upload everything directly in our secure application.' },
+        { question: 'What is the difference between MCA and a Fixed-Term Loan?', answer: 'An MCA repays through a percentage of your daily card sales — so payments flex with your revenue. A Fixed-Term Loan has set monthly payments regardless of revenue, making it easier to budget.' },
+        { question: 'Should I apply or book a call first?', answer: 'If you have your documents ready and know what you need, go ahead and apply — it takes about 60 seconds. If you have questions or want guidance on which product fits you best, book a call and we will walk you through it.' },
+      ],
+    },
+    ctaBanner: {
+      bookACall: 'Book a Call',
+    },
     footer: {
       tagline: 'Business Financing Made Easy — Coast to Coast.',
+      cols: {
+        company: 'Company',
+        services: 'Services',
+        legal: 'Legal',
+      },
+      companyLinks: [
+        { label: 'About', href: '/about' },
+        { label: 'Contact', href: '/contact' },
+        { label: 'FAQ', href: '/faq' },
+      ],
+      serviceLinks: [
+        { label: 'Invoice Factoring', href: '/services/invoice-factoring' },
+        { label: 'Fixed-Term Loans', href: '/services/fixed-term-loans' },
+        { label: 'Line of Credit', href: '/services/line-of-credit' },
+        { label: 'Mortgage Loans', href: '/services/mortgage-loans' },
+        { label: 'Merchant Cash Advance', href: '/services/merchant-cash-advance' },
+        { label: 'Equipment Financing', href: '/services/equipment-financing' },
+      ],
       links: { company: 'Company', services: 'Services', legal: 'Legal', contact: 'Contact' },
       nav: {
         about: 'About Us', careers: 'Careers', blog: 'Blog',
@@ -495,8 +540,53 @@ export const translations = {
         submit: 'Enviar solicitud',
       },
     },
+    trustBar: [
+      'Una solicitud sencilla',
+      'Hasta $800K en financiamiento',
+      'Sin garantía requerida',
+      'Decisiones en 24–48 h',
+    ],
+    heroStats: [
+      { label: 'Financiamiento máx.' },
+      { label: 'Tiempo de aprobación' },
+      { label: 'Tasa de aprobación' },
+      { label: 'Productos disponibles' },
+    ],
+    homepageFAQ: {
+      eyebrow: 'Preguntas frecuentes',
+      heading: 'Respuestas antes de aplicar',
+      items: [
+        { question: '¿Qué tan rápido puedo recibir fondos?', answer: 'La mayoría de los solicitantes reciben una decisión de financiamiento dentro de 24–48 horas. Una vez aprobado, los fondos generalmente se depositan el mismo día hábil o al siguiente.' },
+        { question: '¿Qué calificación crediticia necesito?', answer: 'Trabajamos con negocios de todos los perfiles de crédito — excelente, regular y bajo son considerados. Evaluamos la salud general de tu negocio, no solo una calificación.' },
+        { question: '¿Necesito garantía para calificar?', answer: 'La mayoría de nuestras opciones — incluyendo MCA y Línea de Crédito — no requieren activos como garantía. Nuestros Préstamos Hipotecarios usan el valor acumulado, que es opcional según tus objetivos.' },
+        { question: '¿Qué documentos necesito para aplicar?', answer: 'Generalmente: identificación oficial, registro mercantil y tus últimos 3 meses de estados de cuenta bancarios. Puedes subir todo directamente en nuestra solicitud segura.' },
+        { question: '¿Cuál es la diferencia entre MCA y un Préstamo a Plazo Fijo?', answer: 'Un MCA se paga mediante un porcentaje de tus ventas diarias con tarjeta — los pagos se adaptan a tus ingresos. Un Préstamo a Plazo Fijo tiene pagos mensuales fijos sin importar los ingresos, lo que facilita el presupuesto.' },
+        { question: '¿Debo solicitar o agendar una llamada primero?', answer: 'Si tienes tus documentos listos y sabes lo que necesitas, aplica — toma unos 60 segundos. Si tienes preguntas o quieres orientación sobre qué producto te conviene, agenda una llamada.' },
+      ],
+    },
+    ctaBanner: {
+      bookACall: 'Agendar una llamada',
+    },
     footer: {
       tagline: 'Financiamiento empresarial fácil — de costa a costa.',
+      cols: {
+        company: 'Empresa',
+        services: 'Servicios',
+        legal: 'Legal',
+      },
+      companyLinks: [
+        { label: 'Sobre nosotros', href: '/about' },
+        { label: 'Contacto', href: '/contact' },
+        { label: 'Preguntas frecuentes', href: '/faq' },
+      ],
+      serviceLinks: [
+        { label: 'Factoraje de facturas', href: '/services/invoice-factoring' },
+        { label: 'Préstamos a plazo fijo', href: '/services/fixed-term-loans' },
+        { label: 'Línea de crédito', href: '/services/line-of-credit' },
+        { label: 'Préstamos hipotecarios', href: '/services/mortgage-loans' },
+        { label: 'Adelanto de efectivo', href: '/services/merchant-cash-advance' },
+        { label: 'Financiamiento de equipo', href: '/services/equipment-financing' },
+      ],
       links: { company: 'Empresa', services: 'Servicios', legal: 'Legal', contact: 'Contacto' },
       nav: {
         about: 'Sobre nosotros', careers: 'Empleos', blog: 'Blog',

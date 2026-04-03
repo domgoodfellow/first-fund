@@ -47,7 +47,7 @@ export default function CTABanner() {
                   href="/book-a-call"
                   className="inline-flex items-center gap-2 bg-transparent border border-white/30 text-white font-semibold text-base px-10 py-4 rounded-full hover:border-white/60 transition-all"
                 >
-                  Book a Call
+                  {t.ctaBanner.bookACall}
                 </Link>
               </div>
 

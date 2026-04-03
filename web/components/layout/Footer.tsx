@@ -9,26 +9,15 @@ export default function Footer() {
 
   const cols = [
     {
-      heading: 'Company',
-      links: [
-        { label: 'About',   href: '/about' },
-        { label: 'Contact', href: '/contact' },
-        { label: 'FAQ',     href: '/faq' },
-      ],
+      heading: t.footer.cols.company,
+      links: t.footer.companyLinks,
     },
     {
-      heading: 'Services',
-      links: [
-        { label: 'Invoice Factoring',      href: '/services/invoice-factoring' },
-        { label: 'Fixed-Term Loans',       href: '/services/fixed-term-loans' },
-        { label: 'Line of Credit',         href: '/services/line-of-credit' },
-        { label: 'Mortgage Loans',         href: '/services/mortgage-loans' },
-        { label: 'Merchant Cash Advance',  href: '/services/merchant-cash-advance' },
-        { label: 'Equipment Financing',    href: '/services/equipment-financing' },
-      ],
+      heading: t.footer.cols.services,
+      links: t.footer.serviceLinks,
     },
     {
-      heading: 'Legal',
+      heading: t.footer.cols.legal,
       links: [
         { label: t.footer.nav.terms,   href: '/terms' },
         { label: t.footer.nav.privacy, href: '/privacy' },

@@ -8,10 +8,10 @@ import ShimmerBadge from '@/components/motion/ShimmerBadge'
 import NumberTicker from '@/components/motion/NumberTicker'
 
 const STAT_VALUES = [
-  { num: 800, suffix: 'K+', label: 'Max Funding', prefix: '$' },
-  { num: 48,  suffix: 'hr', label: 'Approval Time' },
-  { num: 95,  suffix: '%',  label: 'Approval Rate' },
-  { num: 6,   suffix: '',   label: 'Products Available' },
+  { num: 800, suffix: 'K+', prefix: '$' },
+  { num: 48,  suffix: 'hr' },
+  { num: 95,  suffix: '%' },
+  { num: 6,   suffix: '' },
 ]
 
 export default function Hero() {
@@ -132,7 +132,7 @@ export default function Hero() {
                       duration={1600}
                     />
                   </span>
-                  <span className="text-white/65 text-xs font-medium">{stat.label}</span>
+                  <span className="text-white/65 text-xs font-medium">{t.heroStats[i].label}</span>
                 </div>
               ))}
             </div>
