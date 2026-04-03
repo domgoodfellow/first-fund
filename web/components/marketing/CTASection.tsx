@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import BlurFade from '@/components/motion/BlurFade'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 interface CTASectionProps {
   heading?: string
@@ -14,14 +15,19 @@ interface CTASectionProps {
 }
 
 export default function CTASection({
-  heading = 'Ready to Get Funded?',
-  subheading = 'One application. No collateral. Decisions in 24–48 hours.',
-  primaryLabel = 'Apply Now',
+  heading,
+  subheading,
+  primaryLabel,
   primaryHref = '/apply',
-  secondaryLabel = 'Book a Call',
+  secondaryLabel,
   secondaryHref = '/book-a-call',
   variant = 'light',
 }: CTASectionProps) {
+  const { t } = useLanguage()
+  const h   = heading       ?? t.cta.heading
+  const sub = subheading    ?? t.cta.sub
+  const pl  = primaryLabel  ?? t.ctaSection.primaryLabel
+  const sl  = secondaryLabel ?? t.ctaSection.secondaryLabel
   const isDark = variant === 'dark'
 
   return (
@@ -40,17 +46,17 @@ export default function CTASection({
               isDark ? 'text-white' : 'text-ff-text'
             }`}
           >
-            {heading}
+            {h}
           </h2>
           <p className={`text-lg mb-10 max-w-xl mx-auto ${isDark ? 'text-slate-400' : 'text-ff-muted'}`}>
-            {subheading}
+            {sub}
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               href={primaryHref}
               className="inline-flex items-center gap-2 bg-ff-accent text-white font-bold text-base px-10 py-4 rounded-full hover:bg-ff-glow transition-all shadow-[0_1px_3px_rgba(30,64,175,0.3)]"
             >
-              {primaryLabel}
+              {pl}
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
@@ -63,7 +69,7 @@ export default function CTASection({
                   : 'border-ff-border-strong text-ff-text hover:border-ff-accent hover:text-ff-accent'
               }`}
             >
-              {secondaryLabel}
+              {sl}
             </Link>
           </div>
         </BlurFade>

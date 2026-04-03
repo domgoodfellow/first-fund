@@ -56,6 +56,7 @@ export const translations = {
     testimonials: {
       sectionLabel: 'Real Stories',
       heading: 'Business Owners Who Moved Faster',
+      onGoogle: 'on Google',
       items: [
         { quote: 'Got $150K approved in under 24 hours. It literally saved our expansion.', name: 'Maria S.', role: 'Restaurant Owner', location: 'Chicago, IL', rating: 5 },
         { quote: 'FirsFund moved faster than any bank I have ever worked with. The money was in our account the next day.', name: 'James K.', role: 'E-commerce Founder', location: 'Austin, TX', rating: 5 },
@@ -67,6 +68,29 @@ export const translations = {
       sub: 'One application. No collateral. Decisions in 24–48 hours.',
       button: 'Start Your Application',
       note: 'Free to apply · No impact on credit score to check',
+    },
+    ctaSection: {
+      primaryLabel: 'Apply Now',
+      secondaryLabel: 'Book a Call',
+    },
+    comparisonTable: {
+      featureLabel: 'Feature',
+      products: [
+        { abbr: 'IF',  full: 'Invoice Factoring' },
+        { abbr: 'FTL', full: 'Fixed-Term Loans' },
+        { abbr: 'LOC', full: 'Line of Credit' },
+        { abbr: 'MTG', full: 'Mortgage Loans' },
+        { abbr: 'MCA', full: 'Merchant Cash Advance' },
+        { abbr: 'EF',  full: 'Equipment Financing' },
+      ],
+      rows: [
+        { label: 'Approval Speed',  values: ['Same day',           '24–48 hrs',           '24–48 hrs',          '3–5 days',       '24–48 hrs',           '24–48 hrs'] },
+        { label: 'Collateral',      values: ['None',               'None',                'None',               'Home equity',    'None',                'Equipment'] },
+        { label: 'Repayment',       values: ['Auto from invoices', 'Fixed monthly',       'Draw & repay',       'Fixed monthly',  '% of daily sales',    'Fixed monthly'] },
+        { label: 'Best For',        values: ['Invoice businesses', 'Predictable budgeting','Ongoing cash needs','Large expansions','Revenue-based flex',  'Equipment purchases'] },
+        { label: 'Max Amount',      values: ['Up to $500K',        'Up to $500K',         'Up to $250K',        'Up to $800K',    'Up to $500K',         'Up to $500K'] },
+        { label: 'Credit Profile',  values: ['All welcome',        'All welcome',         'All welcome',        'All welcome',    'All welcome',         'All welcome'] },
+      ],
     },
     apply: {
       heading: 'Apply for Funding',
@@ -445,6 +469,7 @@ export const translations = {
     testimonials: {
       sectionLabel: 'Historias reales',
       heading: 'Dueños de negocio que avanzaron más rápido',
+      onGoogle: 'en Google',
       items: [
         { quote: 'Obtuve $150K aprobados en menos de 24 horas. Literalmente salvó nuestra expansión.', name: 'Maria S.', role: 'Dueña de restaurante', location: 'Chicago, IL', rating: 5 },
         { quote: 'FirsFund se movió más rápido que cualquier banco. El dinero estaba en nuestra cuenta al día siguiente.', name: 'James K.', role: 'Fundador de e-commerce', location: 'Austin, TX', rating: 5 },
@@ -456,6 +481,29 @@ export const translations = {
       sub: 'Una solicitud. Sin garantía. Decisiones en 24–48 horas.',
       button: 'Comenzar tu solicitud',
       note: 'Gratis · Sin impacto en tu puntaje crediticio',
+    },
+    ctaSection: {
+      primaryLabel: 'Solicitar ahora',
+      secondaryLabel: 'Agendar una llamada',
+    },
+    comparisonTable: {
+      featureLabel: 'Característica',
+      products: [
+        { abbr: 'IF',  full: 'Factoraje de facturas' },
+        { abbr: 'FTL', full: 'Préstamos a plazo fijo' },
+        { abbr: 'LOC', full: 'Línea de crédito' },
+        { abbr: 'MTG', full: 'Préstamos hipotecarios' },
+        { abbr: 'MCA', full: 'Adelanto de efectivo' },
+        { abbr: 'EF',  full: 'Financiamiento de equipo' },
+      ],
+      rows: [
+        { label: 'Velocidad de aprobación', values: ['El mismo día',        '24–48 h',              '24–48 h',              '3–5 días',             '24–48 h',              '24–48 h'] },
+        { label: 'Garantía',               values: ['Ninguna',             'Ninguna',              'Ninguna',              'Valor acumulado',      'Ninguna',              'Equipo'] },
+        { label: 'Pago',                   values: ['Auto de facturas',    'Mensual fijo',         'Retiro y pago',        'Mensual fijo',         '% de ventas diarias',  'Mensual fijo'] },
+        { label: 'Ideal para',             values: ['Negocios con facturas','Presupuesto predecible','Necesidades continuas','Expansiones grandes',  'Flex según ingresos',  'Compras de equipo'] },
+        { label: 'Monto máximo',           values: ['Hasta $500K',         'Hasta $500K',          'Hasta $250K',          'Hasta $800K',          'Hasta $500K',          'Hasta $500K'] },
+        { label: 'Perfil crediticio',      values: ['Todos bienvenidos',   'Todos bienvenidos',    'Todos bienvenidos',    'Todos bienvenidos',    'Todos bienvenidos',    'Todos bienvenidos'] },
+      ],
     },
     apply: {
       heading: 'Solicitar financiamiento',

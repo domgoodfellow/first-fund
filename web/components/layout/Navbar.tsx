@@ -10,14 +10,14 @@ import { Language } from '@/lib/i18n'
 const langLabels: Record<Language, string> = { en: 'EN', es: 'ES' }
 const availableLangs: Language[] = ['en', 'es']
 
-const SERVICES_LINKS = [
-  { label: 'Invoice Factoring',     abbr: 'IF',  href: '/services/invoice-factoring' },
-  { label: 'Fixed-Term Loans',      abbr: 'FTL', href: '/services/fixed-term-loans' },
-  { label: 'Line of Credit',        abbr: 'LOC', href: '/services/line-of-credit' },
-  { label: 'Mortgage Loans',        abbr: 'MTG', href: '/services/mortgage-loans' },
-  { label: 'Merchant Cash Advance', abbr: 'MCA', href: '/services/merchant-cash-advance' },
-  { label: 'Equipment Financing',   abbr: 'EF',  href: '/services/equipment-financing' },
-]
+const SERVICES_ABBRS: Record<string, string> = {
+  '/services/invoice-factoring':     'IF',
+  '/services/fixed-term-loans':      'FTL',
+  '/services/line-of-credit':        'LOC',
+  '/services/mortgage-loans':        'MTG',
+  '/services/merchant-cash-advance': 'MCA',
+  '/services/equipment-financing':   'EF',
+}
 
 interface NavItemProps {
   label: string
@@ -29,9 +29,10 @@ interface NavItemProps {
   children?: React.ReactNode
   dropdownNote?: string
   compareAll?: string
+  serviceLinks?: ReadonlyArray<{ label: string; href: string }>
 }
 
-function NavItem({ label, href, isActive, onHover, onLeave, onClick, children, dropdownNote, compareAll }: NavItemProps) {
+function NavItem({ label, href, isActive, onHover, onLeave, onClick, children, dropdownNote, compareAll, serviceLinks }: NavItemProps) {
   const [dropOpen, setDropOpen] = useState(false)
   const hasChildren = !!children
   const timerRef = useRef<NodeJS.Timeout | null>(null)
@@ -95,7 +96,7 @@ function NavItem({ label, href, isActive, onHover, onLeave, onClick, children, d
               className="absolute top-[calc(100%+8px)] left-1/2 -translate-x-1/2 w-[480px] bg-white border border-ff-border rounded-2xl shadow-[0_8px_32px_rgba(15,23,42,0.12)] overflow-hidden z-50"
             >
               <div className="p-3 grid grid-cols-2 gap-1.5">
-                {SERVICES_LINKS.map((s) => (
+                {(serviceLinks ?? []).map((s) => (
                   <Link
                     key={s.href}
                     href={s.href}
@@ -103,7 +104,7 @@ function NavItem({ label, href, isActive, onHover, onLeave, onClick, children, d
                     className="group flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-ff-raised transition-colors"
                   >
                     <span className="w-8 h-8 rounded-lg bg-ff-raised border border-ff-border group-hover:bg-ff-brand-tint group-hover:border-ff-border-blue flex items-center justify-center text-ff-accent text-[10px] font-bold font-heading shrink-0 transition-colors">
-                      {s.abbr}
+                      {SERVICES_ABBRS[s.href]}
                     </span>
                     <span className="text-ff-text text-sm font-medium leading-tight group-hover:text-ff-accent transition-colors">
                       {s.label}
@@ -191,6 +192,7 @@ export default function Navbar() {
                   onLeave={() => setHoveredItem(null)}
                   dropdownNote={t.nav.dropdownNote}
                   compareAll={t.nav.compareAll}
+                  serviceLinks={t.footer.serviceLinks}
                 >
                   {/* children presence triggers dropdown mode */}
                   <span />
@@ -314,14 +316,14 @@ export default function Navbar() {
                               transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
                               className="overflow-hidden pl-3 mt-1 grid grid-cols-2 gap-1"
                             >
-                              {SERVICES_LINKS.map((s) => (
+                              {t.footer.serviceLinks.map((s) => (
                                 <Link
                                   key={s.href}
                                   href={s.href}
                                   onClick={() => setMenuOpen(false)}
                                   className="flex items-center gap-2 px-3 py-2 rounded-lg text-ff-muted hover:text-ff-accent hover:bg-ff-raised text-xs font-medium transition-colors"
                                 >
-                                  <span className="text-ff-accent font-bold font-heading text-[10px]">{s.abbr}</span>
+                                  <span className="text-ff-accent font-bold font-heading text-[10px]">{SERVICES_ABBRS[s.href]}</span>
                                   {s.label}
                                 </Link>
                               ))}

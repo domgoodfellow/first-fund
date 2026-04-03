@@ -20,7 +20,10 @@ export default function HomepageServices() {
         </BlurFade>
 
         <ServiceCardGrid
-          services={SERVICES}
+          services={SERVICES.map((s) => {
+            const item = t.services.items.find((i) => i.abbr === s.abbr)
+            return item ? { ...s, title: item.title, desc: item.desc, badge: item.badge } : s
+          })}
           applyLabel={t.services.apply}
           learnMoreLabel={t.services.learnMore}
         />

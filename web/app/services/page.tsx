@@ -37,7 +37,14 @@ export default function ServicesPage() {
               {p.grid.heading}
             </h2>
           </BlurFade>
-          <ServiceCardGrid services={SERVICES} />
+          <ServiceCardGrid
+            services={SERVICES.map((s) => {
+              const item = t.services.items.find((i) => i.abbr === s.abbr)
+              return item ? { ...s, title: item.title, desc: item.desc, badge: item.badge } : s
+            })}
+            applyLabel={t.services.apply}
+            learnMoreLabel={t.services.learnMore}
+          />
         </div>
       </section>
 
