@@ -3,6 +3,8 @@
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import PageHero from '@/components/layout/PageHero'
+import SectionWrapper from '@/components/layout/SectionWrapper'
+import IconBadge from '@/components/ui/IconBadge'
 import ContactForm from '@/components/forms/ContactForm'
 import CTASection from '@/components/marketing/CTASection'
 import BlurFade from '@/components/motion/BlurFade'
@@ -20,8 +22,8 @@ export default function ContactPage() {
         </svg>
       ),
       label: p.methodLabels.email,
-      value: 'info@firsfund.com',
-      href: 'mailto:info@firsfund.com',
+      value: 'info@firstfund.com',
+      href: 'mailto:info@firstfund.com',
     },
     {
       icon: (
@@ -55,41 +57,39 @@ export default function ContactPage() {
         subtitle={p.subtitle}
       />
 
-      {/* Contact methods */}
-      <section className="py-12 bg-ff-surface border-y border-ff-border">
-        <div className="section-container px-4 sm:px-6">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl mx-auto">
-            {methods.map((m, i) => (
-              <BlurFade key={m.label} delay={i * 0.1} className="flex flex-col items-center text-center gap-3">
-                <div className="w-12 h-12 rounded-xl bg-ff-raised border border-ff-border-blue flex items-center justify-center text-ff-accent">
-                  {m.icon}
-                </div>
-                <div>
-                  <p className="text-ff-muted text-xs font-semibold uppercase tracking-wide mb-1">{m.label}</p>
-                  {m.href ? (
-                    <a href={m.href} className="text-ff-text text-sm font-medium hover:text-ff-accent transition-colors">{m.value}</a>
-                  ) : (
-                    <p className="text-ff-text text-sm font-medium">{m.value}</p>
-                  )}
-                </div>
-              </BlurFade>
-            ))}
-          </div>
+      {/* Contact methods strip */}
+      <SectionWrapper size="sm" bg="bg-ff-surface border-y border-ff-border">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl mx-auto">
+          {methods.map((m, i) => (
+            <BlurFade key={m.label} delay={i * 0.1} className="flex flex-col items-center text-center gap-3">
+              <IconBadge size="md" variant="default">
+                {m.icon}
+              </IconBadge>
+              <div>
+                <p className="text-ff-muted text-xs font-semibold uppercase tracking-wide mb-1">{m.label}</p>
+                {m.href ? (
+                  <a href={m.href} className="text-ff-text text-sm font-medium hover:text-ff-accent transition-colors">
+                    {m.value}
+                  </a>
+                ) : (
+                  <p className="text-ff-text text-sm font-medium">{m.value}</p>
+                )}
+              </div>
+            </BlurFade>
+          ))}
         </div>
-      </section>
+      </SectionWrapper>
 
       {/* Contact form */}
-      <section className="py-16 md:py-20 bg-ff-bg">
-        <div className="section-container px-4 sm:px-6">
-          <div className="max-w-2xl mx-auto">
-            <BlurFade className="mb-10">
-              <h2 className="font-heading text-3xl font-bold text-ff-text mb-2">{p.formHeading}</h2>
-              <p className="text-ff-muted text-sm">{p.formSubheading}</p>
-            </BlurFade>
-            <ContactForm />
-          </div>
+      <SectionWrapper size="md" bg="bg-ff-bg">
+        <div className="max-w-2xl mx-auto">
+          <BlurFade className="mb-10">
+            <h2 className="font-heading text-3xl font-bold text-ff-text mb-2">{p.formHeading}</h2>
+            <p className="text-ff-muted text-sm">{p.formSubheading}</p>
+          </BlurFade>
+          <ContactForm />
         </div>
-      </section>
+      </SectionWrapper>
 
       <CTASection
         heading={p.cta.heading}

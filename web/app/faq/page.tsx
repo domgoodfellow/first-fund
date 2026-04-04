@@ -3,6 +3,7 @@
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import PageHero from '@/components/layout/PageHero'
+import SectionWrapper from '@/components/layout/SectionWrapper'
 import FAQAccordion from '@/components/content/FAQAccordion'
 import CTASection from '@/components/marketing/CTASection'
 import BlurFade from '@/components/motion/BlurFade'
@@ -22,12 +23,13 @@ export default function FAQPage() {
         subtitle={p.subtitle}
       />
 
-      <section className="py-16 md:py-20 bg-ff-bg">
-        <div className="section-container px-4 sm:px-6 max-w-3xl mx-auto space-y-14">
+      <SectionWrapper size="md" bg="bg-ff-bg">
+        <div className="prose-section space-y-14">
           {p.categories.map((cat, i) => (
             <BlurFade key={cat.heading} delay={i * 0.05}>
               <div>
-                <h2 className="font-heading text-xl font-bold text-ff-text mb-5 pb-3 border-b border-ff-border">
+                <h2 className="font-heading text-lg font-bold text-ff-text mb-5 pb-3 border-b border-ff-border flex items-center gap-2">
+                  <span className="w-1.5 h-5 rounded-full bg-ff-accent inline-block shrink-0" />
                   {cat.heading}
                 </h2>
                 <FAQAccordion items={[...cat.items]} />
@@ -35,7 +37,7 @@ export default function FAQPage() {
             </BlurFade>
           ))}
         </div>
-      </section>
+      </SectionWrapper>
 
       <CTASection
         heading={p.cta.heading}
