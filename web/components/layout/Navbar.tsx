@@ -162,7 +162,7 @@ export default function Navbar() {
 
             {/* Desktop nav — centered */}
             {!isApply && (
-              <div className="hidden md:flex items-center relative">
+              <div className="hidden xl:flex items-center relative">
                 {/* Sliding hover indicator */}
                 <AnimatePresence>
                   {hoveredItem && (
@@ -215,7 +215,7 @@ export default function Navbar() {
             )}
 
             {/* Right side */}
-            <div className="hidden md:flex items-center gap-3">
+            <div className="hidden xl:flex items-center gap-3">
               {/* Language toggle */}
               <div className="flex items-center gap-0.5 bg-ff-surface border border-ff-border rounded-full p-1">
                 {availableLangs.map((lang) => (
@@ -253,7 +253,7 @@ export default function Navbar() {
 
             {/* Mobile hamburger */}
             <button
-              className="md:hidden w-9 h-9 flex items-center justify-center rounded-xl bg-ff-surface border border-ff-border text-ff-muted hover:text-ff-text transition-colors"
+              className="xl:hidden w-9 h-9 flex items-center justify-center rounded-xl bg-ff-surface border border-ff-border text-ff-muted hover:text-ff-text transition-colors"
               onClick={() => setMenuOpen(!menuOpen)}
               aria-label="Toggle menu"
             >
