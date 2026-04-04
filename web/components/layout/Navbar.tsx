@@ -395,7 +395,7 @@ export default function Navbar() {
       </nav>
 
       {/* Spacer so page content clears the floating nav */}
-      <div className="h-[84px]" aria-hidden="true" />
+      <div className="navbar-spacer" aria-hidden="true" />
     </>
   )
 }

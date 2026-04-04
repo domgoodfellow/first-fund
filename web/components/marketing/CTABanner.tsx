@@ -10,16 +10,13 @@ export default function CTABanner() {
   return (
     <section id="cta" className="relative py-6 md:py-10 bg-ff-surface overflow-hidden">
       <div className="section-container px-4 sm:px-6">
-        <div className="relative rounded-2xl overflow-hidden min-h-[480px] md:min-h-[560px] flex items-center justify-center bg-[#08111f]">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.24),_transparent_48%),linear-gradient(135deg,#08111f_0%,#10264a_52%,#0b1730_100%)]" />
-          <div className="absolute inset-0 opacity-[0.16] [background-image:linear-gradient(rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.08)_1px,transparent_1px)] [background-size:42px_42px]" />
+        <div className="relative rounded-2xl overflow-hidden min-h-[480px] md:min-h-[560px] flex items-center justify-center bg-ff-dark-section">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(var(--ff-accent-rgb),0.24),_transparent_48%)] mix-blend-screen" />
+          <div className="absolute inset-0 bg-gradient-to-br from-ff-dark-section via-[#10264a] to-[#0b1730]" />
+          <div className="absolute inset-0 opacity-[0.14] [background-image:linear-gradient(rgba(255,255,255,0.07)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.07)_1px,transparent_1px)] [background-size:42px_42px]" />
 
-          <div
-            className="absolute -left-12 top-10 h-48 w-48 rounded-full bg-[#1d4ed8]/25 blur-3xl pointer-events-none"
-          />
-          <div
-            className="absolute -right-10 bottom-10 h-56 w-56 rounded-full bg-[#60a5fa]/20 blur-3xl pointer-events-none"
-          />
+          <div className="absolute -left-12 top-10 h-48 w-48 rounded-full bg-ff-accent/20 blur-3xl pointer-events-none" />
+          <div className="absolute -right-10 bottom-10 h-56 w-56 rounded-full bg-ff-glow/15 blur-3xl pointer-events-none" />
 
           <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-8 text-center">
             <motion.div

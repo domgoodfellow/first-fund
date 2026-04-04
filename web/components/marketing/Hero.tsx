@@ -20,10 +20,10 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative -mt-[84px] min-h-[calc(100vh+84px)] pt-[84px] flex flex-col bg-[#08111f] overflow-hidden"
+      className="hero-pull relative flex flex-col bg-ff-dark-section overflow-hidden"
     >
       <video
-        src="/video/hero.mp4"
+        src="/video/who_we_serve_2k.mp4"
         autoPlay
         loop
         muted
@@ -33,8 +33,9 @@ export default function Hero() {
         aria-hidden="true"
       />
 
-      <div className="absolute inset-0 bg-[#08111f]/68" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.28),_transparent_52%),linear-gradient(180deg,rgba(8,17,31,0.35)_0%,rgba(8,17,31,0.8)_100%)]" />
+      <div className="absolute inset-0 bg-ff-dark-section/70" />
+      <div className="absolute inset-0 bg-gradient-to-b from-ff-dark-section/35 to-ff-dark-section/80" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(var(--ff-accent-rgb),0.28),_transparent_52%)]" />
       <GridPattern opacity={0.14} />
 
       {/* Blue accent orbs */}
@@ -75,7 +76,7 @@ export default function Hero() {
           >
             {t.hero.headline.split('\n').map((line, i) => (
               <span key={i} className="block">
-                {i === 0 ? line : <span className="text-[#bfdbfe]">{line}</span>}
+                {i === 0 ? line : <span className="text-ff-border-blue">{line}</span>}
               </span>
             ))}
           </motion.h1>

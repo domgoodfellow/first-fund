@@ -37,7 +37,7 @@ export default function CTASection({
           ? 'border-white/[0.08]'
           : 'bg-ff-surface border-ff-border'
       }`}
-      style={isDark ? { backgroundColor: '#0F1C2E' } : undefined}
+      style={isDark ? { backgroundColor: 'var(--ff-dark-alt)' } : undefined}
     >
       <div className="section-container px-4 sm:px-6 text-center">
         <BlurFade>

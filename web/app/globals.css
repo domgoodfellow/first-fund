@@ -4,21 +4,37 @@
 
 /* ── FirstFund theme — blue on white ── */
 :root {
+  /* Backgrounds */
   --ff-bg:            #FFFFFF;
   --ff-surface:       #F8FAFC;
   --ff-surface-alt:   #F1F5F9;
   --ff-raised:        #EFF6FF;
   --ff-brand-tint:    #DBEAFE;
+
+  /* Dark section tokens (used in Hero, CTABanner, footer) */
+  --ff-dark-section:  #08111f;
   --ff-dark-alt:      #0F1C2E;
+  --ff-dark-overlay:  rgba(8, 17, 31, 0.68);
+  --ff-dark-gradient: linear-gradient(180deg, rgba(8,17,31,0.35) 0%, rgba(8,17,31,0.80) 100%);
+
+  /* Brand */
   --ff-accent:        #1E40AF;
   --ff-glow:          #1D4ED8;
+  --ff-accent-rgb:    30, 64, 175;
+
+  /* Text */
   --ff-text:          #0F172A;
   --ff-muted:         #64748B;
   --ff-subtle:        #94A3B8;
+
+  /* Borders */
   --ff-border:        #E2E8F0;
   --ff-border-strong: #CBD5E1;
   --ff-border-blue:   #BFDBFE;
-  --ff-accent-rgb:    30, 64, 175;
+
+  /* Layout */
+  --ff-navbar-height: 68px;
+  --ff-navbar-offset: 84px; /* height + top padding (68px card + ~16px top pt) */
 }
 
 @layer base {
@@ -71,6 +87,35 @@
   .eyebrow {
     @apply text-ff-accent text-xs font-semibold uppercase tracking-[0.12em] mb-3 block;
   }
+
+  /* ── Navbar offset helpers ── */
+  /* Use these instead of hardcoded 84px values */
+  .navbar-spacer {
+    height: var(--ff-navbar-offset);
+  }
+
+  /* Hero pull-up: negates spacer so the hero fills from top edge */
+  .hero-pull {
+    margin-top: calc(-1 * var(--ff-navbar-offset));
+    padding-top: var(--ff-navbar-offset);
+    min-height: calc(100vh + var(--ff-navbar-offset));
+  }
+
+  /* ── Section spacing hierarchy ── */
+  /* Large homepage sections: generous vertical breathing room */
+  .section-lg  { @apply py-20 md:py-28; }
+  /* Standard inner-page / marketing sections */
+  .section-md  { @apply py-16 md:py-24; }
+  /* Compact strip sections (trust bars, thin bands) */
+  .section-sm  { @apply py-8 md:py-12; }
+
+  /* ── Content width semantics ── */
+  /* Narrow prose (Privacy, Terms, FAQ single-col) */
+  .prose-section { max-width: 48rem; margin-left: auto; margin-right: auto; }
+  /* Hero copy / page hero title area */
+  .hero-copy-width { max-width: 56rem; margin-left: auto; margin-right: auto; }
+  /* CTA / narrow CTA copy */
+  .cta-copy-width  { max-width: 42rem; margin-left: auto; margin-right: auto; }
 
   /* Primary button */
   .btn-primary {
