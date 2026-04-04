@@ -5,9 +5,10 @@ import { useRef, useState } from 'react'
 /* ─── Shared styling ──────────────────────────────────── */
 
 export const inputClass =
-  'w-full bg-ff-bg border border-ff-border rounded-lg px-4 py-3 text-ff-text placeholder:text-ff-muted text-sm focus:outline-none focus:border-ff-accent focus:ring-1 focus:ring-ff-border-blue transition-colors'
+  'w-full bg-ff-bg border border-ff-border rounded-xl px-4 py-3 text-ff-text placeholder:text-ff-muted text-sm focus:outline-none focus:border-ff-accent focus:ring-1 focus:ring-ff-border-blue transition-colors'
 
-export const labelClass = 'text-ff-text text-sm font-medium'
+/** Used by BookingForm / ContactForm — small uppercase label */
+export const labelClass = 'block text-ff-muted text-xs font-semibold mb-1.5 uppercase tracking-wide'
 
 /* ─── Field ───────────────────────────────────────────── */
 
@@ -173,5 +174,54 @@ export function FileDropZone({
         onChange={(e) => onChange(e.target.files?.[0] ?? null)}
       />
     </div>
+  )
+}
+
+/* ─── TextareaField ───────────────────────────────────── */
+
+export function TextareaField({
+  label, value, onChange, placeholder, required, rows = 4,
+}: {
+  label: string
+  value: string
+  onChange: React.ChangeEventHandler<HTMLTextAreaElement>
+  placeholder?: string
+  required?: boolean
+  rows?: number
+}) {
+  return (
+    <div className="flex flex-col gap-1.5">
+      <label className={labelClass}>{label}</label>
+      <textarea
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
+        required={required}
+        rows={rows}
+        className={`${inputClass} resize-none`}
+      />
+    </div>
+  )
+}
+
+/* ─── SubmitButton ────────────────────────────────────── */
+
+export function SubmitButton({
+  label,
+  disabled,
+  fullWidth = true,
+}: {
+  label: string
+  disabled?: boolean
+  fullWidth?: boolean
+}) {
+  return (
+    <button
+      type="submit"
+      disabled={disabled}
+      className={`${fullWidth ? 'w-full' : ''} bg-ff-accent text-white font-bold text-sm py-3.5 rounded-xl hover:bg-ff-glow transition-colors disabled:opacity-40 disabled:cursor-not-allowed shadow-[0_1px_3px_rgba(30,64,175,0.3)]`}
+    >
+      {label}
+    </button>
   )
 }

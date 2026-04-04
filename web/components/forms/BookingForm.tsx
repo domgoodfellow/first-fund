@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import BlurFade from '@/components/motion/BlurFade'
 import { useLanguage } from '@/contexts/LanguageContext'
+import { Field, SelectField, TextareaField, SubmitButton } from './FormPrimitives'
 
 interface FormState {
   fullName: string
@@ -14,20 +15,23 @@ interface FormState {
   notes: string
 }
 
+const EMPTY: FormState = {
+  fullName: '', businessName: '', email: '', phone: '',
+  fundingGoal: '', callTime: '', notes: '',
+}
+
 export default function BookingForm() {
   const { t } = useLanguage()
   const f = t.bookACallPage.form
 
-  const [form, setForm] = useState<FormState>({
-    fullName: '', businessName: '', email: '', phone: '',
-    fundingGoal: '', callTime: '', notes: '',
-  })
+  const [form, setForm] = useState<FormState>(EMPTY)
   const [submitted, setSubmitted] = useState(false)
 
-  const set = (field: keyof FormState) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
-    setForm((prev) => ({ ...prev, [field]: e.target.value }))
+  const set = (field: keyof FormState) =>
+    (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
+      setForm((prev) => ({ ...prev, [field]: e.target.value }))
 
-  const isValid = form.fullName && form.email && form.phone && form.fundingGoal && form.callTime
+  const isValid = !!(form.fullName && form.email && form.phone && form.fundingGoal && form.callTime)
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -46,7 +50,7 @@ export default function BookingForm() {
         <h3 className="font-heading text-2xl font-bold text-ff-text mb-2">{f.successHeading}</h3>
         <p className="text-ff-muted text-sm mb-6">{f.successMessage}</p>
         <button
-          onClick={() => { setSubmitted(false); setForm({ fullName: '', businessName: '', email: '', phone: '', fundingGoal: '', callTime: '', notes: '' }) }}
+          onClick={() => { setSubmitted(false); setForm(EMPTY) }}
           className="text-ff-accent text-sm hover:underline"
         >
           {f.submitAnother}
@@ -55,68 +59,46 @@ export default function BookingForm() {
     )
   }
 
-  const inputClass = 'w-full bg-ff-bg border border-ff-border text-ff-text placeholder:text-ff-muted text-sm px-4 py-3 rounded-xl focus:outline-none focus:border-ff-accent focus:ring-1 focus:ring-ff-border-blue transition-colors'
-  const labelClass = 'block text-ff-muted text-xs font-semibold mb-1.5 uppercase tracking-wide'
-
   return (
     <BlurFade>
       <form onSubmit={handleSubmit} className="bg-ff-surface border border-ff-border rounded-2xl p-8 space-y-5 max-w-lg mx-auto">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-          <div>
-            <label className={labelClass}>{f.labels.fullName}{f.required}</label>
-            <input className={inputClass} placeholder={f.placeholders.fullName} value={form.fullName} onChange={set('fullName')} required />
-          </div>
-          <div>
-            <label className={labelClass}>{f.labels.businessName}</label>
-            <input className={inputClass} placeholder={f.placeholders.businessName} value={form.businessName} onChange={set('businessName')} />
-          </div>
+          <Field label={`${f.labels.fullName}${f.required}`} value={form.fullName} onChange={set('fullName')} placeholder={f.placeholders.fullName} required />
+          <Field label={f.labels.businessName} value={form.businessName} onChange={set('businessName')} placeholder={f.placeholders.businessName} />
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-          <div>
-            <label className={labelClass}>{f.labels.email}{f.required}</label>
-            <input type="email" className={inputClass} placeholder={f.placeholders.email} value={form.email} onChange={set('email')} required />
-          </div>
-          <div>
-            <label className={labelClass}>{f.labels.phone}{f.required}</label>
-            <input type="tel" className={inputClass} placeholder={f.placeholders.phone} value={form.phone} onChange={set('phone')} required />
-          </div>
+          <Field label={`${f.labels.email}${f.required}`} type="email" value={form.email} onChange={set('email')} placeholder={f.placeholders.email} required />
+          <Field label={`${f.labels.phone}${f.required}`} type="tel" value={form.phone} onChange={set('phone')} placeholder={f.placeholders.phone} required />
         </div>
 
-        <div>
-          <label className={labelClass}>{f.labels.fundingGoal}{f.required}</label>
-          <select className={inputClass} value={form.fundingGoal} onChange={set('fundingGoal')} required>
-            <option value="">{f.placeholders.selectFunding}</option>
-            {f.fundingGoals.map((g) => <option key={g}>{g}</option>)}
-          </select>
-        </div>
+        <SelectField
+          label={`${f.labels.fundingGoal}${f.required}`}
+          value={form.fundingGoal}
+          onChange={set('fundingGoal') as React.ChangeEventHandler<HTMLSelectElement>}
+          options={f.fundingGoals}
+          placeholder={f.placeholders.selectFunding}
+          required
+        />
 
-        <div>
-          <label className={labelClass}>{f.labels.callTime}{f.required}</label>
-          <select className={inputClass} value={form.callTime} onChange={set('callTime')} required>
-            <option value="">{f.placeholders.selectTime}</option>
-            {f.callTimes.map((ct) => <option key={ct}>{ct}</option>)}
-          </select>
-        </div>
+        <SelectField
+          label={`${f.labels.callTime}${f.required}`}
+          value={form.callTime}
+          onChange={set('callTime') as React.ChangeEventHandler<HTMLSelectElement>}
+          options={f.callTimes}
+          placeholder={f.placeholders.selectTime}
+          required
+        />
 
-        <div>
-          <label className={labelClass}>{f.labels.notes}</label>
-          <textarea
-            className={`${inputClass} resize-none`}
-            rows={3}
-            placeholder={f.placeholders.notes}
-            value={form.notes}
-            onChange={set('notes')}
-          />
-        </div>
+        <TextareaField
+          label={f.labels.notes}
+          value={form.notes}
+          onChange={set('notes') as React.ChangeEventHandler<HTMLTextAreaElement>}
+          placeholder={f.placeholders.notes}
+          rows={3}
+        />
 
-        <button
-          type="submit"
-          disabled={!isValid}
-          className="w-full bg-ff-accent text-white font-bold text-sm py-3.5 rounded-xl hover:bg-ff-glow transition-colors disabled:opacity-40 disabled:cursor-not-allowed shadow-[0_1px_3px_rgba(30,64,175,0.3)]"
-        >
-          {f.submitBtn}
-        </button>
+        <SubmitButton label={f.submitBtn} disabled={!isValid} />
         <p className="text-ff-muted text-xs text-center">{f.note}</p>
       </form>
     </BlurFade>
