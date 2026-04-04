@@ -67,19 +67,20 @@ export default function Hero() {
             <ShimmerBadge>{t.hero.badge}</ShimmerBadge>
           </motion.div>
 
-          {/* Headline */}
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-            className="font-heading text-5xl sm:text-6xl md:text-7xl font-extrabold text-white leading-[1.08] tracking-tight mb-6"
-          >
+          {/* Headline — each line enters independently */}
+          <h1 className="font-heading text-5xl sm:text-6xl md:text-7xl font-extrabold text-white leading-[1.08] tracking-tight mb-6 overflow-hidden">
             {t.hero.headline.split('\n').map((line, i) => (
-              <span key={i} className="block">
+              <motion.span
+                key={i}
+                className="block"
+                initial={{ opacity: 0, y: 32, filter: 'blur(6px)' }}
+                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                transition={{ duration: 0.7, delay: 0.1 + i * 0.12, ease: [0.22, 1, 0.36, 1] }}
+              >
                 {i === 0 ? line : <span className="text-ff-border-blue">{line}</span>}
-              </span>
+              </motion.span>
             ))}
-          </motion.h1>
+          </h1>
 
           {/* Sub */}
           <motion.p

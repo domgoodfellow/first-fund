@@ -1,6 +1,7 @@
 'use client'
 
 import { useLanguage } from '@/contexts/LanguageContext'
+import { motion } from 'framer-motion'
 import BlurFade from '@/components/motion/BlurFade'
 import SectionWrapper from '@/components/layout/SectionWrapper'
 import SectionHeader from '@/components/ui/SectionHeader'
@@ -43,9 +44,15 @@ export default function HowItWorks() {
                 <IconBadge size="lg" className="rounded-full border-2 border-ff-border-blue shadow-[0_1px_4px_rgba(15,23,42,0.06)]">
                   {STEP_ICONS[i]}
                 </IconBadge>
-                <span className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-ff-accent text-white text-xs font-extrabold flex items-center justify-center font-heading shadow-md">
+                <motion.span
+                  initial={{ scale: 0, opacity: 0 }}
+                  whileInView={{ scale: 1, opacity: 1 }}
+                  viewport={{ once: true, amount: 0.8 }}
+                  transition={{ type: 'spring', stiffness: 400, damping: 18, delay: i * 0.12 + 0.2 }}
+                  className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-ff-accent text-white text-xs font-extrabold flex items-center justify-center font-heading shadow-md"
+                >
                   {i + 1}
-                </span>
+                </motion.span>
               </div>
               <h3 className="font-heading font-bold text-ff-text text-lg mb-2">{s.title}</h3>
               <p className="text-ff-muted text-sm leading-relaxed max-w-[220px]">{s.desc}</p>

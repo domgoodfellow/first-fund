@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import type { ReactNode } from 'react'
+import { motion } from 'framer-motion'
 import SpotlightCard from '@/components/motion/SpotlightCard'
 
 export interface ServiceCardData {
@@ -27,10 +28,14 @@ export default function ServiceCard({ service, applyLabel = 'Apply Now', learnMo
         {service.badge}
       </span>
 
-      {/* Icon */}
-      <div className="w-12 h-12 rounded-xl bg-ff-raised border border-ff-border-blue flex items-center justify-center text-ff-accent mb-5 group-hover:bg-ff-brand-tint transition-colors">
+      {/* Icon — lifts on card hover */}
+      <motion.div
+        className="w-12 h-12 rounded-xl bg-ff-raised border border-ff-border-blue flex items-center justify-center text-ff-accent mb-5 group-hover:bg-ff-brand-tint transition-colors"
+        whileHover={{ y: -3, scale: 1.05 }}
+        transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+      >
         {service.icon}
-      </div>
+      </motion.div>
 
       <span className="text-ff-subtle text-xs font-semibold tracking-widest mb-1">{service.abbr}</span>
       <h3 className="font-heading font-bold text-ff-text text-lg mb-3 leading-snug">{service.title}</h3>
