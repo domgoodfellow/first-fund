@@ -116,6 +116,19 @@ You also need to:
 - create the Supabase project and auth settings
 - manually assign `admin` roles in the `profiles` table for staff accounts
 
+Environment value sources:
+- `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY`: Supabase Dashboard -> Project Settings -> API
+- `NEXT_PUBLIC_TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET_KEY`: Cloudflare Turnstile widget settings after creating or opening a widget
+- `NEXT_PUBLIC_GOOGLE_PLACES_API_KEY`: Google Cloud Console -> APIs & Services -> Credentials
+- `NEXT_PUBLIC_GOOGLE_PLACE_ID`: your Google business place ID
+
+Google OAuth is not wired yet. The next implementation step is to:
+- create a Google OAuth web client in Google Cloud Console
+- enable Google in Supabase Authentication -> Providers
+- add the Supabase-provided redirect URI in Google
+- add `signInWithOAuth({ provider: 'google' })` buttons to the auth forms
+- keep the app callback at `/auth/callback`
+
 ## Validation
 
 Production build currently passes with:

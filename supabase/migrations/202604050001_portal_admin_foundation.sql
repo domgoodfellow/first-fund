@@ -348,7 +348,7 @@ using (
   bucket_id = 'application-documents'
   and (
     public.current_user_is_admin()
-    or storage.foldername(name)[1] = auth.uid()::text
+    or (storage.foldername(name))[1] = auth.uid()::text
   )
 );
 
@@ -359,6 +359,6 @@ with check (
   bucket_id = 'application-documents'
   and (
     public.current_user_is_admin()
-    or storage.foldername(name)[1] = auth.uid()::text
+    or (storage.foldername(name))[1] = auth.uid()::text
   )
 );
