@@ -1,5 +1,4 @@
-import Navbar from '@/components/layout/Navbar'
-import Footer from '@/components/layout/Footer'
+import MarketingShell from '@/components/layout/MarketingShell'
 import PageHero from '@/components/layout/PageHero'
 import SectionWrapper from '@/components/layout/SectionWrapper'
 
@@ -44,8 +43,7 @@ const SECTIONS = [
 
 export default function PrivacyPage() {
   return (
-    <main>
-      <Navbar />
+    <MarketingShell>
       <PageHero
         title="Privacy Policy"
         subtitle="Effective Date: March 6, 2025"
@@ -88,7 +86,6 @@ export default function PrivacyPage() {
           </div>
         </div>
       </SectionWrapper>
-      <Footer />
-    </main>
+    </MarketingShell>
   )
 }

@@ -1,7 +1,6 @@
 'use client'
 
-import Navbar from '@/components/layout/Navbar'
-import Footer from '@/components/layout/Footer'
+import MarketingShell from '@/components/layout/MarketingShell'
 import PageHero from '@/components/layout/PageHero'
 import SectionWrapper from '@/components/layout/SectionWrapper'
 import IconBadge from '@/components/ui/IconBadge'
@@ -48,9 +47,7 @@ export default function ContactPage() {
   ]
 
   return (
-    <main className="bg-ff-bg min-h-screen">
-      <Navbar />
-
+    <MarketingShell>
       <PageHero
         badge={p.badge}
         title={p.title}
@@ -100,7 +97,6 @@ export default function ContactPage() {
         secondaryHref="/book-a-call"
       />
 
-      <Footer />
-    </main>
+    </MarketingShell>
   )
 }

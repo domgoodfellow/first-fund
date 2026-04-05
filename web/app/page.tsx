@@ -1,4 +1,4 @@
-import Navbar from '@/components/layout/Navbar'
+import MarketingShell from '@/components/layout/MarketingShell'
 import Hero from '@/components/marketing/Hero'
 import TrustBar from '@/components/marketing/TrustBar'
 import HowItWorks from '@/components/marketing/HowItWorks'
@@ -8,12 +8,10 @@ import Testimonials from '@/components/marketing/Testimonials'
 import CTABanner from '@/components/marketing/CTABanner'
 import HomepageFAQ from '@/components/marketing/HomepageFAQ'
 import CTASection from '@/components/marketing/CTASection'
-import Footer from '@/components/layout/Footer'
 
 export default function HomePage() {
   return (
-    <main>
-      <Navbar />
+    <MarketingShell>
       <Hero />
       <TrustBar />
       <HowItWorks />
@@ -23,7 +21,6 @@ export default function HomePage() {
       <CTABanner />
       <HomepageFAQ />
       <CTASection />
-      <Footer />
-    </main>
+    </MarketingShell>
   )
 }

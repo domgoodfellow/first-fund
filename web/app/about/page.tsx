@@ -1,7 +1,6 @@
 'use client'
 
-import Navbar from '@/components/layout/Navbar'
-import Footer from '@/components/layout/Footer'
+import MarketingShell from '@/components/layout/MarketingShell'
 import PageHero from '@/components/layout/PageHero'
 import SectionWrapper from '@/components/layout/SectionWrapper'
 import SectionHeader from '@/components/ui/SectionHeader'
@@ -17,9 +16,7 @@ export default function AboutPage() {
   const a = t.about
 
   return (
-    <main className="bg-ff-bg min-h-screen">
-      <Navbar />
-
+    <MarketingShell>
       <PageHero
         badge={a.badge}
         title={a.title}
@@ -87,7 +84,6 @@ export default function AboutPage() {
         subheading={a.cta.subheading}
       />
 
-      <Footer />
-    </main>
+    </MarketingShell>
   )
 }

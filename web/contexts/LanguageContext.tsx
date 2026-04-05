@@ -1,9 +1,10 @@
 'use client'
 
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useEffect, useMemo, useState } from 'react'
 import { Language, translations, Translations } from '@/lib/i18n'
 
 export const brandName = 'FirsFund'
+const STORAGE_KEY = 'ff-language'
 
 interface LanguageContextValue {
   language: Language
@@ -17,19 +18,47 @@ const LanguageContext = createContext<LanguageContextValue>({
   t: translations.en,
 })
 
-export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [language, setLanguage] = useState<Language>('en')
+export function LanguageProvider({
+  children,
+  initialLanguage = 'en',
+  hydrateFromStorage = true,
+}: {
+  children: React.ReactNode
+  initialLanguage?: Language
+  hydrateFromStorage?: boolean
+}) {
+  const [language, setLanguage] = useState<Language>(initialLanguage)
+
+  useEffect(() => {
+    if (!hydrateFromStorage) {
+      setLanguage(initialLanguage)
+      return
+    }
+
+    const storedLanguage = window.localStorage.getItem(STORAGE_KEY)
+    if (storedLanguage === 'en' || storedLanguage === 'es') {
+      setLanguage(storedLanguage)
+      return
+    }
+
+    setLanguage(initialLanguage)
+  }, [hydrateFromStorage, initialLanguage])
+
+  useEffect(() => {
+    window.localStorage.setItem(STORAGE_KEY, language)
+  }, [language])
+
+  const value = useMemo(
+    () => ({
+      language,
+      setLanguage,
+      t: translations[language] as Translations,
+    }),
+    [language],
+  )
 
   return (
-    <LanguageContext.Provider
-      value={{
-        language,
-        setLanguage,
-        t: translations[language] as Translations,
-      }}
-    >
-      {children}
-    </LanguageContext.Provider>
+    <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>
   )
 }
 

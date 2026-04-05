@@ -1,126 +1,125 @@
-# FirsFund / NextFund — Web
+# FirstFund Web
 
-The marketing and application frontend for the FirsFund (US) and NextFund (CA) business financing platform. Built with Next.js 14, Tailwind CSS, and Framer Motion.
+Next.js App Router frontend for:
+- the public marketing site
+- authenticated client portal
+- authenticated admin portal
 
----
+The app now stays in one deployment unit under `web/`, with protected product surfaces layered on top of the original marketing site.
 
-## What this is
+## Current surfaces
 
-A dual-brand fintech site that serves two markets from a single codebase:
+| Route area | Purpose |
+|---|---|
+| `/`, `/about`, `/services/*`, `/contact`, `/faq`, `/privacy`, `/terms`, `/book-a-call` | Marketing site |
+| `/apply`, `/sign-in`, `/sign-up`, `/forgot-password` | Auth and application entry |
+| `/portal/*` | Client portal |
+| `/admin/*` | Admin portal |
+| `/api/*` | Route handlers for intake, auth, application saves, uploads, and admin actions |
 
-| Market | Brand | Domain | Currency |
-|--------|-------|--------|----------|
-| United States | FirsFund | firsfund.com | USD |
-| Canada | NextFund | nextfund.ca | CAD |
+## Stack
 
-Visitors toggle their market in the navbar. The brand name, currency labels, and all copy switch instantly — including full translations for **English**, **Spanish** (US), and **French** (CA).
-
----
-
-## Pages
-
-| Route | Description |
-|-------|-------------|
-| `/` | Homepage — hero, stats, how it works, services, testimonials, CTA |
-| `/apply` | One-page funding application form |
-| `/terms` | Terms of Service |
-| `/privacy` | Privacy Policy |
-
----
-
-## Feature highlights
-
-- **Country + language toggle** in the navbar. US offers EN/ES; CA offers EN/FR. All UI copy is translated via `lib/i18n.ts`.
-- **Google Reviews ticker** — an infinite-scroll strip below the navbar displaying live social proof. Placeholder data is included; wire it to the Google Places API when ready (see `components/ReviewsTicker.tsx`).
-- **Animated hero** — floating gradient orbs and a pulsing green CTA built with Framer Motion.
-- **Scroll-triggered reveals** — every major section fades and slides in as the user scrolls.
-- **Application form** — progress bar, all required fields (company, contact, revenue, industry, referral), dual SMS consent checkboxes, and a success state.
-- **Dark design system** — custom Tailwind tokens (`ff-*`) matching the brand spec exactly.
-
----
+- Next.js 16 App Router
+- React 18
+- Tailwind CSS
+- Framer Motion
+- Supabase Auth, Postgres, and Storage
+- Cloudflare Turnstile for public-form bot checks
+- Zod for request validation
 
 ## Project structure
 
-```
+```text
 web/
-├── app/                    # Next.js App Router
-│   ├── layout.tsx          # Root layout — fonts, CountryProvider
-│   ├── page.tsx            # Homepage
-│   ├── globals.css         # Tailwind base + custom utilities
-│   ├── apply/page.tsx      # Application page
-│   ├── terms/page.tsx      # Terms of Service
-│   └── privacy/page.tsx    # Privacy Policy
-│
-├── components/
-│   ├── Navbar.tsx          # Fixed nav with country/language toggle
-│   ├── ReviewsTicker.tsx   # Infinite-scroll Google reviews strip
-│   ├── Hero.tsx            # Full-screen animated hero
-│   ├── Stats.tsx           # Key stats bar (decisions, funding, etc.)
-│   ├── HowItWorks.tsx      # 4-step process timeline
-│   ├── Services.tsx        # 4 product cards (MCA, LOC, MTG, FTL)
-│   ├── Testimonials.tsx    # Customer quote cards
-│   ├── CTABanner.tsx       # Mid-page call-to-action section
-│   ├── Footer.tsx          # Site footer with links and disclaimer
-│   └── ApplyForm.tsx       # Funding application form
-│
-├── contexts/
-│   └── CountryContext.tsx  # Country + language state and derived values
-│
-├── lib/
-│   └── i18n.ts             # All UI copy in EN, FR, and ES
-│
-├── next.config.ts
-├── tailwind.config.ts      # Custom ff-* color tokens, fonts, animations
-├── postcss.config.mjs
-├── tsconfig.json
-└── package.json
+  app/
+    layout.tsx
+    page.tsx
+    about/page.tsx
+    contact/page.tsx
+    services/...
+    (auth)/
+      apply/page.tsx
+      sign-in/page.tsx
+      sign-up/page.tsx
+      forgot-password/page.tsx
+      auth/callback/route.ts
+    (client-portal)/
+      portal/
+        layout.tsx
+        dashboard/page.tsx
+        application/page.tsx
+        documents/page.tsx
+        messages/page.tsx
+        settings/page.tsx
+    (admin)/
+      admin/
+        layout.tsx
+        applications/page.tsx
+        applications/[id]/page.tsx
+        clients/page.tsx
+        documents/page.tsx
+        notes/page.tsx
+    api/
+      contact/route.ts
+      book-a-call/route.ts
+      applications/...
+      uploads/...
+      documents/...
+      admin/...
+      profile/settings/route.ts
+  components/
+    admin/
+    auth/
+    forms/
+    layout/
+    marketing/
+    portal/
+  lib/
+    auth/
+    db/
+    permissions/
+    storage/
+    validations/
+  proxy.ts
 ```
 
----
+## Security model
 
-## Design tokens
+- Route protection is enforced in [`proxy.ts`](c:\Users\domin\Documents\First-Fund\first-fund\web\proxy.ts) and server guards.
+- Data protection is enforced with Supabase RLS in [`supabase/migrations/202604050001_portal_admin_foundation.sql`](c:\Users\domin\Documents\First-Fund\first-fund\supabase\migrations\202604050001_portal_admin_foundation.sql).
+- File uploads use a private Supabase bucket with signed upload/download URLs.
+- Public forms (`/contact` and `/book-a-call`) require server-side Turnstile verification.
 
-Defined in `tailwind.config.ts` and used as Tailwind utility classes throughout:
+## Key behavior changes
 
-| Token | Class | Hex |
-|-------|-------|-----|
-| Background | `bg-ff-bg` | `#0A0F1E` |
-| Surface | `bg-ff-surface` | `#111827` |
-| Accent (green) | `text-ff-accent` / `bg-ff-accent` | `#22C55E` |
-| Accent glow | `text-ff-glow` | `#34D399` |
-| Muted text | `text-ff-muted` | `#9CA3AF` |
-| Border | `border-ff-border` | `#1F2937` |
-| Trust bg | `bg-ff-trust` | `#1E2A44` |
+- `/apply` is no longer the public multi-step application form.
+- `/apply` is now the auth-first application entry page.
+- `/book-a-call` is the public lead-capture flow.
+- The client portal owns the secure application draft, document uploads, and status timeline.
+- The admin portal owns review, notes, and status changes.
 
-Typography: **Poppins** (headings, `font-heading`) · **Inter** (body, `font-body`).
+## Required setup
 
----
+Create `web/.env.local` from [`web/.env.example`](c:\Users\domin\Documents\First-Fund\first-fund\web\.env.example) and set:
 
-## Adding a new language
+```env
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+NEXT_PUBLIC_TURNSTILE_SITE_KEY=
+TURNSTILE_SECRET_KEY=
+NEXT_PUBLIC_GOOGLE_PLACES_API_KEY=
+NEXT_PUBLIC_GOOGLE_PLACE_ID=
+```
 
-1. Add a new key to the `translations` object in `lib/i18n.ts` (copy the `en` block as a template).
-2. Add the `Language` union type (`export type Language = 'en' | 'fr' | 'es' | 'xx'`).
-3. Add the language to the relevant country in `countryLanguages` in `contexts/CountryContext.tsx`.
-4. Add a display label in the `langLabels` map in `components/Navbar.tsx`.
+You also need to:
+- apply the Supabase migration under `supabase/migrations/`
+- create the Supabase project and auth settings
+- manually assign `admin` roles in the `profiles` table for staff accounts
 
----
+## Validation
 
-## Wiring the Google Reviews ticker
+Production build currently passes with:
 
-`components/ReviewsTicker.tsx` currently uses hardcoded placeholder reviews. To connect live data:
-
-1. Enable the **Places API** in your Google Cloud project.
-2. Fetch reviews server-side (Next.js Route Handler or `generateStaticParams`) from:
-   ```
-   GET https://maps.googleapis.com/maps/api/place/details/json
-     ?place_id=YOUR_PLACE_ID
-     &fields=reviews
-     &key=YOUR_API_KEY
-   ```
-3. Pass the result as a prop to `<ReviewsTicker reviews={reviews} />` and remove the hardcoded `GOOGLE_REVIEWS` array.
-
----
-
-## Legal entity
-
-**9508-8142 Québec Inc.** · [info@nextfund.ca](mailto:info@nextfund.ca) · +1 438 813 5149
+```bash
+npm run build
+```

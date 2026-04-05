@@ -1,5 +1,4 @@
-import Navbar from '@/components/layout/Navbar'
-import Footer from '@/components/layout/Footer'
+import MarketingShell from '@/components/layout/MarketingShell'
 import PageHero from '@/components/layout/PageHero'
 import SectionWrapper from '@/components/layout/SectionWrapper'
 
@@ -52,8 +51,7 @@ const SECTIONS = [
 
 export default function TermsPage() {
   return (
-    <main>
-      <Navbar />
+    <MarketingShell>
       <PageHero
         title="Terms of Service"
         subtitle="Effective Date: March 6, 2025"
@@ -94,7 +92,6 @@ export default function TermsPage() {
           </div>
         </div>
       </SectionWrapper>
-      <Footer />
-    </main>
+    </MarketingShell>
   )
 }

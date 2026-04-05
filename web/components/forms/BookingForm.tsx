@@ -4,6 +4,7 @@ import { useState } from 'react'
 import BlurFade from '@/components/motion/BlurFade'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { Field, SelectField, TextareaField, SubmitButton } from './FormPrimitives'
+import TurnstileWidget from './TurnstileWidget'
 
 interface FormState {
   fullName: string
@@ -26,6 +27,9 @@ export default function BookingForm() {
 
   const [form, setForm] = useState<FormState>(EMPTY)
   const [submitted, setSubmitted] = useState(false)
+  const [turnstileToken, setTurnstileToken] = useState('')
+  const [error, setError] = useState<string | null>(null)
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const set = (field: keyof FormState) =>
     (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
@@ -33,10 +37,37 @@ export default function BookingForm() {
 
   const isValid = !!(form.fullName && form.email && form.phone && form.fundingGoal && form.callTime)
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!isValid) return
-    setSubmitted(true)
+    setError(null)
+    setIsSubmitting(true)
+
+    try {
+      const response = await fetch('/api/book-a-call', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...form,
+          turnstileToken,
+        }),
+      })
+
+      const payload = await response.json()
+
+      if (!response.ok) {
+        throw new Error(payload.error ?? 'Unable to submit the booking request.')
+      }
+
+      setSubmitted(true)
+      setTurnstileToken('')
+    } catch (caughtError) {
+      setError(caughtError instanceof Error ? caughtError.message : 'Unable to submit the booking request.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   if (submitted) {
@@ -98,7 +129,10 @@ export default function BookingForm() {
           rows={3}
         />
 
-        <SubmitButton label={f.submitBtn} disabled={!isValid} />
+        <TurnstileWidget onTokenChange={setTurnstileToken} />
+        {error ? <p className="text-sm text-rose-600">{error}</p> : null}
+
+        <SubmitButton label={isSubmitting ? `${f.submitBtn}...` : f.submitBtn} disabled={!isValid || isSubmitting || !turnstileToken} />
         <p className="text-ff-muted text-xs text-center">{f.note}</p>
       </form>
     </BlurFade>
