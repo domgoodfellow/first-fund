@@ -7,9 +7,12 @@ import { verifyTurnstileToken } from '@/lib/turnstile'
 export async function POST(request: Request) {
   try {
     const payload = leadRequestSchema.parse(await request.json())
-    const isHuman = await verifyTurnstileToken(payload.turnstileToken)
+    const turnstile = await verifyTurnstileToken(payload.turnstileToken, {
+      expectedAction: 'book-a-call',
+    })
 
-    if (!isHuman) {
+    if (!turnstile.success) {
+      console.warn('[book-a-call] Turnstile failed:', turnstile.error)
       return NextResponse.json(
         { error: 'Turnstile verification failed.' },
         { status: 400 },

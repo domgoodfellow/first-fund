@@ -204,6 +204,51 @@ export async function createApplicationNote(params: {
   }
 }
 
+/**
+ * Appends an entry to the activity_logs table.
+ * Errors are non-fatal — call sites should not throw on failure.
+ */
+export async function logActivity(params: {
+  applicationId: string
+  actorId: string
+  action: string
+  metadata?: Record<string, unknown>
+}): Promise<void> {
+  if (!isSupabaseConfigured()) return
+
+  const supabase = await createServerSupabaseClient()
+  const { error } = await supabase.from('activity_logs').insert({
+    application_id: params.applicationId,
+    actor_profile_id: params.actorId,
+    action: params.action,
+    metadata: params.metadata ?? null,
+  })
+
+  if (error) {
+    console.error('[logActivity] failed to write activity log:', error)
+  }
+}
+
+/**
+ * Updates the scan_status of a document after a virus scan completes.
+ */
+export async function updateDocumentScanStatus(params: {
+  storagePath: string
+  scanStatus: 'pending' | 'clean' | 'quarantined'
+}): Promise<void> {
+  if (!isSupabaseConfigured()) return
+
+  const supabase = await createServerSupabaseClient()
+  const { error } = await supabase
+    .from('documents')
+    .update({ scan_status: params.scanStatus })
+    .eq('storage_path', params.storagePath)
+
+  if (error) {
+    console.error('[updateDocumentScanStatus] failed:', error)
+  }
+}
+
 export async function changeApplicationStatus(params: {
   applicationId: string
   changedByProfileId: string

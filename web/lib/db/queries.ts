@@ -230,3 +230,46 @@ export async function getAdminNotes() {
 
   return (data as ApplicationNoteRecord[] | null) ?? []
 }
+
+/**
+ * Returns true if the given application belongs to the given user.
+ * Used by API routes to enforce ownership before allowing mutations.
+ */
+export async function applicationBelongsToUser(
+  applicationId: string,
+  userId: string,
+): Promise<boolean> {
+  if (!isSupabaseConfigured()) return false
+
+  const supabase = await createServerSupabaseClient()
+  const { data } = await supabase
+    .from('applications')
+    .select('id')
+    .eq('id', applicationId)
+    .eq('client_profile_id', userId)
+    .maybeSingle()
+
+  return data !== null
+}
+
+/**
+ * Returns the document row for the given storage path, or null if not found.
+ * Used by the signed-url route to verify ownership and check scan_status.
+ */
+export async function getDocumentByStoragePath(storagePath: string) {
+  if (!isSupabaseConfigured()) return null
+
+  const supabase = await createServerSupabaseClient()
+  const { data } = await supabase
+    .from('documents')
+    .select('id, application_id, owner_profile_id, scan_status')
+    .eq('storage_path', storagePath)
+    .maybeSingle()
+
+  return data as {
+    id: string
+    application_id: string
+    owner_profile_id: string
+    scan_status: 'pending' | 'clean' | 'quarantined'
+  } | null
+}
