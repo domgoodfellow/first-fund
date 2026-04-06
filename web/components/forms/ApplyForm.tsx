@@ -12,9 +12,6 @@ import SlideNavRow from './SlideNavRow'
 const TOTAL = 7
 
 const PROVINCES_STATES = [
-  'Alberta', 'British Columbia', 'Manitoba', 'New Brunswick',
-  'Newfoundland and Labrador', 'Nova Scotia', 'Ontario', 'Prince Edward Island',
-  'Quebec', 'Saskatchewan', 'Northwest Territories', 'Nunavut', 'Yukon',
   'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado',
   'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho',
   'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana',
@@ -106,9 +103,9 @@ function Slide2({ form, set }: SlideProps) {
     <div className="space-y-5">
       <Field label={`${f.street} *`} value={form.street} onChange={set('street')} placeholder="123 Main Street, Suite 400" required />
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-        <Field label={`${f.city} *`} value={form.city} onChange={set('city')} placeholder="Toronto" required />
+        <Field label={`${f.city} *`} value={form.city} onChange={set('city')} placeholder="New York" required />
         <SelectField label={`${f.provinceState} *`} value={form.provinceState} onChange={set('provinceState')} options={PROVINCES_STATES} placeholder={t.apply.selectPlaceholder} required />
-        <Field label={`${f.postalZip} *`} value={form.postalZip} onChange={set('postalZip')} placeholder="M5V 3L9" required />
+        <Field label={`${f.postalZip} *`} value={form.postalZip} onChange={set('postalZip')} placeholder="10001" required />
         <SelectField label={`${f.country.label} *`} value={form.country} onChange={set('country')} options={f.country.options} placeholder={t.apply.selectPlaceholder} required />
       </div>
     </div>
@@ -156,7 +153,7 @@ function Slide5({ form, set }: SlideProps) {
         <Field label={`${f.dob} *`} type="date" value={form.dob} onChange={set('dob')} required />
         <SelectField label={`${f.idType.label} *`} value={form.idType} onChange={set('idType')} options={f.idType.options} placeholder={t.apply.selectPlaceholder} required />
         <Field label={`${f.idNumber} *`} value={form.idNumber} onChange={set('idNumber')} placeholder="e.g. DL-1234567" required />
-        <Field label={f.idIssuingProvince} value={form.idIssuingProvince} onChange={set('idIssuingProvince')} placeholder="Ontario" />
+        <Field label={f.idIssuingProvince} value={form.idIssuingProvince} onChange={set('idIssuingProvince')} placeholder="California" />
       </div>
       <div className="bg-ff-surface border border-ff-border rounded-xl px-5 py-4">
         <p className="text-ff-muted text-xs leading-relaxed">{t.apply.idDisclaimer}</p>
