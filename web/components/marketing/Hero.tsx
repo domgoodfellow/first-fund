@@ -120,7 +120,7 @@ export default function Hero() {
             </Link>
             <Link
               href="/book-a-call"
-              className="inline-flex items-center gap-2 bg-white/6 border border-ff-border-blue text-white font-semibold text-base px-8 py-4 rounded-full hover:border-ff-border-blue hover:bg-white/10 transition-all"
+              className="inline-flex items-center gap-2 bg-white/6 border border-ff-accent text-white font-semibold text-base px-8 py-4 rounded-full hover:border-ff-accent hover:bg-white/10 transition-all"
             >
               {t.hero.ctaSecondary}
             </Link>
@@ -136,7 +136,7 @@ export default function Hero() {
             <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-white/10">
               {STAT_VALUES.map((stat, i) => (
                 <div key={i} className="flex flex-col items-center justify-center py-7 px-4 text-center">
-                  <span className="font-heading text-2xl md:text-3xl font-extrabold text-white mb-1">
+                  <span className="font-heading text-2xl md:text-3xl font-extrabold text-ff-border-blue mb-1">
                     <NumberTicker
                       value={stat.num}
                       prefix={stat.prefix ?? ''}
