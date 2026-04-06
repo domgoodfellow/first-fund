@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { useLanguage } from '@/contexts/LanguageContext'
@@ -17,32 +17,48 @@ const STAT_VALUES = [
 export default function Hero() {
   const { t } = useLanguage()
   const videoRef = useRef<HTMLVideoElement>(null)
+  const [videoReady, setVideoReady] = useState(false)
 
+  // Defer video mount until after page load + entrance animations (~1.5s)
   useEffect(() => {
+    const load = () => setTimeout(() => setVideoReady(true), 1500)
+    if (document.readyState === 'complete') {
+      load()
+    } else {
+      window.addEventListener('load', load, { once: true })
+      return () => window.removeEventListener('load', load)
+    }
+  }, [])
+
+  // Once mounted, ensure playback starts (handles mobile autoplay policy)
+  useEffect(() => {
+    if (!videoReady) return
     const video = videoRef.current
     if (!video) return
     const tryPlay = () => video.play().catch(() => {})
     tryPlay()
     document.addEventListener('touchstart', tryPlay, { once: true })
     return () => document.removeEventListener('touchstart', tryPlay)
-  }, [])
+  }, [videoReady])
 
   return (
     <section
       id="hero"
       className="hero-pull relative flex flex-col bg-ff-dark-section overflow-hidden"
     >
-      <video
-        ref={videoRef}
-        src="/video/who_we_serve_optimized_fs.mp4"
-        autoPlay
-        loop
-        muted
-        playsInline
-        preload="auto"
-        className="absolute inset-0 h-full w-full object-cover"
-        aria-hidden="true"
-      />
+      {videoReady && (
+        <video
+          ref={videoRef}
+          src="/video/who_we_serve_optimized_fs.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          className="absolute inset-0 h-full w-full object-cover animate-fade-in"
+          aria-hidden="true"
+        />
+      )}
 
       <div className="absolute inset-0 bg-ff-dark-section/70" />
       <div className="absolute inset-0 bg-gradient-to-b from-ff-dark-section/35 to-ff-dark-section/80" />
