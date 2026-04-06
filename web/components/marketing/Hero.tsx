@@ -23,7 +23,7 @@ export default function Hero() {
       className="hero-pull relative flex flex-col bg-ff-dark-section overflow-hidden"
     >
       <video
-        src="/video/who_we_serve_2k.mp4"
+        src="/video/who_we_serve_optimized.mp4"
         autoPlay
         loop
         muted

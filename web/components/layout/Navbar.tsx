@@ -150,7 +150,7 @@ export default function Navbar() {
     <>
       {/* Floating card nav */}
       <nav className="fixed top-0 left-0 right-0 z-50 px-3 sm:px-5 pt-3 pb-1 pointer-events-none">
-        <div className="pointer-events-auto bg-white/97 backdrop-blur-xl rounded-2xl border border-ff-border shadow-[0_4px_24px_rgba(15,23,42,0.09)] mx-auto max-w-[min(88vw,88rem)]">
+        <div className="pointer-events-auto bg-white rounded-2xl border border-ff-border shadow-[0_4px_24px_rgba(15,23,42,0.09)] mx-auto max-w-[min(88vw,88rem)]">
           <div className="flex items-center justify-between h-[68px] px-4 sm:px-5">
 
             {/* Logo */}
