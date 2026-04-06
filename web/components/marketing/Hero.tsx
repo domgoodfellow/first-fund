@@ -4,7 +4,6 @@ import { useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { useLanguage } from '@/contexts/LanguageContext'
-import GridPattern from '@/components/motion/GridPattern'
 import ShimmerBadge from '@/components/motion/ShimmerBadge'
 import NumberTicker from '@/components/motion/NumberTicker'
 
@@ -48,7 +47,6 @@ export default function Hero() {
       <div className="absolute inset-0 bg-ff-dark-section/70" />
       <div className="absolute inset-0 bg-gradient-to-b from-ff-dark-section/35 to-ff-dark-section/80" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(var(--ff-accent-rgb),0.28),_transparent_52%)]" />
-      <GridPattern opacity={0.14} />
 
       {/* Blue accent orbs */}
       <div className="absolute inset-0 pointer-events-none">
@@ -122,7 +120,7 @@ export default function Hero() {
             </Link>
             <Link
               href="/book-a-call"
-              className="inline-flex items-center gap-2 bg-white/6 border border-white/25 text-white font-semibold text-base px-8 py-4 rounded-full hover:border-white/55 hover:bg-white/10 transition-all"
+              className="inline-flex items-center gap-2 bg-white/6 border border-ff-border-blue text-white font-semibold text-base px-8 py-4 rounded-full hover:border-ff-border-blue hover:bg-white/10 transition-all"
             >
               {t.hero.ctaSecondary}
             </Link>
@@ -133,7 +131,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-14 bg-white/10 border border-white/14 rounded-2xl overflow-hidden shadow-[0_20px_70px_rgba(8,17,31,0.45)]"
+            className="mt-14 bg-white/10 border border-ff-border-blue/40 rounded-2xl overflow-hidden shadow-[0_20px_70px_rgba(8,17,31,0.45)]"
           >
             <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-white/10">
               {STAT_VALUES.map((stat, i) => (
