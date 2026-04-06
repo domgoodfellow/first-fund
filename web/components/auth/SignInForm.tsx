@@ -6,10 +6,15 @@ import { createBrowserSupabaseClient } from '@/lib/auth/client'
 import { isSupabaseConfigured } from '@/lib/auth/config'
 import { Field, SubmitButton } from '@/components/forms/FormPrimitives'
 import { useLanguage } from '@/contexts/LanguageContext'
+import type { AppRole } from '@/lib/types'
 
 interface SignInFormProps {
   nextPath: string
   initialError?: string | null
+}
+
+function getPostAuthRedirect(role: AppRole | null | undefined) {
+  return role === 'admin' ? '/admin/applications' : '/portal/dashboard'
 }
 
 export default function SignInForm({
@@ -37,7 +42,10 @@ export default function SignInForm({
       }
 
       const supabase = createBrowserSupabaseClient()
-      const { error: signInError } = await supabase.auth.signInWithPassword({
+      const {
+        data: { user },
+        error: signInError,
+      } = await supabase.auth.signInWithPassword({
         email,
         password,
       })
@@ -46,7 +54,19 @@ export default function SignInForm({
         throw signInError
       }
 
-      router.push(nextPath)
+      let redirectPath = nextPath
+
+      if (user && nextPath === '/portal/dashboard') {
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('role')
+          .eq('id', user.id)
+          .maybeSingle()
+
+        redirectPath = getPostAuthRedirect(profile?.role)
+      }
+
+      router.push(redirectPath)
       router.refresh()
     } catch (caughtError) {
       setError(caughtError instanceof Error ? caughtError.message : t.auth.errors.generic)
