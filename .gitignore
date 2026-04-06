@@ -25,4 +25,7 @@ Thumbs.db
 *.suo
 *.user
 
-web/public/video/
+# Large/source video files — only the optimised build is tracked
+web/public/video/who_we_serve.mp4
+web/public/video/who_we_serve_2k.mp4
+web/public/video/hero.mp4
