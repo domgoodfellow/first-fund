@@ -23,7 +23,7 @@ export default function Hero() {
       className="hero-pull relative flex flex-col bg-ff-dark-section overflow-hidden"
     >
       <video
-        src="/video/who_we_serve_optimized.mp4"
+        src="/video/who_we_serve_optimized_fs.mp4"
         autoPlay
         loop
         muted
@@ -121,7 +121,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-14 bg-white/8 backdrop-blur-md border border-white/14 rounded-2xl overflow-hidden shadow-[0_20px_70px_rgba(8,17,31,0.45)]"
+            className="mt-14 bg-white/10 border border-white/14 rounded-2xl overflow-hidden shadow-[0_20px_70px_rgba(8,17,31,0.45)]"
           >
             <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-white/10">
               {STAT_VALUES.map((stat, i) => (
