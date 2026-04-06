@@ -10,7 +10,6 @@ export default function SignUpForm() {
   const { t, language } = useLanguage()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [market, setMarket] = useState<'us' | 'ca'>('us')
   const [message, setMessage] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -35,7 +34,7 @@ export default function SignUpForm() {
           emailRedirectTo: redirectTo,
           data: {
             language,
-            market,
+            market: 'us',
           },
         },
       })
@@ -70,20 +69,6 @@ export default function SignUpForm() {
         placeholder="Choose a secure password"
         required
       />
-
-      <label className="flex flex-col gap-1.5">
-        <span className="block text-ff-muted text-xs font-semibold uppercase tracking-wide">
-          {t.portal.settings.market}
-        </span>
-        <select
-          value={market}
-          onChange={(event) => setMarket(event.target.value === 'ca' ? 'ca' : 'us')}
-          className="rounded-xl border border-ff-border bg-ff-bg px-4 py-3 text-sm text-ff-text"
-        >
-          <option value="us">United States</option>
-          <option value="ca">Canada</option>
-        </select>
-      </label>
 
       {error ? <p className="text-sm text-rose-600">{error}</p> : null}
       {message ? <p className="text-sm text-emerald-700">{message}</p> : null}
