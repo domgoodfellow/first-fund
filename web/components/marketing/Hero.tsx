@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { useLanguage } from '@/contexts/LanguageContext'
@@ -16,6 +17,16 @@ const STAT_VALUES = [
 
 export default function Hero() {
   const { t } = useLanguage()
+  const videoRef = useRef<HTMLVideoElement>(null)
+
+  useEffect(() => {
+    const video = videoRef.current
+    if (!video) return
+    const tryPlay = () => video.play().catch(() => {})
+    tryPlay()
+    document.addEventListener('touchstart', tryPlay, { once: true })
+    return () => document.removeEventListener('touchstart', tryPlay)
+  }, [])
 
   return (
     <section
@@ -23,6 +34,7 @@ export default function Hero() {
       className="hero-pull relative flex flex-col bg-ff-dark-section overflow-hidden"
     >
       <video
+        ref={videoRef}
         src="/video/who_we_serve_optimized_fs.mp4"
         autoPlay
         loop

@@ -99,6 +99,7 @@
     margin-top: calc(-1 * var(--ff-navbar-offset));
     padding-top: var(--ff-navbar-offset);
     min-height: calc(100vh + var(--ff-navbar-offset));
+    min-height: calc(100svh + var(--ff-navbar-offset));
   }
 
   /* ── Section spacing hierarchy ── */
