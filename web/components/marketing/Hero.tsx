@@ -75,10 +75,9 @@ export default function Hero() {
         />
       )}
 
-      {/* Overlays — stronger on mobile where there's no video */}
-      <div className="absolute inset-0 bg-ff-dark-section/85 md:bg-ff-dark-section/85" />
-      <div className="absolute inset-0 bg-gradient-to-b from-ff-dark-section/55 to-ff-dark-section/95" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(var(--ff-accent-rgb),0.20),_transparent_52%)]" />
+      {/* Overlays: solid base + brand-tinted gradient (tint sits mid/bottom, never over headline) */}
+      <div className="absolute inset-0 bg-[#08111f]/90" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#08111f]/50 via-[#0d1b35]/40 to-[#08111f]/95" />
 
       {/* Orbs — desktop only, motion-aware */}
       {!shouldReduceMotion && (
@@ -111,7 +110,7 @@ export default function Hero() {
           </motion.div>
 
           {/* Headline */}
-          <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-[1.08] tracking-tight mb-5 md:mb-6 overflow-hidden">
+          <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-[1.08] tracking-tight mb-5 md:mb-6 overflow-hidden [text-shadow:0_2px_16px_rgba(0,0,0,0.6)]">
             {t.hero.headline.split('\n').map((line, i) => (
               <motion.span
                 key={i}
@@ -128,7 +127,7 @@ export default function Hero() {
           <motion.p
             {...fadeUp}
             transition={{ duration: 0.65, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            className="text-white/85 text-base md:text-xl max-w-2xl mx-auto mb-8 md:mb-10 leading-relaxed line-clamp-2 md:line-clamp-none"
+            className="text-white/80 text-base md:text-xl max-w-2xl mx-auto mb-8 md:mb-10 leading-relaxed line-clamp-2 md:line-clamp-none [text-shadow:0_1px_8px_rgba(0,0,0,0.5)]"
           >
             {t.hero.sub}
           </motion.p>
