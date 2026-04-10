@@ -76,8 +76,8 @@ export default function Hero() {
       )}
 
       {/* Overlays: solid base + brand-tinted gradient (tint sits mid/bottom, never over headline) */}
-      <div className="absolute inset-0 bg-[#08111f]/90" />
-      <div className="absolute inset-0 bg-gradient-to-b from-[#08111f]/50 via-[#0d1b35]/40 to-[#08111f]/95" />
+      <div className="absolute inset-0 bg-[#08111f]/45" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#08111f]/25 via-[#0d1b35]/20 to-[#08111f]/48" />
 
       {/* Orbs — desktop only, motion-aware */}
       {!shouldReduceMotion && (
