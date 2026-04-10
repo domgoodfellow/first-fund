@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Plus_Jakarta_Sans, Inter } from 'next/font/google'
 import './globals.css'
 import { LanguageProvider } from '@/contexts/LanguageContext'
+import { ChatWidget } from '@/components/chat/ChatWidget'
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -28,7 +29,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${plusJakartaSans.variable} ${inter.variable}`} suppressHydrationWarning>
       <body>
-        <LanguageProvider>{children}</LanguageProvider>
+        <LanguageProvider>
+          {children}
+          <ChatWidget />
+        </LanguageProvider>
       </body>
     </html>
   )
