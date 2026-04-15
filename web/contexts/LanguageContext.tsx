@@ -3,7 +3,7 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react'
 import { Language, translations, Translations } from '@/lib/i18n'
 
-export const brandName = 'FirsFund'
+export const brandName = 'First Fund'
 const STORAGE_KEY = 'ff-language'
 
 interface LanguageContextValue {

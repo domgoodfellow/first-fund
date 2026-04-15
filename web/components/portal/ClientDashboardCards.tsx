@@ -15,6 +15,23 @@ export default function ClientDashboardCards({
   sections,
 }: ClientDashboardCardsProps) {
   const { t } = useLanguage()
+  const completedSavedSections = sections.filter((section) => section.is_complete).length
+  const completedFlowSteps =
+    (completedSavedSections >= 2 ? 1 : 0) +
+    (completedSavedSections >= 4 ? 1 : 0) +
+    (
+      documents.some((document) => document.file_name.startsWith('id-front__')) &&
+      documents.some((document) => document.file_name.startsWith('id-back__')) &&
+      documents.some((document) => document.file_name.startsWith('selfie-id__'))
+        ? 1
+        : 0
+    ) +
+    (
+      documents.some((document) => document.file_name.startsWith('bank-statement__')) &&
+      documents.some((document) => document.file_name.startsWith('mtd-statement__'))
+        ? 1
+        : 0
+    )
 
   const cards = [
     {
@@ -23,7 +40,7 @@ export default function ClientDashboardCards({
     },
     {
       label: t.portal.dashboard.completedSections,
-      value: `${sections.filter((section) => section.is_complete).length}/4`,
+      value: `${completedFlowSteps}/4`,
     },
     {
       label: t.portal.dashboard.documentsUploaded,

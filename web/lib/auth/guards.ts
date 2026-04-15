@@ -66,7 +66,7 @@ export async function getAuthContext(): Promise<AuthContext> {
 }
 
 export function getPostAuthRedirect(role: AppRole | null | undefined) {
-  return role === 'admin' ? '/admin/applications' : '/portal/dashboard'
+  return role === 'admin' ? '/admin/applications' : '/portal/application'
 }
 
 export async function requireAuthenticatedUser(next?: string) {

@@ -32,6 +32,14 @@ export function isSupabaseConfigured() {
   return getSupabaseEnv() !== null
 }
 
+export function getSupabaseServiceRoleKey() {
+  return process.env.SUPABASE_SERVICE_ROLE_KEY ?? process.env.SUPABASE_SERVICE_KEY ?? null
+}
+
+export function hasSupabaseServiceRoleKey() {
+  return Boolean(getSupabaseServiceRoleKey())
+}
+
 export function isTurnstileConfigured() {
   return Boolean(
     process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY &&

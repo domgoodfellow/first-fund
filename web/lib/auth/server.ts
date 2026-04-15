@@ -1,6 +1,7 @@
 import { createServerClient } from '@supabase/ssr'
+import { createClient } from '@supabase/supabase-js'
 import { cookies } from 'next/headers'
-import { requireSupabaseEnv } from '@/lib/auth/config'
+import { getSupabaseEnv, getSupabaseServiceRoleKey, requireSupabaseEnv } from '@/lib/auth/config'
 
 export async function createServerSupabaseClient() {
   const env = requireSupabaseEnv()
@@ -21,5 +22,31 @@ export async function createServerSupabaseClient() {
         }
       },
     },
+  })
+}
+
+export function createAdminSupabaseClient() {
+  const env = getSupabaseEnv()
+  const serviceRoleKey = getSupabaseServiceRoleKey()
+
+  if (!env || !serviceRoleKey) {
+    throw new Error('Missing Supabase service-role configuration.')
+  }
+
+  return createClient(env.url, serviceRoleKey, {
+    auth: { persistSession: false, autoRefreshToken: false },
+  })
+}
+
+export function createAdminSupabaseClientOrNull() {
+  const env = getSupabaseEnv()
+  const serviceRoleKey = getSupabaseServiceRoleKey()
+
+  if (!env || !serviceRoleKey) {
+    return null
+  }
+
+  return createClient(env.url, serviceRoleKey, {
+    auth: { persistSession: false, autoRefreshToken: false },
   })
 }

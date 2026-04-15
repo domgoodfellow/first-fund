@@ -6,7 +6,7 @@ import { assertUploadConstraints, buildStoragePath } from '@/lib/storage/upload'
 import { uploadSignSchema } from '@/lib/validations/documents'
 import { applicationBelongsToUser } from '@/lib/db/queries'
 import { isAllowedOrigin } from '@/lib/security/origin'
-import { checkRateLimit, getClientIp } from '@/lib/security/ratelimit'
+import { buildRateLimitKey, checkRateLimit, getClientIp } from '@/lib/security/ratelimit'
 
 export async function POST(request: Request) {
   try {
@@ -15,18 +15,22 @@ export async function POST(request: Request) {
     }
 
     const ip = getClientIp(request)
-    const { allowed, retryAfter } = checkRateLimit(`${ip}:sign`, 10, 60_000)
+    const context = await getAuthContext()
+
+    if (!context.user) {
+      return NextResponse.json({ error: 'Unauthorized.' }, { status: 401 })
+    }
+
+    const { allowed, retryAfter } = await checkRateLimit(
+      buildRateLimitKey(['upload', 'sign', context.user.id, ip]),
+      10,
+      60_000,
+    )
     if (!allowed) {
       return NextResponse.json(
         { error: 'Too many requests.' },
         { status: 429, headers: { 'Retry-After': String(retryAfter ?? 60) } },
       )
-    }
-
-    const context = await getAuthContext()
-
-    if (!context.user) {
-      return NextResponse.json({ error: 'Unauthorized.' }, { status: 401 })
     }
 
     const payload = uploadSignSchema.parse(await request.json())

@@ -42,6 +42,11 @@
     scroll-behavior: smooth;
   }
 
+  section[id],
+  div[id] {
+    scroll-margin-top: calc(var(--ff-navbar-offset) + 24px);
+  }
+
   body {
     @apply bg-ff-bg font-body antialiased;
     color: var(--ff-text);

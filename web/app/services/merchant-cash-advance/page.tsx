@@ -2,109 +2,172 @@ import ServicePageTemplate from '@/components/services/ServicePageTemplate'
 import type { ServicePageData } from '@/components/services/ServicePageTemplate'
 
 export const metadata = {
-  title: 'Merchant Cash Advance — First Fund',
-  description: 'Flexible funding repaid through a percentage of your daily card sales. Approvals in 24–48 hours, no collateral required.',
+  title: 'Merchant Cash Advance - First Fund',
+  description:
+    'A merchant cash advance is a revenue-based financing structure that can fit businesses with consistent sales activity. Review, offer terms, and timing vary by file.',
 }
 
 const enData: ServicePageData = {
-  badge: 'Most Flexible',
+  badge: 'Flexible Structure',
   title: 'Merchant Cash\nAdvance',
-  subtitle: 'Flexible funding that repays itself through your daily revenue — no fixed payments, no stress on slow months.',
+  subtitle:
+    'Revenue-based financing for businesses that want repayment tied more closely to sales activity instead of fixed monthly payments.',
   overview:
-    'A Merchant Cash Advance (MCA) gives your business a lump-sum of capital in exchange for a percentage of your future daily debit and credit card sales. Unlike a traditional loan, there are no fixed monthly payments — repayment automatically adjusts to match your revenue.',
+    'A merchant cash advance provides capital in exchange for future business receivables. Instead of using a fixed monthly installment structure, repayment is tied to business performance. Based on the approved source material, this product is commonly structured for 6 to 24 months and is often sized in relation to monthly revenue.',
   repaymentNote:
-    'A small fixed percentage (called a factor rate) of your daily card transactions is remitted to repay the advance. On high-revenue days you pay more; on slow days, less. This makes MCAs especially well-suited for seasonal or variable-income businesses.',
+    'Merchant cash advance repayment is typically structured using a factor rate and a revenue-based collection method. The approved source material positions this product as open-term and pro-rated, which makes it different from a standard fixed-payment loan.',
   bestFor: [
-    'Businesses with consistent daily card sales',
-    'Seasonal businesses with revenue fluctuations',
-    'Owners who want flexible repayment — not fixed',
-    'Fast-moving opportunities that can\'t wait weeks',
-    'Businesses with imperfect credit history',
-    'Retail, restaurants, and service businesses',
+    'Businesses with active and consistent sales activity',
+    'Owners who prefer repayment tied more closely to revenue flow',
+    'Companies facing seasonal swings or variable monthly performance',
+    'Businesses pursuing a time-sensitive opportunity',
+    'Operators who need a shorter-term working-capital structure',
+    'Companies prepared to provide business documents for review',
   ],
   benefits: [
     {
       icon: <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>,
-      label: '24–48 Hour Approvals',
-      desc: 'Get funded fast — our team reviews your application within one to two business days.',
+      label: 'Faster Funding After Approval',
+      desc: 'For this product, funding can move quickly once the file is approved. Timing still depends on documentation, review, and offer acceptance.',
     },
     {
       icon: <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>,
-      label: 'Revenue-Based Repayment',
-      desc: 'Payments flex with your sales. No fixed burden on slow months.',
+      label: 'Revenue-Based Structure',
+      desc: 'This product is built around business revenue rather than a fixed monthly installment schedule.',
     },
     {
       icon: <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>,
-      label: 'No Collateral Required',
-      desc: 'Your future sales are the only security needed — no assets on the line.',
+      label: 'Built for Variable Performance',
+      desc: 'The structure can be useful for businesses whose revenue changes from one period to the next.',
     },
     {
       icon: <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" /></svg>,
-      label: 'All Credit Profiles',
-      desc: 'We evaluate your business cash flow — not just a credit score.',
+      label: 'Can Work Alongside an Existing MCA',
+      desc: 'The approved source material indicates that having an existing merchant cash advance does not automatically rule this structure out.',
     },
     {
       icon: <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" /></svg>,
-      label: 'Minimal Paperwork',
-      desc: 'One short application. No lengthy business plans or financial projections required.',
+      label: 'Offer Review Before Commitment',
+      desc: 'Submitting for review and receiving an offer can be done without upfront cost based on the approved source material.',
     },
     {
       icon: <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>,
-      label: 'Transparent Costs',
-      desc: 'Clear factor rate upfront — no hidden fees or surprise charges.',
+      label: 'Sized Around Revenue',
+      desc: 'The approved source material frames MCA sizing in relation to monthly business revenue rather than a universal fixed cap.',
     },
   ],
   useCases: [
-    'Covering payroll or operational costs during a slow season',
-    'Purchasing inventory ahead of a busy period',
-    'Funding a marketing push or promotion',
-    'Bridging a cash flow gap between large client invoices',
-    'Upgrading equipment without disrupting operations',
+    'Bridging a working-capital gap during a slower period',
+    'Buying inventory ahead of a strong sales cycle',
+    'Moving quickly on a business opportunity that cannot wait weeks',
+    'Supporting operating needs while revenue continues to come in',
+    'Using a shorter-term structure when repayment needs to track business activity more closely',
   ],
   faqItems: [
-    { question: 'What is a factor rate?', answer: 'A factor rate (e.g. 1.2–1.5) is multiplied by your advance amount to determine the total repayment. For example, a $100,000 advance at 1.3 = $130,000 total repayment through daily sales.' },
-    { question: 'Is there a fixed repayment period?', answer: 'No. Repayment depends on your sales volume. Higher sales = faster repayment. There is no fixed end date.' },
-    { question: 'Do I need strong credit to qualify?', answer: 'No. We look at your daily card sales volume and business history — not a credit score.' },
-    { question: 'How much can I get?', answer: 'MCAs at First Fund can go up to $500,000, depending on your average monthly card sales.' },
-    { question: 'How long does funding take?', answer: 'Most applicants are approved within 24–48 hours and receive funds the same or next business day after acceptance.' },
+    {
+      question: 'How is an MCA different from a traditional loan?',
+      answer:
+        'A merchant cash advance is typically structured around future receivables and business revenue rather than a fixed-payment loan schedule.',
+    },
+    {
+      question: 'How long can an MCA run?',
+      answer:
+        'The approved source material describes MCA terms in a typical range of 6 to 24 months.',
+    },
+    {
+      question: 'How is the amount determined?',
+      answer:
+        'The approved source material frames MCA sizing at roughly 100% to 150% of monthly revenue, depending on the file.',
+    },
+    {
+      question: 'How quickly can funding happen?',
+      answer:
+        'For this product, funding can happen in 24 to 48 hours once approved. Timing still depends on documentation, review, and signed acceptance.',
+    },
+    {
+      question: 'Can a business already have an MCA and still be reviewed?',
+      answer:
+        'Yes. The approved source material indicates that an existing MCA does not automatically prevent review for this product.',
+    },
   ],
 }
 
 const esData: ServicePageData = {
-  badge: 'Más flexible',
+  badge: 'Estructura flexible',
   title: 'Adelanto de\nEfectivo',
-  subtitle: 'Financiamiento flexible que se paga solo a través de tus ingresos diarios — sin pagos fijos, sin estrés en meses lentos.',
-  overview: 'Un Adelanto de Efectivo (MCA) le da a tu negocio una suma de capital a cambio de un porcentaje de tus futuras ventas diarias con tarjeta de débito y crédito. A diferencia de un préstamo tradicional, no hay pagos mensuales fijos — el pago se ajusta automáticamente a tus ingresos.',
-  repaymentNote: 'Un pequeño porcentaje fijo (llamado tasa de factor) de tus transacciones diarias con tarjeta se remite para pagar el adelanto. En días de altos ingresos pagas más; en días lentos, menos. Esto lo hace ideal para negocios estacionales o con ingresos variables.',
+  subtitle:
+    'Financiamiento basado en ingresos para negocios que prefieren que el pago se relacione mas de cerca con la actividad de ventas en lugar de pagos mensuales fijos.',
+  overview:
+    'Un adelanto de efectivo para comerciantes ofrece capital a cambio de cuentas por cobrar futuras del negocio. En lugar de usar una estructura de cuotas mensuales fijas, el pago se relaciona con el desempeno del negocio. Segun el material aprobado, este producto suele estructurarse entre 6 y 24 meses y normalmente se calcula en relacion con los ingresos mensuales.',
+  repaymentNote:
+    'El pago de un MCA normalmente se estructura con una tasa factor y un metodo de cobro basado en ingresos. El material aprobado presenta este producto como abierto y prorrateado, lo que lo diferencia de un prestamo tradicional con pagos fijos.',
   bestFor: [
-    'Negocios con ventas diarias consistentes con tarjeta',
-    'Negocios estacionales con fluctuaciones de ingresos',
-    'Dueños que prefieren pagos flexibles — no fijos',
-    'Oportunidades que no pueden esperar semanas',
-    'Negocios con historial crediticio imperfecto',
-    'Comercio minorista, restaurantes y negocios de servicios',
+    'Negocios con actividad de ventas activa y consistente',
+    'Duenos que prefieren pagos mas relacionados con el flujo de ingresos',
+    'Empresas con temporadas marcadas o rendimiento mensual variable',
+    'Negocios que persiguen una oportunidad sensible al tiempo',
+    'Operadores que necesitan una estructura de capital de trabajo de plazo mas corto',
+    'Empresas preparadas para entregar documentacion del negocio para revision',
   ],
   benefits: [
-    { label: 'Aprobación en 24–48 horas', desc: 'Obtén fondos rápido — nuestro equipo revisa tu solicitud en uno o dos días hábiles.' },
-    { label: 'Pago basado en ingresos', desc: 'Los pagos se adaptan a tus ventas. Sin carga fija en meses lentos.' },
-    { label: 'Sin garantía requerida', desc: 'Tus ventas futuras son el único respaldo necesario — sin activos en riesgo.' },
-    { label: 'Todos los perfiles de crédito', desc: 'Evaluamos el flujo de caja de tu negocio — no solo una calificación crediticia.' },
-    { label: 'Papeleo mínimo', desc: 'Una solicitud corta. Sin planes de negocio ni proyecciones financieras extensas.' },
-    { label: 'Costos transparentes', desc: 'Tasa de factor clara desde el inicio — sin cargos ocultos ni sorpresas.' },
+    {
+      label: 'Fondeo mas rapido despues de la aprobacion',
+      desc: 'Para este producto, el fondeo puede avanzar rapidamente una vez aprobado el expediente. El tiempo sigue dependiendo de la documentacion, la revision y la aceptacion de la oferta.',
+    },
+    {
+      label: 'Estructura basada en ingresos',
+      desc: 'Este producto esta pensado alrededor de los ingresos del negocio en lugar de un calendario fijo de cuotas mensuales.',
+    },
+    {
+      label: 'Pensado para rendimiento variable',
+      desc: 'La estructura puede ser util para negocios cuyos ingresos cambian de un periodo a otro.',
+    },
+    {
+      label: 'Puede convivir con un MCA existente',
+      desc: 'El material aprobado indica que tener un merchant cash advance existente no descarta automaticamente esta estructura.',
+    },
+    {
+      label: 'Revision de oferta antes del compromiso',
+      desc: 'Presentar el expediente para revision y recibir una oferta puede hacerse sin costo inicial segun el material aprobado.',
+    },
+    {
+      label: 'Calculado alrededor de los ingresos',
+      desc: 'El material aprobado presenta el monto del MCA en relacion con los ingresos mensuales del negocio y no con un tope universal fijo.',
+    },
   ],
   useCases: [
-    'Cubrir nómina o costos operativos durante una temporada lenta',
-    'Comprar inventario antes de un período de alta demanda',
-    'Financiar una campaña de marketing o promoción',
-    'Cubrir un desfase de flujo de caja entre facturas grandes de clientes',
-    'Actualizar equipo sin interrumpir las operaciones',
+    'Cubrir una brecha de capital de trabajo durante un periodo mas lento',
+    'Comprar inventario antes de un ciclo fuerte de ventas',
+    'Moverse rapido ante una oportunidad de negocio que no puede esperar semanas',
+    'Respaldar necesidades operativas mientras el negocio sigue generando ingresos',
+    'Usar una estructura de plazo mas corto cuando el pago debe seguir mas de cerca la actividad del negocio',
   ],
   faqItems: [
-    { question: '¿Qué es una tasa de factor?', answer: 'Una tasa de factor (ej. 1.2–1.5) se multiplica por tu monto de adelanto para determinar el pago total. Por ejemplo, un adelanto de $100,000 a 1.3 = $130,000 en pago total a través de ventas diarias.' },
-    { question: '¿Hay un período de pago fijo?', answer: 'No. El pago depende del volumen de tus ventas. Más ventas = pago más rápido. No hay fecha de término fija.' },
-    { question: '¿Necesito buen crédito para calificar?', answer: 'No. Miramos el volumen de tus ventas diarias con tarjeta y el historial del negocio — no una calificación crediticia.' },
-    { question: '¿Cuánto puedo obtener?', answer: 'Los MCA en First Fund pueden llegar hasta $500,000, dependiendo de tus ventas mensuales promedio con tarjeta.' },
-    { question: '¿Cuánto tiempo tarda el financiamiento?', answer: 'La mayoría de los solicitantes son aprobados en 24–48 horas y reciben fondos el mismo día hábil o al siguiente después de aceptar.' },
+    {
+      question: 'En que se diferencia un MCA de un prestamo tradicional?',
+      answer:
+        'Un merchant cash advance normalmente se estructura alrededor de cuentas por cobrar futuras y de los ingresos del negocio, no como un prestamo con pagos fijos.',
+    },
+    {
+      question: 'Cuanto puede durar un MCA?',
+      answer:
+        'El material aprobado describe plazos tipicos de MCA en un rango de 6 a 24 meses.',
+    },
+    {
+      question: 'Como se determina el monto?',
+      answer:
+        'El material aprobado presenta el monto del MCA aproximadamente entre 100% y 150% de los ingresos mensuales, segun el expediente.',
+    },
+    {
+      question: 'Que tan rapido puede ocurrir el fondeo?',
+      answer:
+        'Para este producto, el fondeo puede ocurrir en 24 a 48 horas una vez aprobado. El tiempo sigue dependiendo de la documentacion, la revision y la aceptacion firmada.',
+    },
+    {
+      question: 'Un negocio con un MCA actual aun puede ser evaluado?',
+      answer:
+        'Si. El material aprobado indica que un MCA existente no impide automaticamente la revision para este producto.',
+    },
   ],
 }
 

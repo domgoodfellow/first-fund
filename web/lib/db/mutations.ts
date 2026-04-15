@@ -1,4 +1,4 @@
-import { createServerSupabaseClient } from '@/lib/auth/server'
+import { createAdminSupabaseClient, createServerSupabaseClient } from '@/lib/auth/server'
 import { isSupabaseConfigured } from '@/lib/auth/config'
 import type {
   ApplicationSectionKey,
@@ -59,7 +59,10 @@ export async function saveApplicationSection(params: {
   }
 }
 
-export async function submitApplication(params: { applicationId: string }) {
+export async function submitApplication(params: {
+  applicationId: string
+  submittedByProfileId: string
+}) {
   if (!isSupabaseConfigured()) {
     throw new Error('Supabase is not configured.')
   }
@@ -88,10 +91,13 @@ export async function submitApplication(params: { applicationId: string }) {
     throw error
   }
 
-  await supabase.from('status_history').insert({
+  const admin = createAdminSupabaseClient()
+
+  await admin.from('status_history').insert({
     application_id: params.applicationId,
     previous_status: previousStatus,
     next_status: 'submitted',
+    changed_by_profile_id: params.submittedByProfileId,
     note: 'Client submitted application.',
   })
 }
@@ -216,7 +222,7 @@ export async function logActivity(params: {
 }): Promise<void> {
   if (!isSupabaseConfigured()) return
 
-  const supabase = await createServerSupabaseClient()
+  const supabase = createAdminSupabaseClient()
   const { error } = await supabase.from('activity_logs').insert({
     application_id: params.applicationId,
     actor_profile_id: params.actorId,
@@ -238,7 +244,7 @@ export async function updateDocumentScanStatus(params: {
 }): Promise<void> {
   if (!isSupabaseConfigured()) return
 
-  const supabase = await createServerSupabaseClient()
+  const supabase = createAdminSupabaseClient()
   const { error } = await supabase
     .from('documents')
     .update({ scan_status: params.scanStatus })
@@ -278,7 +284,9 @@ export async function changeApplicationStatus(params: {
     throw error
   }
 
-  const { error: historyError } = await supabase.from('status_history').insert({
+  const admin = createAdminSupabaseClient()
+
+  const { error: historyError } = await admin.from('status_history').insert({
     application_id: params.applicationId,
     previous_status: current?.status ?? null,
     next_status: params.status,

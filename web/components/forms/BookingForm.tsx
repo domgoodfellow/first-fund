@@ -11,6 +11,8 @@ interface FormState {
   businessName: string
   email: string
   phone: string
+  timeInBusiness: string
+  monthlyRevenue: string
   fundingGoal: string
   callTime: string
   notes: string
@@ -18,7 +20,7 @@ interface FormState {
 
 const EMPTY: FormState = {
   fullName: '', businessName: '', email: '', phone: '',
-  fundingGoal: '', callTime: '', notes: '',
+  timeInBusiness: '', monthlyRevenue: '', fundingGoal: '', callTime: '', notes: '',
 }
 
 export default function BookingForm() {
@@ -35,7 +37,15 @@ export default function BookingForm() {
     (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
       setForm((prev) => ({ ...prev, [field]: e.target.value }))
 
-  const isValid = !!(form.fullName && form.email && form.phone && form.fundingGoal && form.callTime)
+  const isValid = !!(
+    form.fullName &&
+    form.email &&
+    form.phone &&
+    form.timeInBusiness &&
+    form.monthlyRevenue &&
+    form.fundingGoal &&
+    form.callTime
+  )
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -101,6 +111,28 @@ export default function BookingForm() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           <Field label={`${f.labels.email}${f.required}`} type="email" value={form.email} onChange={set('email')} placeholder={f.placeholders.email} required />
           <Field label={`${f.labels.phone}${f.required}`} type="tel" value={form.phone} onChange={set('phone')} placeholder={f.placeholders.phone} required />
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <SelectField
+            label={`${f.labels.timeInBusiness}${f.required}`}
+            value={form.timeInBusiness}
+            onChange={set('timeInBusiness') as React.ChangeEventHandler<HTMLSelectElement>}
+            options={f.timeInBusinessOptions}
+            placeholder={f.placeholders.selectTimeInBusiness}
+            labelClassName="sm:min-h-[2.5rem]"
+            required
+          />
+
+          <SelectField
+            label={`${f.labels.monthlyRevenue}${f.required}`}
+            value={form.monthlyRevenue}
+            onChange={set('monthlyRevenue') as React.ChangeEventHandler<HTMLSelectElement>}
+            options={f.monthlyRevenueOptions}
+            placeholder={f.placeholders.selectMonthlyRevenue}
+            labelClassName="sm:min-h-[2.5rem]"
+            required
+          />
         </div>
 
         <SelectField

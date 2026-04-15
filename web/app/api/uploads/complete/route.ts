@@ -5,7 +5,7 @@ import { completeDocumentUpload, logActivity, updateDocumentScanStatus } from '@
 import { uploadCompleteSchema } from '@/lib/validations/documents'
 import { applicationBelongsToUser } from '@/lib/db/queries'
 import { isAllowedOrigin } from '@/lib/security/origin'
-import { checkRateLimit, getClientIp } from '@/lib/security/ratelimit'
+import { buildRateLimitKey, checkRateLimit, getClientIp } from '@/lib/security/ratelimit'
 import { scanDocument } from '@/lib/security/scanner'
 
 export async function POST(request: Request) {
@@ -15,18 +15,22 @@ export async function POST(request: Request) {
     }
 
     const ip = getClientIp(request)
-    const { allowed, retryAfter } = checkRateLimit(`${ip}:complete`, 20, 60_000)
+    const context = await getAuthContext()
+
+    if (!context.user) {
+      return NextResponse.json({ error: 'Unauthorized.' }, { status: 401 })
+    }
+
+    const { allowed, retryAfter } = await checkRateLimit(
+      buildRateLimitKey(['upload', 'complete', context.user.id, ip]),
+      20,
+      60_000,
+    )
     if (!allowed) {
       return NextResponse.json(
         { error: 'Too many requests.' },
         { status: 429, headers: { 'Retry-After': String(retryAfter ?? 60) } },
       )
-    }
-
-    const context = await getAuthContext()
-
-    if (!context.user) {
-      return NextResponse.json({ error: 'Unauthorized.' }, { status: 401 })
     }
 
     const payload = uploadCompleteSchema.parse(await request.json())

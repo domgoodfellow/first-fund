@@ -1,64 +1,40 @@
 'use client'
 
-import { useLanguage } from '@/contexts/LanguageContext'
-import { motion } from 'framer-motion'
 import BlurFade from '@/components/motion/BlurFade'
 import SectionWrapper from '@/components/layout/SectionWrapper'
 import SectionHeader from '@/components/ui/SectionHeader'
-import IconBadge from '@/components/ui/IconBadge'
-
-const STEP_ICONS = [
-  <svg key="1" className="w-7 h-7" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-  </svg>,
-  <svg key="2" className="w-7 h-7" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-  </svg>,
-  <svg key="3" className="w-7 h-7" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-  </svg>,
-  <svg key="4" className="w-7 h-7" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
-  </svg>,
-]
+import { useLanguage } from '@/contexts/LanguageContext'
+import { getHomeFunnelContent } from '@/lib/home-funnel'
 
 export default function HowItWorks() {
-  const { t } = useLanguage()
+  const { language } = useLanguage()
+  const content = getHomeFunnelContent(language).howItWorks
 
   return (
-    <SectionWrapper id="how-it-works" size="lg" bg="bg-ff-surface">
+    <SectionWrapper id="how-it-works" size="md" bg="bg-ff-surface border-y border-ff-border">
       <SectionHeader
-        eyebrow={t.howItWorks.sectionLabel}
-        heading={t.howItWorks.heading}
-        mb="mb-16"
+        eyebrow={content.eyebrow}
+        heading={content.heading}
+        align="left"
+        mb="mb-10"
       />
 
-      <div className="relative">
-        {/* Connecting line — desktop only */}
-        <div className="hidden md:block absolute top-[3.25rem] left-0 right-0 h-px bg-ff-border" />
-
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12 relative">
-          {t.howItWorks.steps.map((s, i) => (
-            <BlurFade key={i} delay={i * 0.12} className="flex flex-col items-center text-center">
-              <div className="relative mb-8 z-10">
-                <IconBadge size="lg" className="rounded-full border-2 border-ff-border-blue shadow-[0_1px_4px_rgba(15,23,42,0.06)]">
-                  {STEP_ICONS[i]}
-                </IconBadge>
-                <motion.span
-                  initial={{ scale: 0, opacity: 0 }}
-                  whileInView={{ scale: 1, opacity: 1 }}
-                  viewport={{ once: true, amount: 0.8 }}
-                  transition={{ type: 'spring', stiffness: 400, damping: 18, delay: i * 0.12 + 0.2 }}
-                  className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-ff-accent text-white text-xs font-extrabold flex items-center justify-center font-heading shadow-md"
-                >
-                  {i + 1}
-                </motion.span>
+      <div className="grid gap-6 md:grid-cols-3">
+        {content.steps.map((step, index) => (
+          <BlurFade key={step.title} delay={index * 0.08}>
+            <article className="relative h-full rounded-[1.8rem] border border-ff-border bg-white p-7 shadow-[0_18px_40px_rgba(15,23,42,0.05)]">
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-ff-accent text-lg font-extrabold text-white">
+                {index + 1}
               </div>
-              <h3 className="font-heading font-bold text-ff-text text-lg mb-2">{s.title}</h3>
-              <p className="text-ff-muted text-sm leading-relaxed max-w-[220px]">{s.desc}</p>
-            </BlurFade>
-          ))}
-        </div>
+              <h3 className="mt-6 font-heading text-3xl font-bold text-ff-text">
+                {step.title}
+              </h3>
+              <p className="mt-3 text-sm leading-7 text-ff-muted">
+                {step.description}
+              </p>
+            </article>
+          </BlurFade>
+        ))}
       </div>
     </SectionWrapper>
   )

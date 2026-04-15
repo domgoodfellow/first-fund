@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import BlurFade from '@/components/motion/BlurFade'
 import { useLanguage } from '@/contexts/LanguageContext'
+import { getHomeFunnelContent } from '@/lib/home-funnel'
 
 interface CTASectionProps {
   heading?: string
@@ -12,6 +13,7 @@ interface CTASectionProps {
   secondaryLabel?: string
   secondaryHref?: string
   variant?: 'light' | 'dark'
+  contentKey?: 'default' | 'homeFunnel'
 }
 
 export default function CTASection({
@@ -22,12 +24,14 @@ export default function CTASection({
   secondaryLabel,
   secondaryHref = '/book-a-call',
   variant = 'light',
+  contentKey = 'default',
 }: CTASectionProps) {
-  const { t } = useLanguage()
-  const h   = heading       ?? t.cta.heading
-  const sub = subheading    ?? t.cta.sub
-  const pl  = primaryLabel  ?? t.ctaSection.primaryLabel
-  const sl  = secondaryLabel ?? t.ctaSection.secondaryLabel
+  const { language, t } = useLanguage()
+  const homeContent = getHomeFunnelContent(language).cta
+  const h = heading ?? (contentKey === 'homeFunnel' ? homeContent.heading : t.cta.heading)
+  const sub = subheading ?? (contentKey === 'homeFunnel' ? homeContent.subheading : t.cta.sub)
+  const pl = primaryLabel ?? (contentKey === 'homeFunnel' ? homeContent.primary : t.ctaSection.primaryLabel)
+  const sl = secondaryLabel ?? (contentKey === 'homeFunnel' ? homeContent.secondary : t.ctaSection.secondaryLabel)
   const isDark = variant === 'dark'
 
   return (

@@ -1,66 +1,81 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import Link from 'next/link'
 import { motion, useReducedMotion } from 'framer-motion'
-import { useLanguage } from '@/contexts/LanguageContext'
 import ShimmerBadge from '@/components/motion/ShimmerBadge'
-import NumberTicker from '@/components/motion/NumberTicker'
+import { useLanguage } from '@/contexts/LanguageContext'
+import {
+  getHomeFunnelContent,
+  type HeroMessageVariant,
+  type HeroVisualVariant,
+} from '@/lib/home-funnel'
 
-const STAT_VALUES = [
-  { num: 800, suffix: 'K+', prefix: '$' },
-  { num: 48,  suffix: 'hr' },
-  { num: 95,  suffix: '%' },
-  { num: 6,   suffix: '' },
-]
+interface HeroProps {
+  messageVariant: HeroMessageVariant
+  visualVariant: HeroVisualVariant
+  showPreviewLabel?: boolean
+}
 
-export default function Hero() {
-  const { t } = useLanguage()
+function PreviewPill({ label }: { label: string }) {
+  return (
+    <span className="inline-flex items-center rounded-full border border-ff-border bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-ff-muted">
+      {label}
+    </span>
+  )
+}
+
+export default function Hero({
+  messageVariant,
+  visualVariant,
+  showPreviewLabel = false,
+}: HeroProps) {
+  const { language } = useLanguage()
+  const content = getHomeFunnelContent(language)
+  const message = content.hero.variants[messageVariant]
+  const shouldReduceMotion = useReducedMotion()
   const videoRef = useRef<HTMLVideoElement>(null)
   const [videoReady, setVideoReady] = useState(false)
-  const shouldReduceMotion = useReducedMotion()
 
-  // Defer video mount until after page load + entrance animations (~1.5s)
   useEffect(() => {
-    const load = () => setTimeout(() => setVideoReady(true), 1500)
+    if (visualVariant !== 'video') return
+
+    const load = () => setTimeout(() => setVideoReady(true), 400)
     if (document.readyState === 'complete') {
       load()
     } else {
       window.addEventListener('load', load, { once: true })
       return () => window.removeEventListener('load', load)
     }
-  }, [])
+  }, [visualVariant])
 
-  // Once mounted, ensure playback starts (handles mobile autoplay policy)
   useEffect(() => {
-    if (!videoReady) return
+    if (!videoReady || visualVariant !== 'video') return
     const video = videoRef.current
     if (!video) return
+
     const tryPlay = () => video.play().catch(() => {})
     tryPlay()
     document.addEventListener('touchstart', tryPlay, { once: true })
     return () => document.removeEventListener('touchstart', tryPlay)
-  }, [videoReady])
+  }, [videoReady, visualVariant])
 
-  // Entrance animation variants — skipped entirely when reduced-motion is on
-  const fadeUp = shouldReduceMotion
-    ? {}
-    : { initial: { opacity: 0, y: 24 }, animate: { opacity: 1, y: 0 } }
+  const fadeUp = useMemo(
+    () =>
+      shouldReduceMotion
+        ? {}
+        : { initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 } },
+    [shouldReduceMotion],
+  )
 
-  const fadeUpBlur = shouldReduceMotion
-    ? {}
-    : {
-        initial: { opacity: 0, y: 32, filter: 'blur(6px)' },
-        animate:  { opacity: 1, y: 0,  filter: 'blur(0px)' },
-      }
+  const previewLabel = `${messageVariant} / ${visualVariant}`
 
   return (
     <section
       id="hero"
-      className="hero-pull relative flex flex-col bg-ff-dark-section overflow-hidden"
+      className="hero-pull relative overflow-hidden bg-[#08111f]"
     >
-      {/* Video — desktop only, lazy-mounted after load */}
-      {videoReady && (
+      {visualVariant === 'video' && videoReady && (
         <video
           ref={videoRef}
           src="/video/who_we_serve_optimized_fs.mp4"
@@ -70,131 +85,129 @@ export default function Hero() {
           muted
           playsInline
           preload="auto"
-          className="hidden md:block absolute inset-0 h-full w-full object-cover animate-fade-in"
+          className="absolute inset-0 h-full w-full object-cover"
           aria-hidden="true"
         />
       )}
+      {visualVariant === 'video' && <div className="absolute inset-0 bg-[#08111f]/64" />}
+      {visualVariant === 'video' && <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,17,31,0.92)_0%,rgba(8,17,31,0.82)_36%,rgba(8,17,31,0.58)_64%,rgba(8,17,31,0.78)_100%)]" />}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(96,165,250,0.22),_transparent_34%),radial-gradient(circle_at_bottom_right,_rgba(37,99,235,0.18),_transparent_30%)]" />
+      <div className="absolute inset-y-0 right-0 hidden w-[42%] bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.01))] xl:block" />
 
-      {/* Overlays: solid base + brand-tinted gradient (tint sits mid/bottom, never over headline) */}
-      <div className="absolute inset-0 bg-[#08111f]/45" />
-      <div className="absolute inset-0 bg-gradient-to-b from-[#08111f]/25 via-[#0d1b35]/20 to-[#08111f]/48" />
-
-      {/* Orbs — desktop only, motion-aware */}
-      {!shouldReduceMotion && (
-        <div className="hidden md:block absolute inset-0 pointer-events-none">
-          <motion.div
-            className="hero-orb-1 absolute w-[clamp(300px,30vw,600px)] h-[clamp(300px,30vw,600px)] rounded-full"
-            style={{ top: '5%', left: '-8%' }}
-            animate={{ x: [0, 40, 0], y: [0, -30, 0] }}
-            transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
-          />
-          <motion.div
-            className="hero-orb-2 absolute w-[clamp(250px,25vw,500px)] h-[clamp(250px,25vw,500px)] rounded-full"
-            style={{ bottom: '20%', right: '-4%' }}
-            animate={{ x: [0, -30, 0], y: [0, 25, 0] }}
-            transition={{ duration: 16, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
-          />
-        </div>
-      )}
-
-      <div className="relative z-10 flex-1 flex items-center justify-center px-4 sm:px-6">
-        <div className="w-full max-w-5xl mx-auto text-center">
-
-          {/* Badge */}
+      <div className="section-container relative z-10 px-4 pb-14 pt-28 sm:px-6 md:pb-16 md:pt-32">
+        <div
+          className={
+            visualVariant === 'video'
+              ? 'mx-auto max-w-4xl'
+              : 'grid items-end gap-10 xl:grid-cols-[minmax(0,1.08fr)_minmax(360px,0.92fr)] xl:gap-12'
+          }
+        >
           <motion.div
             {...fadeUp}
-            transition={{ duration: 0.5 }}
-            className="mb-6 md:mb-8"
+            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+            className={visualVariant === 'video' ? 'mx-auto max-w-4xl text-center' : 'max-w-2xl'}
           >
-            <ShimmerBadge>{t.hero.badge}</ShimmerBadge>
-          </motion.div>
-
-          {/* Headline */}
-          <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-[1.08] tracking-tight mb-5 md:mb-6 overflow-hidden [text-shadow:0_2px_16px_rgba(0,0,0,0.6)]">
-            {t.hero.headline.split('\n').map((line, i) => (
-              <motion.span
-                key={i}
-                className="block"
-                {...fadeUpBlur}
-                transition={{ duration: 0.7, delay: 0.1 + i * 0.12, ease: [0.22, 1, 0.36, 1] }}
-              >
-                {i === 0 ? line : <span className="text-ff-border-blue">{line}</span>}
-              </motion.span>
-            ))}
-          </h1>
-
-          {/* Sub — clamped to 2 lines on mobile */}
-          <motion.p
-            {...fadeUp}
-            transition={{ duration: 0.65, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            className="text-white/80 text-base md:text-xl max-w-2xl mx-auto mb-8 md:mb-10 leading-relaxed line-clamp-2 md:line-clamp-none [text-shadow:0_1px_8px_rgba(0,0,0,0.5)]"
-          >
-            {t.hero.sub}
-          </motion.p>
-
-          {/* CTAs */}
-          <motion.div
-            {...fadeUp}
-            transition={{ duration: 0.65, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4"
-          >
-            <Link
-              href="/apply"
-              className="inline-flex items-center gap-2 bg-ff-accent text-white font-bold text-base px-8 py-4 rounded-full hover:bg-ff-glow transition-all shadow-[0_2px_12px_rgba(30,64,175,0.4)] group"
-            >
-              <span>{t.hero.cta}</span>
-              <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </Link>
-            {/* Secondary CTA — hidden on smallest screens */}
-            <Link
-              href="/book-a-call"
-              className="hidden sm:inline-flex items-center gap-2 bg-white/8 backdrop-blur-sm border border-white/25 text-white font-semibold text-base px-8 py-4 rounded-full hover:bg-white/14 hover:border-white/40 transition-all"
-            >
-              {t.hero.ctaSecondary}
-            </Link>
-          </motion.div>
-
-          {/* Stats card — desktop only */}
-          <motion.div
-            {...fadeUp}
-            transition={{ duration: 0.65, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="hidden md:block mt-14 bg-white/8 backdrop-blur-sm border border-ff-accent/30 rounded-2xl overflow-hidden shadow-[0_20px_70px_rgba(8,17,31,0.45)]"
-          >
-            <div className="grid grid-cols-4 divide-x divide-white/10">
-              {STAT_VALUES.map((stat, i) => (
-                <div key={i} className="flex flex-col items-center justify-center py-7 px-4 text-center">
-                  <span className="font-heading text-2xl md:text-3xl font-extrabold text-white mb-1">
-                    <NumberTicker
-                      value={stat.num}
-                      prefix={stat.prefix ?? ''}
-                      suffix={stat.suffix}
-                      duration={1600}
-                    />
-                  </span>
-                  <span className="text-white/70 text-xs font-medium">{t.heroStats[i].label}</span>
-                </div>
-              ))}
+            <div className={`mb-5 flex flex-wrap items-center gap-3 ${visualVariant === 'video' ? 'justify-center' : ''}`}>
+              <ShimmerBadge className="border-white/15 bg-white/10 text-white">
+                {message.badge}
+              </ShimmerBadge>
+              {showPreviewLabel ? <PreviewPill label={previewLabel} /> : null}
             </div>
+
+            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.16em] text-blue-200">
+              {content.hero.eyebrow}
+            </p>
+            <h1 className="font-heading text-4xl font-extrabold leading-[0.98] tracking-tight text-white sm:text-5xl lg:text-[5.2rem]">
+              {message.heading}
+            </h1>
+            <p
+              className={`mt-5 text-base leading-7 text-white md:text-lg md:leading-8 [text-shadow:0_2px_12px_rgba(8,17,31,0.45)] ${
+                visualVariant === 'video' ? 'mx-auto max-w-2xl' : 'max-w-xl'
+              }`}
+            >
+              {message.subheading}
+            </p>
+
+            <ul
+              className={`mt-8 grid gap-3 text-sm text-white md:grid-cols-1 ${
+                visualVariant === 'video' ? 'mx-auto max-w-3xl text-left' : ''
+              }`}
+            >
+              {message.bullets.map((bullet, index) => (
+                <motion.li
+                  key={bullet}
+                  {...fadeUp}
+                  transition={{
+                    duration: 0.45,
+                    delay: shouldReduceMotion ? 0 : 0.08 * index,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                  className="flex items-start gap-3 rounded-2xl border border-white/12 bg-white/8 px-4 py-3 backdrop-blur-sm"
+                >
+                  <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-white/12 text-blue-200">
+                    <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                    </svg>
+                  </span>
+                  <span>{bullet}</span>
+                </motion.li>
+              ))}
+            </ul>
+
+            <motion.div
+              {...fadeUp}
+              transition={{ duration: 0.55, delay: shouldReduceMotion ? 0 : 0.2, ease: [0.22, 1, 0.36, 1] }}
+              className={`mt-8 flex flex-col gap-3 sm:flex-row ${visualVariant === 'video' ? 'justify-center' : ''}`}
+            >
+              <Link
+                href="/apply"
+                className="inline-flex min-h-14 items-center justify-center rounded-full bg-white px-7 py-4 text-base font-bold text-[#0f172a] transition-all hover:bg-blue-50 sm:min-w-[220px]"
+              >
+                {content.hero.primaryCta}
+              </Link>
+              <Link
+                href="/book-a-call"
+                className="inline-flex min-h-14 items-center justify-center rounded-full border border-white/18 bg-white/8 px-7 py-4 text-base font-semibold text-white transition-all hover:border-white/30 hover:bg-white/12 sm:min-w-[220px]"
+              >
+                {content.hero.secondaryCta}
+              </Link>
+            </motion.div>
           </motion.div>
 
-          {/* Stats — mobile inline strip (2 key stats only) */}
-          <motion.div
-            {...fadeUp}
-            transition={{ duration: 0.65, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="md:hidden mt-8 flex items-center justify-center gap-8"
-          >
-            {STAT_VALUES.slice(0, 2).map((stat, i) => (
-              <div key={i} className="text-center">
-                <div className="font-heading text-2xl font-extrabold text-white">
-                  {stat.prefix ?? ''}{stat.num}{stat.suffix}
+          {visualVariant === 'clean' ? (
+            <motion.div
+              {...fadeUp}
+              transition={{ duration: 0.65, delay: shouldReduceMotion ? 0 : 0.12, ease: [0.22, 1, 0.36, 1] }}
+              className="relative"
+            >
+              <div className="overflow-hidden rounded-[2rem] border border-white/12 bg-white/8 shadow-[0_24px_80px_rgba(8,17,31,0.28)] backdrop-blur-sm">
+                <div className="p-6">
+                  <div className="rounded-[1.75rem] bg-gradient-to-br from-[#0f1c2e] via-[#10264a] to-[#0b1730] p-7 text-white">
+                    <span className="inline-flex items-center rounded-full border border-white/15 bg-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-blue-200">
+                      {message.badge}
+                    </span>
+                    <h2 className="mt-5 font-heading text-4xl font-bold leading-tight">
+                      {message.heading}
+                    </h2>
+                    <p className="mt-4 max-w-md text-sm leading-7 text-white/76">
+                      {message.subheading}
+                    </p>
+                  </div>
+
+                  <div className="mt-5 grid gap-3">
+                    {content.hero.summaryItems.map((item) => (
+                      <div
+                        key={item}
+                        className="rounded-[1.25rem] border border-white/12 bg-white/8 px-4 py-4 text-sm font-medium text-white/92"
+                      >
+                        {item}
+                      </div>
+                    ))}
+                  </div>
                 </div>
-                <div className="text-white/60 text-xs mt-0.5">{t.heroStats[i].label}</div>
               </div>
-            ))}
-          </motion.div>
-
+            </motion.div>
+          ) : null}
         </div>
       </div>
     </section>

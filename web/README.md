@@ -25,6 +25,7 @@ The app now stays in one deployment unit under `web/`, with protected product su
 - Framer Motion
 - Supabase Auth, Postgres, and Storage
 - Cloudflare Turnstile for public-form bot checks
+- Optional chat providers via server-side fetch (`mock`, `anthropic`, or `ollama`)
 - Zod for request validation
 
 ## Project structure
@@ -87,8 +88,10 @@ web/
 
 - Route protection is enforced in [`proxy.ts`](c:\Users\domin\Documents\First-Fund\first-fund\web\proxy.ts) and server guards.
 - Data protection is enforced with Supabase RLS in [`supabase/migrations/202604050001_portal_admin_foundation.sql`](c:\Users\domin\Documents\First-Fund\first-fund\supabase\migrations\202604050001_portal_admin_foundation.sql).
+- Additional hardening and shared rate limiting are added in later migrations under [`supabase/migrations/`](c:\Users\domin\Documents\First-Fund\first-fund\supabase\migrations).
 - File uploads use a private Supabase bucket with signed upload/download URLs.
 - Public forms (`/contact` and `/book-a-call`) require server-side Turnstile verification.
+- Mutating routes enforce origin checks and route-level rate limiting.
 
 ## Key behavior changes
 
@@ -105,10 +108,14 @@ Create `web/.env.local` from [`web/.env.example`](c:\Users\domin\Documents\First
 ```env
 NEXT_PUBLIC_SUPABASE_URL=
 NEXT_PUBLIC_SUPABASE_ANON_KEY=
+NEXT_PUBLIC_SITE_URL=
 NEXT_PUBLIC_TURNSTILE_SITE_KEY=
 TURNSTILE_SECRET_KEY=
+SUPABASE_SERVICE_ROLE_KEY=
 NEXT_PUBLIC_GOOGLE_PLACES_API_KEY=
 NEXT_PUBLIC_GOOGLE_PLACE_ID=
+CHAT_MODE=public
+CHAT_PROVIDER=mock
 ```
 
 You also need to:
@@ -118,9 +125,13 @@ You also need to:
 
 Environment value sources:
 - `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY`: Supabase Dashboard -> Project Settings -> API
+- `SUPABASE_SERVICE_ROLE_KEY`: Supabase Dashboard -> Project Settings -> API -> service_role key, server-only
+- `NEXT_PUBLIC_SITE_URL`: canonical site origin used for origin and Turnstile hostname validation
 - `NEXT_PUBLIC_TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET_KEY`: Cloudflare Turnstile widget settings after creating or opening a widget
 - `NEXT_PUBLIC_GOOGLE_PLACES_API_KEY`: Google Cloud Console -> APIs & Services -> Credentials
 - `NEXT_PUBLIC_GOOGLE_PLACE_ID`: your Google business place ID
+- `CHAT_MODE`: `public`, `authenticated`, or `admin`
+- `CHAT_PROVIDER`: `mock`, `anthropic`, or `ollama`
 
 Google OAuth is not wired yet. The next implementation step is to:
 - create a Google OAuth web client in Google Cloud Console

@@ -1,14 +1,34 @@
 import { NextResponse } from 'next/server'
 import { ZodError } from 'zod'
 import { createLeadRequest } from '@/lib/db/mutations'
+import { isAllowedOrigin } from '@/lib/security/origin'
+import { buildRateLimitKey, checkRateLimit, getClientIp } from '@/lib/security/ratelimit'
 import { leadRequestSchema } from '@/lib/validations/contact'
 import { verifyTurnstileToken } from '@/lib/turnstile'
 
 export async function POST(request: Request) {
   try {
+    if (!isAllowedOrigin(request)) {
+      return NextResponse.json({ error: 'Forbidden.' }, { status: 403 })
+    }
+
+    const ip = getClientIp(request)
+    const { allowed, retryAfter } = await checkRateLimit(
+      buildRateLimitKey(['public', 'book-a-call', ip]),
+      5,
+      60_000,
+    )
+    if (!allowed) {
+      return NextResponse.json(
+        { error: 'Too many requests.' },
+        { status: 429, headers: { 'Retry-After': String(retryAfter ?? 60) } },
+      )
+    }
+
     const payload = leadRequestSchema.parse(await request.json())
     const turnstile = await verifyTurnstileToken(payload.turnstileToken, {
       expectedAction: 'book-a-call',
+      remoteIp: ip,
     })
 
     if (!turnstile.success) {
@@ -26,7 +46,13 @@ export async function POST(request: Request) {
       phone: payload.phone,
       funding_goal: payload.fundingGoal,
       call_time: payload.callTime,
-      notes: payload.notes || null,
+      notes: [
+        `Time in business: ${payload.timeInBusiness}`,
+        `Monthly revenue: ${payload.monthlyRevenue}`,
+        payload.notes?.trim() ? `Notes: ${payload.notes.trim()}` : null,
+      ]
+        .filter(Boolean)
+        .join('\n'),
     })
 
     return NextResponse.json({ ok: true })

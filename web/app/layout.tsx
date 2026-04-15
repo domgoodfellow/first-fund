@@ -18,9 +18,9 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'FirstFund — Business Financing Made Easy',
+  title: 'First Fund - Business Financing Options for Owners',
   description:
-    'Fast, flexible business funding with 24–48 hr approvals and no collateral required. Up to $800K+ for US businesses.',
+    'Explore business financing options with a clear intake process, practical guidance, and support in English and Spanish.',
   keywords: ['business financing', 'merchant cash advance', 'line of credit', 'business loans', 'fast funding'],
 }
 

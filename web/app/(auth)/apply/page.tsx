@@ -5,6 +5,7 @@ import { useLanguage } from '@/contexts/LanguageContext'
 
 export default function ApplyLandingPage() {
   const { t } = useLanguage()
+  const nextTarget = encodeURIComponent('/portal/application')
 
   return (
     <div className="grid w-full max-w-6xl gap-8 lg:grid-cols-[1.1fr,0.9fr]">
@@ -20,10 +21,16 @@ export default function ApplyLandingPage() {
         </p>
 
         <div className="mt-10 flex flex-wrap gap-3">
-          <Link href="/sign-up" className="rounded-full bg-ff-accent px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-ff-glow">
+          <Link
+            href={`/sign-up?next=${nextTarget}`}
+            className="rounded-full bg-ff-accent px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-ff-glow"
+          >
             {t.auth.apply.primaryCta}
           </Link>
-          <Link href="/sign-in" className="rounded-full border border-ff-border px-6 py-3 text-sm font-semibold text-ff-text transition-colors hover:border-ff-accent hover:text-ff-accent">
+          <Link
+            href={`/sign-in?next=${nextTarget}`}
+            className="rounded-full border border-ff-border px-6 py-3 text-sm font-semibold text-ff-text transition-colors hover:border-ff-accent hover:text-ff-accent"
+          >
             {t.auth.apply.secondaryCta}
           </Link>
         </div>
@@ -36,7 +43,10 @@ export default function ApplyLandingPage() {
         <h2 className="mt-4 font-heading text-3xl font-bold">{t.auth.apply.panelTitle}</h2>
         <div className="mt-8 space-y-4">
           {t.auth.apply.benefits.map((benefit) => (
-            <div key={benefit} className="rounded-2xl border border-slate-800 bg-slate-900 px-5 py-4 text-sm text-slate-200">
+            <div
+              key={benefit}
+              className="rounded-2xl border border-slate-800 bg-slate-900 px-5 py-4 text-sm text-slate-200"
+            >
               {benefit}
             </div>
           ))}

@@ -21,8 +21,8 @@ export default function ContactPage() {
         </svg>
       ),
       label: p.methodLabels.email,
-      value: 'info@firstfund.com',
-      href: 'mailto:info@firstfund.com',
+      value: 'info@firsfund.com',
+      href: 'mailto:info@firsfund.com',
     },
     {
       icon: (

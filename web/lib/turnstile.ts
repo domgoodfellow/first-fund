@@ -6,6 +6,8 @@ interface TurnstileVerifyOptions {
    * Defaults to the host portion of NEXT_PUBLIC_SITE_URL when set.
    */
   expectedHostname?: string
+  /** Optional visitor IP forwarded to Cloudflare siteverify. */
+  remoteIp?: string
 }
 
 interface TurnstileResult {
@@ -27,6 +29,9 @@ export async function verifyTurnstileToken(
   const formData = new FormData()
   formData.set('secret', secret)
   formData.set('response', token)
+  if (options.remoteIp) {
+    formData.set('remoteip', options.remoteIp)
+  }
 
   const response = await fetch(
     'https://challenges.cloudflare.com/turnstile/v0/siteverify',

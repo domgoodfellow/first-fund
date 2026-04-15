@@ -32,7 +32,7 @@ export default function Footer() {
           {/* Brand column */}
           <div className="md:col-span-2">
             <span className="font-heading text-2xl font-extrabold text-white block mb-3">
-              <span style={{ color: '#60A5FA' }}>First</span>Fund
+              <span style={{ color: '#60A5FA' }}>First</span> Fund
             </span>
             <p className="text-slate-400 text-sm leading-relaxed max-w-xs mb-5">{t.footer.tagline}</p>
             <div className="flex flex-col gap-1.5 text-sm">

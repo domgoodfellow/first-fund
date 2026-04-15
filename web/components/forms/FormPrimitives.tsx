@@ -13,7 +13,7 @@ export const labelClass = 'block text-ff-muted text-xs font-semibold mb-1.5 uppe
 /* ─── Field ───────────────────────────────────────────── */
 
 export function Field({
-  label, value, onChange, type = 'text', placeholder, required,
+  label, value, onChange, type = 'text', placeholder, required, labelClassName,
 }: {
   label: string
   value: string
@@ -21,10 +21,11 @@ export function Field({
   type?: string
   placeholder?: string
   required?: boolean
+  labelClassName?: string
 }) {
   return (
     <div className="flex flex-col gap-1.5">
-      <label className={labelClass}>{label}</label>
+      <label className={`${labelClass} ${labelClassName ?? ''}`.trim()}>{label}</label>
       <input
         type={type}
         value={value}
@@ -41,7 +42,7 @@ export function Field({
 /* ─── SelectField ─────────────────────────────────────── */
 
 export function SelectField({
-  label, value, onChange, options, placeholder, required,
+  label, value, onChange, options, placeholder, required, labelClassName,
 }: {
   label: string
   value: string
@@ -49,10 +50,11 @@ export function SelectField({
   options: readonly string[]
   placeholder?: string
   required?: boolean
+  labelClassName?: string
 }) {
   return (
     <div className="flex flex-col gap-1.5">
-      <label className={labelClass}>{label}</label>
+      <label className={`${labelClass} ${labelClassName ?? ''}`.trim()}>{label}</label>
       <select
         value={value}
         onChange={onChange}
@@ -180,7 +182,7 @@ export function FileDropZone({
 /* ─── TextareaField ───────────────────────────────────── */
 
 export function TextareaField({
-  label, value, onChange, placeholder, required, rows = 4,
+  label, value, onChange, placeholder, required, rows = 4, labelClassName,
 }: {
   label: string
   value: string
@@ -188,10 +190,11 @@ export function TextareaField({
   placeholder?: string
   required?: boolean
   rows?: number
+  labelClassName?: string
 }) {
   return (
     <div className="flex flex-col gap-1.5">
-      <label className={labelClass}>{label}</label>
+      <label className={`${labelClass} ${labelClassName ?? ''}`.trim()}>{label}</label>
       <textarea
         value={value}
         onChange={onChange}

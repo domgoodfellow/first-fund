@@ -1,14 +1,34 @@
 import { NextResponse } from 'next/server'
 import { ZodError } from 'zod'
 import { createContactInquiry } from '@/lib/db/mutations'
+import { isAllowedOrigin } from '@/lib/security/origin'
+import { buildRateLimitKey, checkRateLimit, getClientIp } from '@/lib/security/ratelimit'
 import { contactInquirySchema } from '@/lib/validations/contact'
 import { verifyTurnstileToken } from '@/lib/turnstile'
 
 export async function POST(request: Request) {
   try {
+    if (!isAllowedOrigin(request)) {
+      return NextResponse.json({ error: 'Forbidden.' }, { status: 403 })
+    }
+
+    const ip = getClientIp(request)
+    const { allowed, retryAfter } = await checkRateLimit(
+      buildRateLimitKey(['public', 'contact', ip]),
+      5,
+      60_000,
+    )
+    if (!allowed) {
+      return NextResponse.json(
+        { error: 'Too many requests.' },
+        { status: 429, headers: { 'Retry-After': String(retryAfter ?? 60) } },
+      )
+    }
+
     const payload = contactInquirySchema.parse(await request.json())
     const turnstile = await verifyTurnstileToken(payload.turnstileToken, {
       expectedAction: 'contact',
+      remoteIp: ip,
     })
 
     if (!turnstile.success) {

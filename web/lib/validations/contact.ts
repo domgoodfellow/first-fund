@@ -14,6 +14,8 @@ export const leadRequestSchema = z.object({
   businessName: z.string().trim().max(160).optional().or(z.literal('')),
   email: z.string().trim().email(),
   phone: z.string().trim().min(7).max(32),
+  timeInBusiness: z.string().trim().min(2).max(120),
+  monthlyRevenue: z.string().trim().min(2).max(120),
   fundingGoal: z.string().trim().min(2).max(120),
   callTime: z.string().trim().min(2).max(120),
   notes: z.string().trim().max(2000).optional().or(z.literal('')),

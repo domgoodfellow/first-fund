@@ -7,9 +7,7 @@ import ApplySuccess from './ApplySuccess'
 import SlideProgressBar from './SlideProgressBar'
 import SlideNavRow from './SlideNavRow'
 
-/* ─── CONSTANTS ──────────────────────────────────────────── */
-
-const TOTAL = 7
+const TOTAL = 10
 
 const PROVINCES_STATES = [
   'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado',
@@ -23,23 +21,16 @@ const PROVINCES_STATES = [
   'West Virginia', 'Wisconsin', 'Wyoming',
 ]
 
-/* ─── FORM DATA ──────────────────────────────────────────── */
-
 type FormData = {
-  // Slide 1 — Business Info
   companyName: string; businessType: string; industry: string; website: string
-  // Slide 2 — Address
   street: string; city: string; provinceState: string; postalZip: string; country: string
-  // Slide 3 — Contact
   fullName: string; email: string; phone: string; jobTitle: string
-  // Slide 4 — Financials
-  revenue: string; yearsRegistered: string; fundingAmount: string; fundingPurpose: string
-  // Slide 5 — ID Verification
+  revenue: string; yearsRegistered: string; fundingAmount: string; fundingPurpose: string; businessTaxId: string
   dob: string; idType: string; idNumber: string; idIssuingProvince: string
-  // Slide 6 — Documents
-  idFront: File | null; idBack: File | null; businessReg: File | null
+  idFront: File | null; idBack: File | null; idSelfie: File | null
+  businessReg: File | null
   bankStatement1: File | null; bankStatement2: File | null; bankStatement3: File | null
-  // Slide 7 — Referral & Consent
+  mtdStatement: File | null
   referredBy: string; smsConsent1: boolean; smsConsent2: boolean
 }
 
@@ -47,29 +38,44 @@ const EMPTY: FormData = {
   companyName: '', businessType: '', industry: '', website: '',
   street: '', city: '', provinceState: '', postalZip: '', country: '',
   fullName: '', email: '', phone: '', jobTitle: '',
-  revenue: '', yearsRegistered: '', fundingAmount: '', fundingPurpose: '',
+  revenue: '', yearsRegistered: '', fundingAmount: '', fundingPurpose: '', businessTaxId: '',
   dob: '', idType: '', idNumber: '', idIssuingProvince: '',
-  idFront: null, idBack: null, businessReg: null,
+  idFront: null, idBack: null, idSelfie: null,
+  businessReg: null,
   bankStatement1: null, bankStatement2: null, bankStatement3: null,
+  mtdStatement: null,
   referredBy: '', smsConsent1: false, smsConsent2: false,
 }
-
-/* ─── PER-SLIDE VALIDATION ───────────────────────────────── */
 
 function slideValid(slide: number, form: FormData): boolean {
   switch (slide) {
     case 0: return !!(form.companyName && form.businessType && form.industry)
     case 1: return !!(form.street && form.city && form.provinceState && form.postalZip && form.country)
-    case 2: return !!(form.fullName && form.email)
-    case 3: return !!(form.revenue && form.yearsRegistered && form.fundingAmount && form.fundingPurpose)
+    case 2: return !!(form.fullName && form.email && form.phone)
+    case 3: return !!(form.revenue && form.yearsRegistered && form.fundingAmount && form.fundingPurpose && form.businessTaxId)
     case 4: return !!(form.dob && form.idType && form.idNumber)
-    case 5: return !!(form.idFront && form.bankStatement1)
-    case 6: return !!form.referredBy
+    case 5: return !!(form.idFront && form.idBack)
+    case 6: return !!form.idSelfie
+    case 7: return !!form.bankStatement1
+    case 8: return !!form.mtdStatement
+    case 9: return !!(form.referredBy && form.smsConsent1 && form.smsConsent2)
     default: return true
   }
 }
 
-/* ─── SHARED TYPES ───────────────────────────────────────── */
+function allSlidesValid(form: FormData): boolean {
+  for (let i = 0; i < TOTAL; i += 1) {
+    if (!slideValid(i, form)) return false
+  }
+  return true
+}
+
+function firstIncompleteSlide(form: FormData): number {
+  for (let i = 0; i < TOTAL; i += 1) {
+    if (!slideValid(i, form)) return i
+  }
+  return TOTAL - 1
+}
 
 type ChangeHandler = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void
 
@@ -78,8 +84,6 @@ type SlideProps = {
   set: (field: keyof FormData) => ChangeHandler
   setFile: (field: keyof FormData) => (file: File | null) => void
 }
-
-/* ─── SLIDE 1 — BUSINESS INFO ────────────────────────────── */
 
 function Slide1({ form, set }: SlideProps) {
   const { t } = useLanguage()
@@ -93,8 +97,6 @@ function Slide1({ form, set }: SlideProps) {
     </div>
   )
 }
-
-/* ─── SLIDE 2 — ADDRESS ──────────────────────────────────── */
 
 function Slide2({ form, set }: SlideProps) {
   const { t } = useLanguage()
@@ -112,8 +114,6 @@ function Slide2({ form, set }: SlideProps) {
   )
 }
 
-/* ─── SLIDE 3 — CONTACT INFO ─────────────────────────────── */
-
 function Slide3({ form, set }: SlideProps) {
   const { t } = useLanguage()
   const f = t.apply.fields
@@ -121,13 +121,11 @@ function Slide3({ form, set }: SlideProps) {
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
       <Field label={`${f.fullName} *`} value={form.fullName} onChange={set('fullName')} placeholder="Jane Smith" required />
       <Field label={`${f.email} *`} type="email" value={form.email} onChange={set('email')} placeholder="jane@acme.com" required />
-      <Field label={f.phone} type="tel" value={form.phone} onChange={set('phone')} placeholder="+1 (555) 000-0000" />
+      <Field label={`${f.phone} *`} type="tel" value={form.phone} onChange={set('phone')} placeholder="+1 (555) 000-0000" required />
       <Field label={f.jobTitle} value={form.jobTitle} onChange={set('jobTitle')} placeholder="CEO" />
     </div>
   )
 }
-
-/* ─── SLIDE 4 — FINANCIAL PROFILE ────────────────────────── */
 
 function Slide4({ form, set }: SlideProps) {
   const { t } = useLanguage()
@@ -138,11 +136,10 @@ function Slide4({ form, set }: SlideProps) {
       <SelectField label={`${f.yearsRegistered.label} *`} value={form.yearsRegistered} onChange={set('yearsRegistered')} options={f.yearsRegistered.options} placeholder={t.apply.selectPlaceholder} required />
       <SelectField label={`${f.fundingAmount.label} *`} value={form.fundingAmount} onChange={set('fundingAmount')} options={f.fundingAmount.options} placeholder={t.apply.selectPlaceholder} required />
       <SelectField label={`${f.fundingPurpose.label} *`} value={form.fundingPurpose} onChange={set('fundingPurpose')} options={f.fundingPurpose.options} placeholder={t.apply.selectPlaceholder} required />
+      <Field label={`${f.businessTaxId} *`} value={form.businessTaxId} onChange={set('businessTaxId')} placeholder="123456789RT0001" required />
     </div>
   )
 }
-
-/* ─── SLIDE 5 — ID VERIFICATION ─────────────────────────── */
 
 function Slide5({ form, set }: SlideProps) {
   const { t } = useLanguage()
@@ -162,22 +159,50 @@ function Slide5({ form, set }: SlideProps) {
   )
 }
 
-/* ─── SLIDE 6 — DOCUMENT UPLOAD ──────────────────────────── */
-
 function Slide6({ form, setFile }: SlideProps) {
   const { t } = useLanguage()
   const f = t.apply.fields
   return (
     <div className="space-y-6">
+      <div className="rounded-xl border border-ff-border bg-ff-bg px-5 py-4">
+        <p className="text-ff-text text-sm font-medium mb-1">{t.apply.documentSequenceTitle}</p>
+        <p className="text-ff-muted text-xs leading-relaxed">{t.apply.documentSequenceText}</p>
+      </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <FileDropZone label={`${f.idFront} *`} hint={f.idFrontHint} file={form.idFront} onChange={setFile('idFront')} dropHint={t.apply.dropHint} dropBrowse={t.apply.dropBrowse} />
-        <FileDropZone label={f.idBack} hint={f.idBackHint} file={form.idBack} onChange={setFile('idBack')} dropHint={t.apply.dropHint} dropBrowse={t.apply.dropBrowse} />
+        <FileDropZone label={`${f.idBack} *`} hint={f.idBackHint} file={form.idBack} onChange={setFile('idBack')} dropHint={t.apply.dropHint} dropBrowse={t.apply.dropBrowse} />
+      </div>
+    </div>
+  )
+}
+
+function Slide7({ form, setFile }: SlideProps) {
+  const { t } = useLanguage()
+  const f = t.apply.fields
+  return (
+    <div className="space-y-6">
+      <div className="rounded-xl border border-ff-border bg-ff-bg px-5 py-4">
+        <p className="text-ff-text text-sm font-medium mb-1">{t.apply.documentSelfieTitle}</p>
+        <p className="text-ff-muted text-xs leading-relaxed">{t.apply.documentSelfieText}</p>
+      </div>
+      <FileDropZone label={`${f.idSelfie} *`} hint={f.idSelfieHint} file={form.idSelfie} onChange={setFile('idSelfie')} dropHint={t.apply.dropHint} dropBrowse={t.apply.dropBrowse} />
+    </div>
+  )
+}
+
+function Slide8({ form, setFile }: SlideProps) {
+  const { t } = useLanguage()
+  const f = t.apply.fields
+  return (
+    <div className="space-y-6">
+      <div className="rounded-xl border border-ff-border bg-ff-bg px-5 py-4">
+        <p className="text-ff-text text-sm font-medium mb-1">{t.apply.documentStatementsTitle}</p>
+        <p className="text-ff-muted text-xs leading-relaxed">{t.apply.documentStatementsText}</p>
       </div>
       <FileDropZone label={f.businessReg} hint={f.businessRegHint} file={form.businessReg} onChange={setFile('businessReg')} dropHint={t.apply.dropHint} dropBrowse={t.apply.dropBrowse} />
       <div>
         <p className="text-ff-text text-sm font-medium mb-3">
-          {f.bankStatements}{' '}
-          <span className="text-ff-accent">*</span>
+          {f.bankStatements} <span className="text-ff-accent">*</span>
           <span className="text-ff-muted font-normal ml-2 text-xs">{f.bankStatementsNote}</span>
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -190,9 +215,21 @@ function Slide6({ form, setFile }: SlideProps) {
   )
 }
 
-/* ─── SLIDE 7 — REFERRAL & CONSENT ──────────────────────── */
+function Slide9({ form, setFile }: SlideProps) {
+  const { t } = useLanguage()
+  const f = t.apply.fields
+  return (
+    <div className="space-y-6">
+      <div className="rounded-xl border border-ff-border bg-ff-bg px-5 py-4">
+        <p className="text-ff-text text-sm font-medium mb-1">{t.apply.documentMtdTitle}</p>
+        <p className="text-ff-muted text-xs leading-relaxed">{t.apply.documentMtdText}</p>
+      </div>
+      <FileDropZone label={`${f.mtdStatement} *`} hint={f.mtdStatementHint} file={form.mtdStatement} onChange={setFile('mtdStatement')} dropHint={t.apply.dropHint} dropBrowse={t.apply.dropBrowse} />
+    </div>
+  )
+}
 
-function Slide7({ form, set }: SlideProps) {
+function Slide10({ form, set }: SlideProps) {
   const { t } = useLanguage()
   const f = t.apply.fields
   return (
@@ -206,11 +243,7 @@ function Slide7({ form, set }: SlideProps) {
   )
 }
 
-/* ─── SLIDE REGISTRY ─────────────────────────────────────── */
-
-const SLIDES = [Slide1, Slide2, Slide3, Slide4, Slide5, Slide6, Slide7] as const
-
-/* ─── MAIN COMPONENT ─────────────────────────────────────── */
+const SLIDES = [Slide1, Slide2, Slide3, Slide4, Slide5, Slide6, Slide7, Slide8, Slide9, Slide10] as const
 
 export default function ApplyForm() {
   const { t } = useLanguage()
@@ -247,7 +280,7 @@ export default function ApplyForm() {
       const tag = (e.target as HTMLElement).tagName
       if (['INPUT', 'SELECT', 'TEXTAREA'].includes(tag)) return
       if (e.key === 'ArrowRight' || e.key === 'ArrowDown') go(1)
-      if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   go(-1)
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') go(-1)
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
@@ -255,19 +288,19 @@ export default function ApplyForm() {
 
   const handleReset = () => { setSubmitted(false); setFormState(EMPTY); setCur(0) }
   const valid = slideValid(cur, form)
+  const readyToSubmit = allSlidesValid(form)
   const slideProps: SlideProps = { form, set, setFile }
 
   if (submitted) return <ApplySuccess onReset={handleReset} />
 
   return (
     <div className="no-snap">
-      {/* Fixed viewport below navbar */}
       <div
         className="fixed bg-ff-bg overflow-hidden"
         style={{ top: 'var(--ff-navbar-offset)', left: 0, right: 0, bottom: 0 }}
       >
         {SLIDES.map((SlideComp, idx) => {
-          const isActive  = idx === cur
+          const isActive = idx === cur
           const isExiting = idx === exiting
           const meta = t.apply.slides[idx]
 
@@ -277,15 +310,13 @@ export default function ApplyForm() {
               className="absolute inset-0 overflow-y-auto"
               style={{
                 transition: 'opacity 0.38s ease, transform 0.38s cubic-bezier(0.4, 0, 0.2, 1)',
-                opacity:   isActive ? 1 : 0,
+                opacity: isActive ? 1 : 0,
                 transform: isActive ? 'translateX(0)' : isExiting ? 'translateX(-48px)' : 'translateX(48px)',
                 pointerEvents: isActive ? 'all' : 'none',
               }}
             >
               <div className="min-h-full flex flex-col justify-center">
                 <div className="max-w-3xl mx-auto px-6 md:px-12 py-10 w-full">
-
-                  {/* Slide header */}
                   <div className="mb-8">
                     <p className="text-ff-muted text-xs font-mono tracking-widest uppercase mb-3">
                       {meta.eyebrow}
@@ -296,7 +327,6 @@ export default function ApplyForm() {
                     <p className="text-ff-muted text-sm">{meta.sub}</p>
                   </div>
 
-                  {/* Fields */}
                   <div className="bg-ff-surface border border-ff-border rounded-2xl p-6 md:p-8">
                     <SlideComp {...slideProps} />
                   </div>
@@ -307,11 +337,16 @@ export default function ApplyForm() {
                     canAdvance={valid}
                     onBack={() => go(-1)}
                     onNext={() => go(1)}
-                    onSubmit={() => { if (valid) setSubmitted(true) }}
+                    onSubmit={() => {
+                      if (!readyToSubmit) {
+                        goTo(firstIncompleteSlide(form))
+                        return
+                      }
+                      setSubmitted(true)
+                    }}
                   />
 
                   <SlideProgressBar current={cur} total={TOTAL} />
-
                 </div>
               </div>
             </div>

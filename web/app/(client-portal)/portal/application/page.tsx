@@ -41,6 +41,7 @@ export default async function PortalApplicationPage() {
       <ApplicationStepper
         application={snapshot.application}
         sections={snapshot.sections}
+        documents={snapshot.documents}
       />
     </div>
   )
