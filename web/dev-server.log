@@ -1,0 +1,17 @@
+
+> firsfund-web@0.1.0 dev
+> next dev --port 3001
+
+▲ Next.js 16.2.1 (Turbopack)
+- Local:         http://localhost:3001
+- Network:       http://172.24.128.1:3001
+- Environments: .env
+✓ Ready in 357ms
+Creating turbopack project {
+  dir: 'C:\\Users\\domin\\Documents\\First-Fund\\first-fund\\web',
+  testMode: true
+}
+
+ GET / 200 in 1160ms (next.js: 222ms, application-code: 938ms)
+ GET / 200 in 1175ms (next.js: 302ms, application-code: 873ms)
+[?25h

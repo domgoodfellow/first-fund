@@ -18,10 +18,10 @@ export function ChatWidget() {
   }, [open])
 
   return (
-    <div className="fixed bottom-5 right-5 z-50 flex flex-col items-end gap-3">
+    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-4 sm:bottom-8 sm:right-8 lg:bottom-10 lg:right-10">
       {open && (
         <ChatPanel
-          className="h-[min(560px,calc(100vh-104px))] w-[min(390px,calc(100vw-40px))]"
+          className="h-[min(660px,calc(100vh-144px))] w-[min(460px,calc(100vw-48px))]"
           botName="FirstFund Assistant"
         />
       )}
@@ -32,7 +32,7 @@ export function ChatWidget() {
           setOpen((value) => !value)
           setUnread(false)
         }}
-        className="relative flex h-14 w-14 items-center justify-center rounded-lg bg-emerald-700 text-white shadow-xl transition hover:bg-emerald-800"
+        className="relative flex h-16 w-16 items-center justify-center rounded-xl bg-ff-accent text-white shadow-[0_12px_36px_rgba(30,64,175,0.34)] transition hover:bg-ff-glow"
         aria-label={open ? 'Close chat' : 'Open chat'}
       >
         {open ? (
@@ -50,7 +50,7 @@ export function ChatWidget() {
           </svg>
         )}
         {unread && !open && (
-          <span className="absolute -right-1 -top-1 h-3 w-3 rounded-full border-2 border-white bg-amber-400" />
+          <span className="absolute -right-1 -top-1 h-3.5 w-3.5 rounded-full border-2 border-white bg-blue-300" />
         )}
       </button>
     </div>
