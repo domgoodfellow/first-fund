@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { createBrowserSupabaseClient } from '@/lib/auth/client'
-import { Field, SelectField } from '@/components/forms/FormPrimitives'
+import { ConsentCheckbox, Field, SelectField } from '@/components/forms/FormPrimitives'
 import type {
   ApplicationRecord,
   ApplicationSectionRecord,
@@ -95,6 +95,7 @@ export default function ApplicationStepper({
   const [idType, setIdType] = useState(normalizeString((drafts.contact_details ?? {}).idType))
   const [error, setError] = useState<string | null>(null)
   const [message, setMessage] = useState<string | null>(null)
+  const [legalConsent, setLegalConsent] = useState(false)
   const [isWorking, setIsWorking] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -334,11 +335,14 @@ export default function ApplicationStepper({
         setCurrentStepIndex(3)
         throw new Error('Upload the bank statements and month-to-date statement before submitting.')
       }
+      if (!legalConsent) {
+        throw new Error('Review and accept the Terms of Service and Privacy Policy before submitting.')
+      }
 
       const response = await fetch('/api/applications/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ applicationId: application.id }),
+        body: JSON.stringify({ applicationId: application.id, legalConsent }),
       })
       const payload = await response.json()
       if (!response.ok) {
@@ -543,6 +547,21 @@ export default function ApplicationStepper({
                 </div>
               ))}
             </div>
+            <div className="rounded-2xl border border-ff-border bg-ff-surface px-5 py-4">
+              <ConsentCheckbox
+                id="portal-application-legal-consent"
+                checked={legalConsent}
+                onChange={(event) => setLegalConsent(event.target.checked)}
+                label={(
+                  <>
+                    {fields.legalConsent}{' '}
+                    <a href="/terms" className="text-ff-accent underline underline-offset-2">{t.apply.termsLabel}</a>
+                    {' '}{t.apply.andWord}{' '}
+                    <a href="/privacy" className="text-ff-accent underline underline-offset-2">{t.apply.privacyLabel}</a>.
+                  </>
+                )}
+              />
+            </div>
           </div>
         ) : null}
 
@@ -567,7 +586,7 @@ export default function ApplicationStepper({
             <button
               type="button"
               onClick={handleSubmit}
-              disabled={isSubmitting}
+              disabled={isSubmitting || !legalConsent}
               className="rounded-xl bg-ff-accent px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-ff-glow disabled:cursor-not-allowed disabled:opacity-50"
             >
               {isSubmitting ? t.portal.application.submitting : t.portal.application.submit}

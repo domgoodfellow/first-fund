@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { useRef, useState, type ReactNode } from 'react'
 
 /* ─── Shared styling ──────────────────────────────────── */
 
@@ -79,7 +79,7 @@ export function ConsentCheckbox({
   id: string
   checked: boolean
   onChange: React.ChangeEventHandler<HTMLInputElement>
-  label: string
+  label: ReactNode
 }) {
   return (
     <label htmlFor={id} className="flex gap-3 cursor-pointer group">

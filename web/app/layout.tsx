@@ -3,6 +3,7 @@ import { Plus_Jakarta_Sans, Inter } from 'next/font/google'
 import './globals.css'
 import { LanguageProvider } from '@/contexts/LanguageContext'
 import { ChatWidget } from '@/components/chat/ChatWidget'
+import CookieConsent from '@/components/layout/CookieConsent'
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -32,6 +33,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <LanguageProvider>
           {children}
           <ChatWidget />
+          <CookieConsent />
         </LanguageProvider>
       </body>
     </html>

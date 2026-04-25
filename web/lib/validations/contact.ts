@@ -6,6 +6,7 @@ export const contactInquirySchema = z.object({
   phone: z.string().trim().max(32).optional().or(z.literal('')),
   subject: z.string().trim().min(2).max(120),
   message: z.string().trim().min(10).max(2000),
+  legalConsent: z.literal(true),
   turnstileToken: z.string().trim().min(1),
 })
 
@@ -19,5 +20,6 @@ export const leadRequestSchema = z.object({
   fundingGoal: z.string().trim().min(2).max(120),
   callTime: z.string().trim().min(2).max(120),
   notes: z.string().trim().max(2000).optional().or(z.literal('')),
+  legalConsent: z.literal(true),
   turnstileToken: z.string().trim().min(1),
 })

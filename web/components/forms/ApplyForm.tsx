@@ -31,7 +31,7 @@ type FormData = {
   businessReg: File | null
   bankStatement1: File | null; bankStatement2: File | null; bankStatement3: File | null
   mtdStatement: File | null
-  referredBy: string; smsConsent1: boolean; smsConsent2: boolean
+  referredBy: string; smsConsent1: boolean; smsConsent2: boolean; legalConsent: boolean
 }
 
 const EMPTY: FormData = {
@@ -44,7 +44,7 @@ const EMPTY: FormData = {
   businessReg: null,
   bankStatement1: null, bankStatement2: null, bankStatement3: null,
   mtdStatement: null,
-  referredBy: '', smsConsent1: false, smsConsent2: false,
+  referredBy: '', smsConsent1: false, smsConsent2: false, legalConsent: false,
 }
 
 function slideValid(slide: number, form: FormData): boolean {
@@ -58,7 +58,7 @@ function slideValid(slide: number, form: FormData): boolean {
     case 6: return !!form.idSelfie
     case 7: return !!form.bankStatement1
     case 8: return !!form.mtdStatement
-    case 9: return !!(form.referredBy && form.smsConsent1 && form.smsConsent2)
+    case 9: return !!(form.referredBy && form.smsConsent1 && form.smsConsent2 && form.legalConsent)
     default: return true
   }
 }
@@ -238,6 +238,19 @@ function Slide10({ form, set }: SlideProps) {
       <div className="space-y-4 pt-4 border-t border-ff-border">
         <ConsentCheckbox id="sms1" checked={form.smsConsent1} onChange={set('smsConsent1')} label={f.smsConsent1} />
         <ConsentCheckbox id="sms2" checked={form.smsConsent2} onChange={set('smsConsent2')} label={f.smsConsent2} />
+        <ConsentCheckbox
+          id="apply-legal-consent"
+          checked={form.legalConsent}
+          onChange={set('legalConsent')}
+          label={(
+            <>
+              {f.legalConsent}{' '}
+              <a href="/terms" className="text-ff-accent underline underline-offset-2">{t.apply.termsLabel}</a>
+              {' '}{t.apply.andWord}{' '}
+              <a href="/privacy" className="text-ff-accent underline underline-offset-2">{t.apply.privacyLabel}</a>.
+            </>
+          )}
+        />
       </div>
     </div>
   )

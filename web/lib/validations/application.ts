@@ -10,6 +10,7 @@ export const saveApplicationSectionSchema = z.object({
 
 export const submitApplicationSchema = z.object({
   applicationId: z.string().uuid(),
+  legalConsent: z.literal(true),
 })
 
 export const adminNoteSchema = z.object({

@@ -357,7 +357,7 @@ const content: Record<Language, HomeFunnelContent> = {
   es: {
     nav: {
       products: 'Productos',
-      howItWorks: 'Como funciona',
+      howItWorks: 'Cómo funciona',
       faq: 'Preguntas',
       applyNow: 'Aplica ahora',
       bookCall: 'Agenda una llamada',
@@ -373,21 +373,21 @@ const content: Record<Language, HomeFunnelContent> = {
       rightCardSubtitle: 'Rutas de financiamiento practicas para negocios que necesitan un siguiente paso claro.',
       summaryTitle: 'Opciones disponibles',
       summaryItems: [
-        'Merchant cash advance con terminos abiertos',
+        'Injección de Capital con términos abiertos',
         'Hasta 150% de los ingresos mensuales',
-        'Fondeo en 24–48 horas',
+        'Financiamiento en 24-48 horas',
         'Linea de credito hasta $3,000,000',
       ],
       variants: {
         speed: {
-          badge: 'Fondeo rapido',
+          badge: 'Financiamiento rápido',
           heading: 'Financiamiento rapido para negocios que no pueden esperar los tiempos de un banco.',
           subheading:
             'Cuando el tiempo importa, First Fund ayuda a los duenos de negocio a avanzar hacia la ruta correcta mas rapido.',
           bullets: [
-            'Fondeo en 24–48 horas para expedientes aprobados',
-            'Merchant cash advance con terminos abiertos',
-            'Un siguiente paso claro para aplicar o calificar primero',
+            'Financiamiento en 24-48 horas para expedientes aprobados',
+            'Injección de Capital con términos abiertos',
+            'El siguiente paso claro para aplicar o calificar primero',
           ],
         },
         access: {

@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import BlurFade from '@/components/motion/BlurFade'
 import { useLanguage } from '@/contexts/LanguageContext'
-import { Field, SelectField, TextareaField, SubmitButton } from './FormPrimitives'
+import { ConsentCheckbox, Field, SelectField, TextareaField, SubmitButton } from './FormPrimitives'
 import TurnstileWidget from './TurnstileWidget'
 
 interface FormState {
@@ -29,6 +29,7 @@ export default function BookingForm() {
 
   const [form, setForm] = useState<FormState>(EMPTY)
   const [submitted, setSubmitted] = useState(false)
+  const [legalConsent, setLegalConsent] = useState(false)
   const [turnstileToken, setTurnstileToken] = useState('')
   const [error, setError] = useState<string | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -44,7 +45,8 @@ export default function BookingForm() {
     form.timeInBusiness &&
     form.monthlyRevenue &&
     form.fundingGoal &&
-    form.callTime
+    form.callTime &&
+    legalConsent
   )
 
   async function handleSubmit(e: React.FormEvent) {
@@ -61,6 +63,7 @@ export default function BookingForm() {
         },
         body: JSON.stringify({
           ...form,
+          legalConsent,
           turnstileToken,
         }),
       })
@@ -72,6 +75,7 @@ export default function BookingForm() {
       }
 
       setSubmitted(true)
+      setLegalConsent(false)
       setTurnstileToken('')
     } catch (caughtError) {
       setError(caughtError instanceof Error ? caughtError.message : 'Unable to submit the booking request.')
@@ -162,6 +166,19 @@ export default function BookingForm() {
         />
 
         <TurnstileWidget onTokenChange={setTurnstileToken} />
+        <ConsentCheckbox
+          id="booking-legal-consent"
+          checked={legalConsent}
+          onChange={(event) => setLegalConsent(event.target.checked)}
+          label={(
+            <>
+              {f.legalConsent}{' '}
+              <a href="/terms" className="text-ff-accent underline underline-offset-2">{t.apply.termsLabel}</a>
+              {' '}{t.apply.andWord}{' '}
+              <a href="/privacy" className="text-ff-accent underline underline-offset-2">{t.apply.privacyLabel}</a>.
+            </>
+          )}
+        />
         {error ? <p className="text-sm text-rose-600">{error}</p> : null}
 
         <SubmitButton label={isSubmitting ? `${f.submitBtn}...` : f.submitBtn} disabled={!isValid || isSubmitting || !turnstileToken} />

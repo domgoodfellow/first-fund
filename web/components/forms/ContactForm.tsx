@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import BlurFade from '@/components/motion/BlurFade'
 import { useLanguage } from '@/contexts/LanguageContext'
-import { Field, SelectField, TextareaField, SubmitButton } from './FormPrimitives'
+import { ConsentCheckbox, Field, SelectField, TextareaField, SubmitButton } from './FormPrimitives'
 import TurnstileWidget from './TurnstileWidget'
 
 interface FormState {
@@ -22,6 +22,7 @@ export default function ContactForm() {
 
   const [form, setForm] = useState<FormState>(EMPTY)
   const [submitted, setSubmitted] = useState(false)
+  const [legalConsent, setLegalConsent] = useState(false)
   const [turnstileToken, setTurnstileToken] = useState('')
   const [error, setError] = useState<string | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -30,7 +31,7 @@ export default function ContactForm() {
     (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
       setForm((prev) => ({ ...prev, [field]: e.target.value }))
 
-  const isValid = !!(form.fullName && form.email && form.subject && form.message)
+  const isValid = !!(form.fullName && form.email && form.subject && form.message && legalConsent)
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -46,6 +47,7 @@ export default function ContactForm() {
         },
         body: JSON.stringify({
           ...form,
+          legalConsent,
           turnstileToken,
         }),
       })
@@ -57,6 +59,7 @@ export default function ContactForm() {
       }
 
       setSubmitted(true)
+      setLegalConsent(false)
       setTurnstileToken('')
     } catch (caughtError) {
       setError(caughtError instanceof Error ? caughtError.message : 'Unable to submit the contact form.')
@@ -115,6 +118,19 @@ export default function ContactForm() {
         />
 
         <TurnstileWidget onTokenChange={setTurnstileToken} />
+        <ConsentCheckbox
+          id="contact-legal-consent"
+          checked={legalConsent}
+          onChange={(event) => setLegalConsent(event.target.checked)}
+          label={(
+            <>
+              {f.legalConsent}{' '}
+              <a href="/terms" className="text-ff-accent underline underline-offset-2">{t.apply.termsLabel}</a>
+              {' '}{t.apply.andWord}{' '}
+              <a href="/privacy" className="text-ff-accent underline underline-offset-2">{t.apply.privacyLabel}</a>.
+            </>
+          )}
+        />
         {error ? <p className="text-sm text-rose-600">{error}</p> : null}
 
         <SubmitButton label={isSubmitting ? `${f.submitBtn}...` : f.submitBtn} disabled={!isValid || isSubmitting || !turnstileToken} />
